@@ -1,0 +1,45 @@
+project:
+  type: book
+  
+book:
+  title: "Cartographie avec R"
+  author:
+    - name: Timothée Giraud
+      orcid: 0000-0001-5679-6536
+      email: timothee.giraud@cnrs.fr
+      url: https://rgeomatic.hypotheses.org
+      affiliations:
+        - id: 1
+          name: RIATE
+          url: https://riate.cnrs.fr
+        - id: 2
+          name: INED
+          url: https://www.ined.fr/
+    - name: Bénédicte Garnier
+      affiliations:
+        - id: 1
+          name: INED
+          url: https://www.ined.fr/
+  date: "23 septembre 2022"
+  search: false
+  repo-url: https://github.com/rcarto/ined2022/
+  sharing: [twitter]
+  cover-image: img/globe-africa-solid.svg
+  # margin-footer:  
+  page-footer: 
+    left: "[![CreativeCommonsLicense](img/by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
+  chapters:
+    - index.qmd
+    - ecosys.qmd
+    - intro.qmd
+    - type_de_carte.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+
+
+
