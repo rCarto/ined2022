@@ -16,6 +16,7 @@ book:
           name: INED
           url: https://www.ined.fr/
     - name: Bénédicte Garnier
+      url: https://www.ined.fr/fr/recherche/chercheurs/Garnier+B%C3%A9n%C3%A9dicte
       affiliations:
         - id: 1
           name: INED
@@ -25,21 +26,31 @@ book:
   repo-url: https://github.com/rcarto/ined2022/
   sharing: [twitter]
   cover-image: img/globe-africa-solid.svg
-  # margin-footer:  
   page-footer: 
     left: "[![CreativeCommonsLicense](img/by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
+  favicon: img/globe-africa-solid.svg
+  twitter-card: true
+  creator: "rgeomatic"
+  open-graph: true
   chapters:
     - index.qmd
-    - ecosys.qmd
-    - intro.qmd
-    - type_de_carte.qmd
-    - references.qmd
+    - 01_ecosysteme_spatial.qmd
+    - 02_donnees_vectorielles.qmd
+    - 03_cartographie.qmd
+    - 04_references.qmd
 
 bibliography: references.bib
 
+lang: fr
+
+csl: "universite-de-montreal-apa.csl"
+
+
 format:
   html:
-    theme: cosmo
-
-
+    callout-appearance: simple
+    callout-icon: false
+    theme:
+      light: cosmo
+      dark: cyborg
 

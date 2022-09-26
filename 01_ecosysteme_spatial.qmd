@@ -1,8 +1,3 @@
----
-callout-appearance: simple
-callout-icon: false
----
-
 # L'écosystème spatial de R 
 
 ## Historique et évolutions

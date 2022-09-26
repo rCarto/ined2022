@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Cartographie avec R - 2&nbsp; Manipuler les données vectorielles</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<link href="./03_cartographie.html" rel="next">
+<link href="./01_ecosysteme_spatial.html" rel="prev">
+<link href="./img/globe-africa-solid.svg" rel="icon" type="image/svg+xml">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer"
+  }
+}</script>
+
+
+<meta property="og:title" content="Cartographie avec R - 2&nbsp; Manipuler les données vectorielles">
+<meta property="og:description" content="Les objets sf sont des data.frame dont l’une des colonnes contient des géométries.">
+<meta property="og:site-name" content="Cartographie avec R">
+<meta name="twitter:title" content="Cartographie avec R - 2&nbsp; Manipuler les données vectorielles">
+<meta name="twitter:description" content="Les objets sf sont des data.frame dont l’une des colonnes contient des géométries.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Cartographie avec R</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/rcarto/ined2022/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Préambule</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L’écosystème spatial de R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_donnees_vectorielles.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_cartographie.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cartographie</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table des matières</h2>
+   
+  <ul>
+  <li><a href="#format-des-objets-spatiaux-sf" id="toc-format-des-objets-spatiaux-sf" class="nav-link active" data-scroll-target="#format-des-objets-spatiaux-sf"><span class="toc-section-number">2.1</span>  Format des objets spatiaux <code>sf</code></a></li>
+  <li><a href="#import-et-export-de-données" id="toc-import-et-export-de-données" class="nav-link" data-scroll-target="#import-et-export-de-données"><span class="toc-section-number">2.2</span>  Import et export de données</a></li>
+  <li><a href="#affichage" id="toc-affichage" class="nav-link" data-scroll-target="#affichage"><span class="toc-section-number">2.3</span>  Affichage</a></li>
+  <li><a href="#les-systèmes-de-coordonnées" id="toc-les-systèmes-de-coordonnées" class="nav-link" data-scroll-target="#les-systèmes-de-coordonnées"><span class="toc-section-number">2.4</span>  Les systèmes de coordonnées</a>
+  <ul class="collapse">
+  <li><a href="#consulter-le-système-de-coordonnées-dun-objet" id="toc-consulter-le-système-de-coordonnées-dun-objet" class="nav-link" data-scroll-target="#consulter-le-système-de-coordonnées-dun-objet"><span class="toc-section-number">2.4.1</span>  Consulter le système de coordonnées d’un objet</a></li>
+  <li><a href="#modifier-le-système-de-coordonnées-dun-objet" id="toc-modifier-le-système-de-coordonnées-dun-objet" class="nav-link" data-scroll-target="#modifier-le-système-de-coordonnées-dun-objet"><span class="toc-section-number">2.4.2</span>  Modifier le système de coordonnées d’un objet</a></li>
+  </ul></li>
+  <li><a href="#sélection-par-attributs" id="toc-sélection-par-attributs" class="nav-link" data-scroll-target="#sélection-par-attributs"><span class="toc-section-number">2.5</span>  Sélection par attributs</a></li>
+  <li><a href="#sélection-spatiale" id="toc-sélection-spatiale" class="nav-link" data-scroll-target="#sélection-spatiale"><span class="toc-section-number">2.6</span>  Sélection spatiale</a>
+  <ul class="collapse">
+  <li><a href="#intersections" id="toc-intersections" class="nav-link" data-scroll-target="#intersections"><span class="toc-section-number">2.6.1</span>  Intersections</a></li>
+  <li><a href="#contains-within" id="toc-contains-within" class="nav-link" data-scroll-target="#contains-within"><span class="toc-section-number">2.6.2</span>  Contains / Within</a></li>
+  </ul></li>
+  <li><a href="#opérations-sur-les-géométries" id="toc-opérations-sur-les-géométries" class="nav-link" data-scroll-target="#opérations-sur-les-géométries"><span class="toc-section-number">2.7</span>  Opérations sur les géométries</a>
+  <ul class="collapse">
+  <li><a href="#extraire-des-centroides" id="toc-extraire-des-centroides" class="nav-link" data-scroll-target="#extraire-des-centroides"><span class="toc-section-number">2.7.1</span>  Extraire des centroides</a></li>
+  <li><a href="#agréger-des-polygones" id="toc-agréger-des-polygones" class="nav-link" data-scroll-target="#agréger-des-polygones"><span class="toc-section-number">2.7.2</span>  Agréger des polygones</a></li>
+  <li><a href="#agréger-des-polygones-en-fonction-dune-variable" id="toc-agréger-des-polygones-en-fonction-dune-variable" class="nav-link" data-scroll-target="#agréger-des-polygones-en-fonction-dune-variable"><span class="toc-section-number">2.7.3</span>  Agréger des polygones en fonction d’une variable</a></li>
+  <li><a href="#construire-une-zone-tampon" id="toc-construire-une-zone-tampon" class="nav-link" data-scroll-target="#construire-une-zone-tampon"><span class="toc-section-number">2.7.4</span>  Construire une zone tampon</a></li>
+  <li><a href="#réaliser-une-intersection" id="toc-réaliser-une-intersection" class="nav-link" data-scroll-target="#réaliser-une-intersection"><span class="toc-section-number">2.7.5</span>  Réaliser une intersection</a></li>
+  </ul></li>
+  <li><a href="#mesures" id="toc-mesures" class="nav-link" data-scroll-target="#mesures"><span class="toc-section-number">2.8</span>  Mesures</a>
+  <ul class="collapse">
+  <li><a href="#créer-une-matrice-de-distances" id="toc-créer-une-matrice-de-distances" class="nav-link" data-scroll-target="#créer-une-matrice-de-distances"><span class="toc-section-number">2.8.1</span>  Créer une matrice de distances</a></li>
+  </ul></li>
+  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices"><span class="toc-section-number">2.9</span>  Exercices</a>
+  <ul class="collapse">
+  <li><a href="#calculer-le-nombre-de-restaurants-par-communes" id="toc-calculer-le-nombre-de-restaurants-par-communes" class="nav-link" data-scroll-target="#calculer-le-nombre-de-restaurants-par-communes"><span class="toc-section-number">2.9.1</span>  Calculer le nombre de restaurants par communes</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="format-des-objets-spatiaux-sf" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="format-des-objets-spatiaux-sf"><span class="header-section-number">2.1</span> Format des objets spatiaux <code>sf</code></h2>
+<p><img src="img/sf.png" class="img-fluid"></p>
+<p>Les objets <code>sf</code> sont des <code>data.frame</code> dont l’une des colonnes contient des géométries. Cette colonne est de la classe sfc (<em>simple feature column</em>) et chaque individu de la colonne est un sfg (<em>simple feature geometry)</em>.<br>
+Ce format est très pratique dans la mesure ou les données et les géométries sont intrinsèquement liées dans un même objet.</p>
+<div class="callout-note callout callout-style-simple no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Vignette décrivant le format simple feature
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://r-spatial.github.io/sf/articles/sf1.html">Simple Features for R</a></p>
+</div>
+</div>
+</section>
+<section id="import-et-export-de-données" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="import-et-export-de-données"><span class="header-section-number">2.2</span> Import et export de données</h2>
+<p>Les fonctions <code>st_read()</code> et <code>st_write()</code> permettent d’importer et d’exporter de nombreux types de fichiers.<br>
+Les lignes suivantes importent la couche des communes du département du Lot situé dans le fichier <a href="https://www.geopackage.org/">geopackage</a> <strong>lot46.gpkg</strong>.</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/import_e8df4e40525002a04abed01092ba0be8">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Linking to GEOS 3.9.0, GDAL 3.2.2, PROJ 7.2.1; sf_use_s2() is TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>com <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">"commune"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Reading layer `commune' from data source 
+#&gt;   `/home/tim/Documents/prz/ined2022/data/lot46.gpkg' using driver `GPKG'
+#&gt; Simple feature collection with 313 features and 12 fields
+#&gt; Geometry type: MULTIPOLYGON
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 539668.5 ymin: 6346290 xmax: 637380.9 ymax: 6439668
+#&gt; Projected CRS: RGF93 / Lambert-93</code></pre>
+</div>
+</div>
+<p>Les lignes suivantes exportent l’objet <strong>com</strong> dans un dossier <strong>data</strong> aux formats geopackage et shapefile.</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/export_3a33957aa58570ed7bf224244794d783">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(<span class="at">obj =</span> com, <span class="at">dsn =</span> <span class="st">"data/com.gpkg"</span>, <span class="at">layer =</span> <span class="st">"commune"</span>, <span class="at">delete_layer =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Deleting layer `commune' using driver `GPKG'
+#&gt; Writing layer `commune' to data source `data/com.gpkg' using driver `GPKG'
+#&gt; Writing 313 features with 12 fields and geometry type Multi Polygon.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(<span class="at">obj =</span> com, <span class="st">"data/com.shp"</span>, <span class="at">layer_options =</span> <span class="st">"ENCODING=UTF-8"</span>, <span class="at">delete_layer =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Deleting layer `com' using driver `ESRI Shapefile'
+#&gt; Writing layer `com' to data source `data/com.shp' using driver `ESRI Shapefile'
+#&gt; options:        ENCODING=UTF-8 
+#&gt; Writing 313 features with 12 fields and geometry type Multi Polygon.</code></pre>
+</div>
+</div>
+</section>
+<section id="affichage" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="affichage"><span class="header-section-number">2.3</span> Affichage</h2>
+<p><strong>Aperçu des variables</strong> via les fonctions <code>head()</code> et <code>plot()</code>.</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/aff1_7b32bfbc3f6fa6b34a55196aa888b1d3">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Simple feature collection with 6 features and 12 fields
+#&gt; Geometry type: MULTIPOLYGON
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 556391.9 ymin: 6371852 xmax: 614866.5 ymax: 6418606
+#&gt; Projected CRS: RGF93 / Lambert-93
+#&gt;   INSEE_COM         NOM_COM         STATUT POPULATION     AGR_H    AGR_F
+#&gt; 1     46001           Albas Commune simple        522  4.978581 0.000000
+#&gt; 2     46002          Albiac Commune simple         67  0.000000 9.589041
+#&gt; 3     46003        Alvignac Commune simple        706 10.419682 0.000000
+#&gt; 4     46004         Anglars Commune simple        219  0.000000 0.000000
+#&gt; 5     46005 Anglars-Juillac Commune simple        329  4.894895 4.894895
+#&gt; 6     46006   Anglars-Nozac Commune simple        377  4.840849 0.000000
+#&gt;       IND_H     IND_F     BTP_H    BTP_F     TER_H     TER_F
+#&gt; 1  4.936153  0.000000  9.957527 0.000000 44.917145 34.681799
+#&gt; 2  0.000000  0.000000  4.794521 0.000000  4.794521  9.589041
+#&gt; 3 10.419682  5.209841 10.419682 0.000000 57.308249 78.147612
+#&gt; 4 20.000000 15.000000 10.000000 0.000000 20.000000 20.000000
+#&gt; 5  4.894895  0.000000  0.000000 0.000000 29.369369 29.369369
+#&gt; 6  0.000000  0.000000  9.681698 4.840849 43.567639 38.726790
+#&gt;                             geom
+#&gt; 1 MULTIPOLYGON (((559262 6371...
+#&gt; 2 MULTIPOLYGON (((605540.7 64...
+#&gt; 3 MULTIPOLYGON (((593707.7 64...
+#&gt; 4 MULTIPOLYGON (((613211.3 64...
+#&gt; 5 MULTIPOLYGON (((556744.9 63...
+#&gt; 6 MULTIPOLYGON (((576667.2 64...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: plotting the first 9 out of 12 attributes; use max.plot = 12 to plot
+#&gt; all</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/aff1-1.png" class="img-fluid" width="460"></p>
+</div>
+</div>
+<p><strong>Affichage de la géométrie</strong> uniquement.</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/aff2_8d0a1593ed96d71aeebfc2e2dfa0147b">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/aff2-1.png" class="img-fluid" width="460"></p>
+</div>
+</div>
+</section>
+<section id="les-systèmes-de-coordonnées" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="les-systèmes-de-coordonnées"><span class="header-section-number">2.4</span> Les systèmes de coordonnées</h2>
+<section id="consulter-le-système-de-coordonnées-dun-objet" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="consulter-le-système-de-coordonnées-dun-objet"><span class="header-section-number">2.4.1</span> Consulter le système de coordonnées d’un objet</h3>
+<p>La fonction <code>st_crs()</code> permet de consulter le système de coordonnées utilisé par un objet sf.</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/proj1_621a9a4b8c3a9d4736ce5e74a9085c4c">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Coordinate Reference System:
+#&gt;   User input: RGF93 / Lambert-93 
+#&gt;   wkt:
+#&gt; PROJCRS["RGF93 / Lambert-93",
+#&gt;     BASEGEOGCRS["RGF93",
+#&gt;         DATUM["Reseau Geodesique Francais 1993",
+#&gt;             ELLIPSOID["GRS 1980",6378137,298.257222101,
+#&gt;                 LENGTHUNIT["metre",1]]],
+#&gt;         PRIMEM["Greenwich",0,
+#&gt;             ANGLEUNIT["degree",0.0174532925199433]],
+#&gt;         ID["EPSG",4171]],
+#&gt;     CONVERSION["Lambert-93",
+#&gt;         METHOD["Lambert Conic Conformal (2SP)",
+#&gt;             ID["EPSG",9802]],
+#&gt;         PARAMETER["Latitude of false origin",46.5,
+#&gt;             ANGLEUNIT["degree",0.0174532925199433],
+#&gt;             ID["EPSG",8821]],
+#&gt;         PARAMETER["Longitude of false origin",3,
+#&gt;             ANGLEUNIT["degree",0.0174532925199433],
+#&gt;             ID["EPSG",8822]],
+#&gt;         PARAMETER["Latitude of 1st standard parallel",49,
+#&gt;             ANGLEUNIT["degree",0.0174532925199433],
+#&gt;             ID["EPSG",8823]],
+#&gt;         PARAMETER["Latitude of 2nd standard parallel",44,
+#&gt;             ANGLEUNIT["degree",0.0174532925199433],
+#&gt;             ID["EPSG",8824]],
+#&gt;         PARAMETER["Easting at false origin",700000,
+#&gt;             LENGTHUNIT["metre",1],
+#&gt;             ID["EPSG",8826]],
+#&gt;         PARAMETER["Northing at false origin",6600000,
+#&gt;             LENGTHUNIT["metre",1],
+#&gt;             ID["EPSG",8827]]],
+#&gt;     CS[Cartesian,2],
+#&gt;         AXIS["easting (X)",east,
+#&gt;             ORDER[1],
+#&gt;             LENGTHUNIT["metre",1]],
+#&gt;         AXIS["northing (Y)",north,
+#&gt;             ORDER[2],
+#&gt;             LENGTHUNIT["metre",1]],
+#&gt;     USAGE[
+#&gt;         SCOPE["Engineering survey, topographic mapping."],
+#&gt;         AREA["France - onshore and offshore, mainland and Corsica."],
+#&gt;         BBOX[41.15,-9.86,51.56,10.38]],
+#&gt;     ID["EPSG",2154]]</code></pre>
+</div>
+</div>
+</section>
+<section id="modifier-le-système-de-coordonnées-dun-objet" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="modifier-le-système-de-coordonnées-dun-objet"><span class="header-section-number">2.4.2</span> Modifier le système de coordonnées d’un objet</h3>
+<p>La fonction <code>st_transform()</code> permet de change le système de coordonnées d’un objet sf, de le reprojeter.</p>
+<div class="cell" data-small_m="true" data-hash="02_donnees_vectorielles_cache/html/proj2_a30ea854a15dc0d1e81995e97ad9159f">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"EPSG: 2154"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/proj2-1.png" class="img-fluid" width="460"></p>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>com_reproj <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(com, <span class="st">"epsg:3035"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com_reproj))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"EPSG: 3035"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/proj2-2.png" class="img-fluid" width="460"></p>
+</div>
+</div>
+<p>Le site <a href="http://spatialreference.org/" target="_blank">Spatial Reference</a> met à disposition les références de très nombreux systèmes de coordonnées.</p>
+</section>
+</section>
+<section id="sélection-par-attributs" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sélection-par-attributs"><span class="header-section-number">2.5</span> Sélection par attributs</h2>
+<p>Les objets <code>sf</code> <strong>sont</strong> des <code>data.frame</code>, on peut donc sélectionner leur lignes et leur colonnes de la même manière que les <code>data.frame</code>.</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/selectAttr_8b6a0ffef8f2d4f9b6faac5c8421c40f">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selection de ligne</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>com[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, ]</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Simple feature collection with 2 features and 12 fields
+#&gt; Geometry type: MULTIPOLYGON
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 557759.2 ymin: 6371852 xmax: 607179 ymax: 6410204
+#&gt; Projected CRS: RGF93 / Lambert-93
+#&gt;   INSEE_COM NOM_COM         STATUT POPULATION    AGR_H    AGR_F    IND_H IND_F
+#&gt; 1     46001   Albas Commune simple        522 4.978581 0.000000 4.936153     0
+#&gt; 2     46002  Albiac Commune simple         67 0.000000 9.589041 0.000000     0
+#&gt;      BTP_H BTP_F     TER_H     TER_F                           geom
+#&gt; 1 9.957527     0 44.917145 34.681799 MULTIPOLYGON (((559262 6371...
+#&gt; 2 4.794521     0  4.794521  9.589041 MULTIPOLYGON (((605540.7 64...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>com[com<span class="sc">$</span>NOM_COM <span class="sc">==</span> <span class="st">"Gramat"</span>, ]</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Simple feature collection with 1 feature and 12 fields
+#&gt; Geometry type: MULTIPOLYGON
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 593605.6 ymin: 6402330 xmax: 602624.6 ymax: 6413784
+#&gt; Projected CRS: RGF93 / Lambert-93
+#&gt;     INSEE_COM NOM_COM         STATUT POPULATION    AGR_H    AGR_F    IND_H
+#&gt; 119     46128  Gramat Commune simple       3468 10.19868 15.29802 122.3842
+#&gt;        IND_F    BTP_H BTP_F    TER_H    TER_F                           geom
+#&gt; 119 107.0862 56.09275     0 260.0664 304.1941 MULTIPOLYGON (((594713.1 64...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selection de colonnes</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>com[com<span class="sc">$</span>NOM_COM <span class="sc">==</span> <span class="st">"Gramat"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Simple feature collection with 1 feature and 4 fields
+#&gt; Geometry type: MULTIPOLYGON
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 593605.6 ymin: 6402330 xmax: 602624.6 ymax: 6413784
+#&gt; Projected CRS: RGF93 / Lambert-93
+#&gt;     INSEE_COM NOM_COM         STATUT POPULATION                           geom
+#&gt; 119     46128  Gramat Commune simple       3468 MULTIPOLYGON (((594713.1 64...</code></pre>
+</div>
+</div>
+</section>
+<section id="sélection-spatiale" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="sélection-spatiale"><span class="header-section-number">2.6</span> Sélection spatiale</h2>
+<section id="intersections" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="intersections"><span class="header-section-number">2.6.1</span> Intersections</h3>
+<p>Sélection des routes intesectant la commune de Gramat.</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/intersects_cfd88a537c5d77dfe6fe32c15de3485b">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>route <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">"route"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>gramat <span class="ot">&lt;-</span>  com[com<span class="sc">$</span>NOM_COM <span class="sc">==</span> <span class="st">"Gramat"</span>, ]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>inter <span class="ot">&lt;-</span> <span class="fu">st_intersects</span>(<span class="at">x =</span> route, <span class="at">y =</span> gramat, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inter)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;       [,1]
+#&gt; [1,] FALSE
+#&gt; [2,] FALSE
+#&gt; [3,] FALSE
+#&gt; [4,] FALSE
+#&gt; [5,] FALSE
+#&gt; [6,] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(inter)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] 16096     1</code></pre>
+</div>
+</div>
+<p>L’objet <strong>inter</strong> est une matrice qui indique pour chacun des éléments de l’objet <strong>route</strong> (16096 éléments) si il<br>
+intersecte chacun des élément de l’objet <strong>gramat</strong> (1 élément). La dimension de la matrice est donc bien 16096 lignes * 1 colonne.<br>
+Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensuite possible de créer une colonne à partir de cet objet :</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/intersects2_8813578180f0d74652f2691b3109b883">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>route<span class="sc">$</span>intersect_gramat <span class="ot">&lt;-</span> inter</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gramat), <span class="at">col =</span> <span class="st">"lightblue"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(route), <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(route[route<span class="sc">$</span>intersect_gramat, ]), </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"tomato"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/intersects2-1.png" class="img-fluid" width="460"></p>
+</div>
+</div>
+</section>
+<section id="contains-within" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="contains-within"><span class="header-section-number">2.6.2</span> Contains / Within</h3>
+<p>Sélection des routes contenues dans la commune de Gramat. La fonctin <code>st_within()</code> fonctionne comme la fonction <code>st_intersects()</code></p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/within_88d30a7ef228e3cb659d1b00085b59ea">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>route<span class="sc">$</span>within_gramat <span class="ot">&lt;-</span> <span class="fu">st_within</span>(route, gramat, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gramat), <span class="at">col =</span> <span class="st">"lightblue"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(route), <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(route[route<span class="sc">$</span>within_gramat, ]), <span class="at">col =</span> <span class="st">"tomato"</span>, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/within-1.png" class="img-fluid" width="460"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="opérations-sur-les-géométries" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="opérations-sur-les-géométries"><span class="header-section-number">2.7</span> Opérations sur les géométries</h2>
+<section id="extraire-des-centroides" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="extraire-des-centroides"><span class="header-section-number">2.7.1</span> Extraire des centroides</h3>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/centroids_0e7709cb6f96ab8d7bfe526d9cf48fdc">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>com_c <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning in st_centroid.sf(com): st_centroid assumes attributes are constant over
+#&gt; geometries of x</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com_c), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> .<span class="dv">5</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/centroids-1.png" class="img-fluid" width="460"></p>
+</div>
+</div>
+</section>
+<section id="agréger-des-polygones" class="level3" data-number="2.7.2">
+<h3 data-number="2.7.2" class="anchored" data-anchor-id="agréger-des-polygones"><span class="header-section-number">2.7.2</span> Agréger des polygones</h3>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/aggreg_ed3a79a0719d3d76542b3e0126c2fb63">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dep_46 <span class="ot">&lt;-</span> <span class="fu">st_union</span>(com)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com), <span class="at">col =</span> <span class="st">"lightblue"</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(dep_46), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="fl">1.2</span>, <span class="at">border =</span> <span class="st">"red"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/aggreg-1.png" class="img-fluid" width="460"></p>
+</div>
+</div>
+</section>
+<section id="agréger-des-polygones-en-fonction-dune-variable" class="level3" data-number="2.7.3">
+<h3 data-number="2.7.3" class="anchored" data-anchor-id="agréger-des-polygones-en-fonction-dune-variable"><span class="header-section-number">2.7.3</span> Agréger des polygones en fonction d’une variable</h3>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/aggreg2_4a2ee401053f6db677b28dd21c3092d0">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>com_u <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="at">x =</span> com[,<span class="fu">c</span>(<span class="st">"POPULATION"</span>)],</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">by =</span> <span class="fu">list</span>(<span class="at">STATUT =</span> com<span class="sc">$</span>STATUT),</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">FUN =</span> <span class="st">"sum"</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(com_u)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/aggreg2-1.png" class="img-fluid" width="460"></p>
+</div>
+</div>
+</section>
+<section id="construire-une-zone-tampon" class="level3" data-number="2.7.4">
+<h3 data-number="2.7.4" class="anchored" data-anchor-id="construire-une-zone-tampon"><span class="header-section-number">2.7.4</span> Construire une zone tampon</h3>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/buffers_4e709ced142324eb946aaba99cb982e3">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>gramat_b <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(<span class="at">x =</span> gramat, <span class="at">dist =</span> <span class="dv">5000</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gramat_b), <span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">border =</span> <span class="st">"red"</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gramat), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/buffers-1.png" class="img-fluid" width="460"></p>
+</div>
+</div>
+</section>
+<section id="réaliser-une-intersection" class="level3" data-number="2.7.5">
+<h3 data-number="2.7.5" class="anchored" data-anchor-id="réaliser-une-intersection"><span class="header-section-number">2.7.5</span> Réaliser une intersection</h3>
+<p>En utilisant la fonction <code>st_intersection()</code> on va découper une couche par une autre.</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/intersect2_b55776cde0a734f84d62b0f6d548b7d7">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># création d'une zone tampon autour du centroid de la commune de Gramat</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># en utilisant le pipe</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>zone <span class="ot">&lt;-</span> <span class="fu">st_geometry</span>(gramat) <span class="sc">|&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_centroid</span>() <span class="sc">|&gt;</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">10000</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(zone, <span class="at">border =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/intersect2-1.png" class="img-fluid" width="460"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>com_z <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(<span class="at">x =</span> com, <span class="at">y =</span> zone)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: attribute variables are assumed to be spatially constant throughout all
+#&gt; geometries</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com_z), <span class="at">col=</span><span class="st">"red"</span>, <span class="at">border=</span><span class="st">"green"</span>, <span class="at">add=</span>T)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/intersect2-2.png" class="img-fluid" width="460"></p>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com_z))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_donnees_vectorielles_files/figure-html/intersect2-3.png" class="img-fluid" width="460"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="mesures" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="mesures"><span class="header-section-number">2.8</span> Mesures</h2>
+<section id="créer-une-matrice-de-distances" class="level3" data-number="2.8.1">
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="créer-une-matrice-de-distances"><span class="header-section-number">2.8.1</span> Créer une matrice de distances</h3>
+<p>Si le système de projection du jeu de données est renseigné les distances sont exprimées dans l’unité de mesure de la projection (en mètres le plus souvent).</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/distance_78bf5a76449a73b4e178dfba701186c1">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">st_distance</span>(<span class="at">x =</span> com_c, <span class="at">y =</span> com_c)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>mat[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Units: [m]
+#&gt;           [,1]     [,2]     [,3]     [,4]      [,5]
+#&gt; [1,]     0.000 56784.77 54353.94 61166.42  3790.688
+#&gt; [2,] 56784.770     0.00 12454.29  7146.11 57288.103
+#&gt; [3,] 54353.942 12454.29     0.00 19388.52 54030.811
+#&gt; [4,] 61166.418  7146.11 19388.52     0.00 62016.141
+#&gt; [5,]  3790.688 57288.10 54030.81 62016.14     0.000</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exercices" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="exercices"><span class="header-section-number">2.9</span> Exercices</h2>
+<section id="calculer-le-nombre-de-restaurants-par-communes" class="level3" data-number="2.9.1">
+<h3 data-number="2.9.1" class="anchored" data-anchor-id="calculer-le-nombre-de-restaurants-par-communes"><span class="header-section-number">2.9.1</span> Calculer le nombre de restaurants par communes</h3>
+<ul>
+<li><p>Quelles communes ont plus de 10 restaurants et moins de 1000 habitants ?</p></li>
+<li><p>Créez une carte où vous afficherez toutes les communes en gris et les communes sélectionnées plus haut en rouge.</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copié");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01_ecosysteme_spatial.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L’écosystème spatial de R</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03_cartographie.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cartographie</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="img/by-nc-sa.png" class="img-fluid" alt="CreativeCommonsLicense"></a></div>   
+  </div>
+</footer>
+
+
+
+</body></html>

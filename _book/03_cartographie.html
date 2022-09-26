@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Cartographie avec R - 3&nbsp; Cartographie</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<link href="./04_references.html" rel="next">
+<link href="./02_donnees_vectorielles.html" rel="prev">
+<link href="./img/globe-africa-solid.svg" rel="icon" type="image/svg+xml">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer"
+  }
+}</script>
+
+
+<meta property="og:title" content="Cartographie avec R - 3&nbsp; Cartographie">
+<meta property="og:description" content="L’écosystème spatial du logiciel libre R est riche, dynamique et mature et plusieurs packages permettent d’importer, de traiter et de représenter les données spatiales.">
+<meta property="og:site-name" content="Cartographie avec R">
+<meta name="twitter:title" content="Cartographie avec R - 3&nbsp; Cartographie">
+<meta name="twitter:description" content="L’écosystème spatial du logiciel libre R est riche, dynamique et mature et plusieurs packages permettent d’importer, de traiter et de représenter les données spatiales.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cartographie</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Cartographie avec R</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/rcarto/ined2022/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Préambule</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L’écosystème spatial de R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_donnees_vectorielles.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_cartographie.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cartographie</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table des matières</h2>
+   
+  <ul>
+  <li><a href="#mapsf" id="toc-mapsf" class="nav-link active" data-scroll-target="#mapsf"><span class="toc-section-number">3.1</span>  <code>mapsf</code></a></li>
+  <li><a href="#les-types-de-cartes" id="toc-les-types-de-cartes" class="nav-link" data-scroll-target="#les-types-de-cartes"><span class="toc-section-number">3.2</span>  Les types de cartes</a>
+  <ul class="collapse">
+  <li><a href="#les-données-dexemple" id="toc-les-données-dexemple" class="nav-link" data-scroll-target="#les-données-dexemple"><span class="toc-section-number">3.2.1</span>  Les données d’exemple</a></li>
+  <li><a href="#afficher-un-fond-de-carte" id="toc-afficher-un-fond-de-carte" class="nav-link" data-scroll-target="#afficher-un-fond-de-carte"><span class="toc-section-number">3.2.2</span>  Afficher un fond de carte</a></li>
+  <li><a href="#carte-de-symboles-proportionnels" id="toc-carte-de-symboles-proportionnels" class="nav-link" data-scroll-target="#carte-de-symboles-proportionnels"><span class="toc-section-number">3.2.3</span>  Carte de symboles proportionnels</a></li>
+  <li><a href="#carte-choroplèthe" id="toc-carte-choroplèthe" class="nav-link" data-scroll-target="#carte-choroplèthe"><span class="toc-section-number">3.2.4</span>  Carte choroplèthe</a></li>
+  <li><a href="#carte-de-typologie" id="toc-carte-de-typologie" class="nav-link" data-scroll-target="#carte-de-typologie"><span class="toc-section-number">3.2.5</span>  Carte de typologie</a></li>
+  <li><a href="#carte-de-stocks-et-de-ratios" id="toc-carte-de-stocks-et-de-ratios" class="nav-link" data-scroll-target="#carte-de-stocks-et-de-ratios"><span class="toc-section-number">3.2.6</span>  Carte de stocks et de ratios</a></li>
+  <li><a href="#carte-de-stocks-et-de-catégories" id="toc-carte-de-stocks-et-de-catégories" class="nav-link" data-scroll-target="#carte-de-stocks-et-de-catégories"><span class="toc-section-number">3.2.7</span>  Carte de stocks et de catégories</a></li>
+  </ul></li>
+  <li><a href="#mise-en-page" id="toc-mise-en-page" class="nav-link" data-scroll-target="#mise-en-page"><span class="toc-section-number">3.3</span>  Mise en page</a>
+  <ul class="collapse">
+  <li><a href="#les-thèmes" id="toc-les-thèmes" class="nav-link" data-scroll-target="#les-thèmes"><span class="toc-section-number">3.3.1</span>  Les thèmes</a></li>
+  <li><a href="#les-titres" id="toc-les-titres" class="nav-link" data-scroll-target="#les-titres"><span class="toc-section-number">3.3.2</span>  Les titres</a></li>
+  <li><a href="#flèche-dorientation" id="toc-flèche-dorientation" class="nav-link" data-scroll-target="#flèche-dorientation"><span class="toc-section-number">3.3.3</span>  Flèche d’orientation</a></li>
+  <li><a href="#échelle" id="toc-échelle" class="nav-link" data-scroll-target="#échelle"><span class="toc-section-number">3.3.4</span>  Échelle</a></li>
+  <li><a href="#crédits" id="toc-crédits" class="nav-link" data-scroll-target="#crédits"><span class="toc-section-number">3.3.5</span>  Crédits</a></li>
+  <li><a href="#habillage-complet" id="toc-habillage-complet" class="nav-link" data-scroll-target="#habillage-complet"><span class="toc-section-number">3.3.6</span>  Habillage complet</a></li>
+  <li><a href="#annotations" id="toc-annotations" class="nav-link" data-scroll-target="#annotations"><span class="toc-section-number">3.3.7</span>  Annotations</a></li>
+  <li><a href="#les-légendes" id="toc-les-légendes" class="nav-link" data-scroll-target="#les-légendes"><span class="toc-section-number">3.3.8</span>  Les légendes</a></li>
+  <li><a href="#étiquettes" id="toc-étiquettes" class="nav-link" data-scroll-target="#étiquettes"><span class="toc-section-number">3.3.9</span>  Étiquettes</a></li>
+  <li><a href="#centrer-la-carte-sur-une-région" id="toc-centrer-la-carte-sur-une-région" class="nav-link" data-scroll-target="#centrer-la-carte-sur-une-région"><span class="toc-section-number">3.3.10</span>  Centrer la carte sur une région</a></li>
+  <li><a href="#afficher-plusieurs-cartes-sur-la-même-figure" id="toc-afficher-plusieurs-cartes-sur-la-même-figure" class="nav-link" data-scroll-target="#afficher-plusieurs-cartes-sur-la-même-figure"><span class="toc-section-number">3.3.11</span>  Afficher plusieurs cartes sur la même figure</a></li>
+  <li><a href="#export-des-cartes" id="toc-export-des-cartes" class="nav-link" data-scroll-target="#export-des-cartes"><span class="toc-section-number">3.3.12</span>  Export des cartes</a></li>
+  <li><a href="#ajouter-une-image-sur-une-carte" id="toc-ajouter-une-image-sur-une-carte" class="nav-link" data-scroll-target="#ajouter-une-image-sur-une-carte"><span class="toc-section-number">3.3.13</span>  Ajouter une image sur une carte</a></li>
+  <li><a href="#ajouter-un-ombrage-à-une-couche" id="toc-ajouter-un-ombrage-à-une-couche" class="nav-link" data-scroll-target="#ajouter-un-ombrage-à-une-couche"><span class="toc-section-number">3.3.14</span>  Ajouter un ombrage à une couche</a></li>
+  <li><a href="#création-de-cartons" id="toc-création-de-cartons" class="nav-link" data-scroll-target="#création-de-cartons"><span class="toc-section-number">3.3.15</span>  Création de cartons</a></li>
+  </ul></li>
+  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices"><span class="toc-section-number">3.4</span>  Exercices</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cartographie</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>L’écosystème spatial du logiciel libre R est riche, dynamique et mature et plusieurs packages permettent d’importer, de traiter et de représenter les données spatiales. Le package <a href="https://CRAN.R-project.org/package=mapsf"><code>mapsf</code></a> <span class="citation" data-cites="R-mapsf">(<a href="04_references.html#ref-R-mapsf" role="doc-biblioref">Giraud, 2021</a>)</span> s’appuie sur cet écosystème pour intégrer la création de cartes thématiques de qualité dans les chaînes de traitement avec R.</p>
+<p>D’autres packages peuvent être utilisés pour réaliser des cartes thématiques. Le package <code>ggplot2</code> <span class="citation" data-cites="Wickham16">(<a href="04_references.html#ref-Wickham16" role="doc-biblioref">Wickham, 2016</a>)</span>, en association avec le package <code>ggspatial</code> <span class="citation" data-cites="R-ggspatial">(<a href="04_references.html#ref-R-ggspatial" role="doc-biblioref">Dunnington, 2021</a>)</span>, permet par exemple d’afficher des objets spatiaux et de réaliser des cartes thématiques simples. Le package <code>tmap</code> <span class="citation" data-cites="Tennekes18">(<a href="04_references.html#ref-Tennekes18" role="doc-biblioref">Tennekes, 2018</a>)</span> est dédié à la création de cartes thématiques, il utilise une syntaxe proche de celle de <code>ggplot2</code> (enchaînement d’instructions combinées avec le signe ‘+’). La documentation et les tutoriels pour utiliser ces deux packages sont facilement accessibles sur le web.</p>
+<p>Ici, nous utiliserons principalement le package <code>mapsf</code> dont les fonctionnalités sont assez complètes et la prise en main plutôt simple. De plus, le package est relativement léger.</p>
+<section id="mapsf" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="mapsf"><span class="header-section-number">3.1</span> <code>mapsf</code></h2>
+<p><img src="img/logo.png" align="right" alt="" width="120"></p>
+<p><code>mapsf</code> permet de créer la plupart des types de carte utilisés habituellement en cartographie statistique (cartes choroplèthes, typologies, symboles proportionnels ou gradués…).<br>
+Pour chaque type de carte, plusieurs paramètres permettent de personnaliser la représentation cartographique. Ces paramètres sont les mêmes que ceux que l’on retrouve dans les logiciels de SIG ou de cartographie usuels (par exemple, le choix des discrétisations et des palettes de couleurs, la modification de de la taille des symboles ou la personnalisation des légendes).<br>
+Associées aux fonctions de représentation des données d’autres fonctions sont dédiées à l’habillage cartographique (thèmes ou chartes graphiques, légendes, échelles, flèches d’orientation, titre, crédits, annotations…), à la création de cartons ou à l’export des cartes.<br>
+<code>mapsf</code> est le successeur de <a href="http://riatelab.github.io/cartography/docs/"><code>cartography</code></a> <span class="citation" data-cites="R-cartography">(<a href="04_references.html#ref-R-cartography" role="doc-biblioref">Giraud et Lambert, 2018</a>)</span>, il offre les mêmes fonctionnalités principales tout en étant plus léger et plus ergonomique.</p>
+<div class="callout-note callout callout-style-simple no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pour utiliser ce package plusieurs sources de documentation peuvent être consultées.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>La documentation du package accessible <a href="http://riatelab.github.io/mapsf/">sur internet</a> ou directement dans R (<code>?mapsf</code>).</li>
+<li>Une <a href="https://raw.githubusercontent.com/riatelab/mapsf/master/vignettes/web_only/img/mapsf_cheatsheet.pdf"><em>cheat sheet</em></a>. <img src="img/mapsf_cheatsheet.png" class="img-fluid"></li>
+<li>Les <a href="https://riatelab.github.io/mapsf/articles/">vignettes</a> associées au package présentent des exemples de scripts.</li>
+<li>Le blog <a href="https://rgeomatic.hypotheses.org/">R Géomatique</a> qui met à disposition ressources et exemples liés au package et plus généralement à l’écosystème spatial de R.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="les-types-de-cartes" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="les-types-de-cartes"><span class="header-section-number">3.2</span> Les types de cartes</h2>
+<p>La fonction <code>mf_map()</code> est la fonction centrale du package <code>mapsf</code>. Elle permet de réaliser la plupart des représentations usuelles en cartographie. Ces arguments principaux sont :</p>
+<ul>
+<li><code>x</code>, un objet sf ;</li>
+<li><code>var</code>, le nom de la variable à représenter ;</li>
+<li><code>type</code>, le type de représentation.</li>
+</ul>
+<section id="les-données-dexemple" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="les-données-dexemple"><span class="header-section-number">3.2.1</span> Les données d’exemple</h3>
+<p>Les lignes suivantes importent les couches d’information spatiales situées dans le fichier <a href="https://www.geopackage.org/">geopackage</a> <strong>lot46.gpkg</strong>.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/unnamed-chunk-1_90ed68875fca02c42b10e5c49600b4be">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Linking to GEOS 3.9.0, GDAL 3.2.2, PROJ 7.2.1; sf_use_s2() is TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import des communes du Lot</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>com <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">"commune"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># import des départments français</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>dep <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">"departement"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># import des restaurants</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>resto <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">"restaurant"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># import des routes</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>route <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">"route"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="afficher-un-fond-de-carte" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="afficher-un-fond-de-carte"><span class="header-section-number">3.2.2</span> Afficher un fond de carte</h3>
+<p>Utilisée sans précision de type, la fonction <code>mf_map()</code> affiche simplement le fond de carte.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/mf_base_6d69cae69a9c293b5a1318029b5696c4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapsf)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Communes</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com, <span class="at">border =</span> <span class="st">"white"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> dep, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> route, <span class="at">lwd =</span> .<span class="dv">5</span>, <span class="at">col =</span> <span class="st">"ivory4"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> resto, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> .<span class="dv">7</span>, <span class="at">col =</span> <span class="st">"darkred"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/mf_base-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="carte-de-symboles-proportionnels" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="carte-de-symboles-proportionnels"><span class="header-section-number">3.2.3</span> Carte de symboles proportionnels</h3>
+<p>Les cartes de symboles proportionnels sont utilisées pour représenter les variables de stocks (variables quantitatives absolues, la somme et la moyenne ont un sens). La fonction <code>mf_map(..., type = "prop")</code> propose cette représentation.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/proportional_symbols_8dd6867ff93f53baade803a595519716">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Communes</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Symboles proportionnels</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">"POPULATION"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"prop"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span> <span class="st">"Population totale</span><span class="sc">\n</span><span class="st">(2015)"</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Titre</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Distribution de la population dans le Lot"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/proportional_symbols-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<section id="comparer-plusieurs-cartes" class="level4" data-number="3.2.3.1">
+<h4 data-number="3.2.3.1" class="anchored" data-anchor-id="comparer-plusieurs-cartes"><span class="header-section-number">3.2.3.1</span> Comparer plusieurs cartes</h4>
+<p>Il est possible de fixer les dimensions du plus grand symbole correspondant à une certaine valeur avec les arguments <code>inches</code> et <code>val_max</code>. Nous pouvons ainsi construire des cartes en symboles proportionnels comparables.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/proportional_symbols_comp_b6599e21ee861d5025ecd8d004a0ce61">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher deux cartes en vis-à-vis</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Communes</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com, <span class="at">border =</span> <span class="st">"grey90"</span>, <span class="at">lwd =</span> .<span class="dv">5</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Population active occupée dans l'industrie, les hommes</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">"IND_H"</span>, </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"prop"</span>, </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">inches =</span> .<span class="dv">2</span>, </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">val_max =</span> <span class="dv">600</span>, </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span> <span class="st">"Hommes"</span>, </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_val_cex =</span> .<span class="dv">5</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ajout d'un titre</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Population active occupée dans l'industrie"</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Communes</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com, <span class="at">border =</span> <span class="st">"grey90"</span>, <span class="at">lwd =</span> .<span class="dv">5</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Population active occupée dans l'industrie, les femmes</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com, </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">"IND_F"</span>, </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"prop"</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">inches =</span> .<span class="dv">2</span>, </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">val_max =</span> <span class="dv">600</span>, </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span><span class="st">"Femmes"</span>, </span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_val_cex =</span> .<span class="dv">5</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co"># ajout d'un titre</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Population active occupée dans l'industrie"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/proportional_symbols_comp-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>Nous avons ici affiché deux cartes en vis-à-vis, voir le point <a href="#afficher-plusieurs-cartes-sur-la-même-figure">Afficher plusieurs cartes sur la même figure</a> pour plus de détails.</p>
+<!-- ### Les cartes de liens proportionnels -->
+<!-- TO DO -->
+</section>
+</section>
+<section id="carte-choroplèthe" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="carte-choroplèthe"><span class="header-section-number">3.2.4</span> Carte choroplèthe</h3>
+<p>Les cartes choroplèthes sont utilisées pour représenter les variables de ratios (variables quantitatives relatives, la moyenne a un sens, la somme n’a pas de sens).</p>
+<p>Pour ce genre de représentation il faut au préalable :</p>
+<ul>
+<li>choisir une méthode de discrétisation pour transformer une série statistique continue en classes définies par des intervalles,</li>
+<li>choisir un nombre de classes,</li>
+<li>choisir une palette de couleurs.</li>
+</ul>
+<p>La fonction <code>mf_map(..., type = "choro")</code> permet de créer des cartes choroplètes. Les arguments <code>nbreaks</code> et <code>breaks</code> servent à paramétrer les discrétisations, et la fonction <code>mf_get_breaks()</code> permet de travailler sur les discrétisations en dehors de la fonction <code>mf_map()</code>. De même, l’argument <code>pal</code> est utilisé pour renseigner une palette de couleur, mais plusieurs fonctions peuvent être utilisées pour paramétrer les palettes en dehors de la fonction (<code>mf_get_pal</code>…).</p>
+<div class="cell" data-hash="03_cartographie_cache/html/choro_da7b6b47af037bb4a75723d489dcc105">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Densité de population (hab./km2) en utilisant la fonction sf::st_area()</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>com<span class="sc">$</span>DENS <span class="ot">&lt;-</span> <span class="fl">1e6</span> <span class="sc">*</span> com<span class="sc">$</span>POP <span class="sc">/</span> <span class="fu">as.numeric</span>(<span class="fu">st_area</span>(com))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">"DENS"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"choro"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="st">"quantile"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pal =</span> <span class="st">"Dark Mint"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">1</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span> <span class="st">"Densité de population</span><span class="sc">\n</span><span class="st">(habitants par km2)"</span>, </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_val_rnd =</span> <span class="dv">0</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Distribution de la population dans le Lot (2018)"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/choro-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<section id="discretisation" class="level4" data-number="3.2.4.1">
+<h4 data-number="3.2.4.1" class="anchored" data-anchor-id="discretisation"><span class="header-section-number">3.2.4.1</span> Discrétisations</h4>
+<p>La fonction <code>mf_get_breaks()</code> met à disposition les méthodes de discrétisations de variables classique : quantiles, moyenne/écart-type, amplitudes égales, moyennes emboîtées, Fisher-Jenks, géométrique …</p>
+<div class="cell" data-hash="03_cartographie_cache/html/discr2_e3749f6731248c4ca4981f6016a92c89">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>com<span class="sc">$</span>POP_ACT <span class="ot">&lt;-</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  com<span class="sc">$</span>AGR_H <span class="sc">+</span> com<span class="sc">$</span>AGR_F <span class="sc">+</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  com<span class="sc">$</span>IND_H <span class="sc">+</span> com<span class="sc">$</span>IND_F <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  com<span class="sc">$</span>BTP_H <span class="sc">+</span> com<span class="sc">$</span>BTP_F <span class="sc">+</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  com<span class="sc">$</span>TER_H <span class="sc">+</span> com<span class="sc">$</span>TER_F</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>com<span class="sc">$</span>SHARE_ACT <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">*</span> com<span class="sc">$</span>POP_ACT <span class="sc">/</span> com<span class="sc">$</span>POPULATION</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">mf_get_breaks</span>(com<span class="sc">$</span>SHARE_ACT, <span class="at">nbreaks =</span> <span class="dv">6</span>, <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">freq =</span> T)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">mf_get_breaks</span>(com<span class="sc">$</span>SHARE_ACT, <span class="at">nbreaks =</span> <span class="dv">6</span>, <span class="at">breaks =</span> <span class="st">"quantile"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">mf_get_breaks</span>(com<span class="sc">$</span>SHARE_ACT, <span class="at">nbreaks =</span> <span class="dv">6</span>, <span class="at">breaks =</span> <span class="st">"geom"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">mf_get_breaks</span>(com<span class="sc">$</span>SHARE_ACT, <span class="at">breaks =</span> <span class="st">"msd"</span>, <span class="at">central =</span> <span class="cn">FALSE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="03_cartographie_cache/html/discr3_145b9cb06021996de147518281ea7e7d">
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/discr3-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="palettes" class="level4" data-number="3.2.4.2">
+<h4 data-number="3.2.4.2" class="anchored" data-anchor-id="palettes"><span class="header-section-number">3.2.4.2</span> Palettes de couleurs</h4>
+<p>L’argument <code>pal</code> de <code>mf_map()</code> est dédié au choix d’une palette de couleur. Les palettes fournies par la fonction <code>hcl.colors()</code> peuvent être utilisées directement.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/pal1_1cbe91ab5b84317fc68ad3f6a1d95ac0">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com, <span class="at">var =</span> <span class="st">"SHARE_ACT"</span>, <span class="at">type =</span> <span class="st">"choro"</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">breaks =</span> d4, <span class="at">pal =</span> <span class="st">"Blues 3"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/pal1-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<p><img src="img/swatch-plot-1.svg" class="img-fluid"></p>
+<p>La fonction <code>mf_get_pal()</code> permet de construire une palette de couleur. Cette fonction est surtout utile pour créer des palettes divergentes asymétriques équilibrées.</p>
+<div class="cell" data-nm="true" data-hash="03_cartographie_cache/html/pal2_244be2c86913548c310a5c6bcd4222e9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mypal <span class="ot">&lt;-</span> <span class="fu">mf_get_pal</span>(<span class="at">n =</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">3</span>), <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"Burg"</span>, <span class="st">"Teal"</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="dv">1</span>, <span class="fu">as.matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>), <span class="at">col=</span>mypal, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">xaxt =</span> <span class="st">"n"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">yaxt =</span> <span class="st">"n"</span>,<span class="at">bty =</span> <span class="st">"n"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/pal2-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="pour-une-couche-de-points" class="level4" data-number="3.2.4.3">
+<h4 data-number="3.2.4.3" class="anchored" data-anchor-id="pour-une-couche-de-points"><span class="header-section-number">3.2.4.3</span> Pour une couche de points</h4>
+<p>Il est possible d’utiliser ce mode de représentation en implémentation ponctuelle également.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/choropt_3fa85199ee29a9f6c220cabd0a380dc3">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>com_c <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning in st_centroid.sf(com): st_centroid assumes attributes are constant over
+#&gt; geometries of x</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com_c,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">"DENS"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"choro"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="st">"quantile"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">nbreaks =</span> <span class="dv">4</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pal =</span> <span class="st">"Dark Mint"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">24</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="dv">2</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> .<span class="dv">7</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_pos =</span> <span class="st">"topleft"</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span> <span class="st">"Densité de population</span><span class="sc">\n</span><span class="st">(habitants par km2)"</span>, </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_val_rnd =</span> <span class="dv">0</span>, </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">add =</span> <span class="cn">TRUE</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Distribution de la population dans le Lot (2018)"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/choropt-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="carte-de-typologie" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="carte-de-typologie"><span class="header-section-number">3.2.5</span> Carte de typologie</h3>
+<p>Les cartes de typologies sont utilisées pour représenter les variables qualitatives.<br>
+La fonction <code>mf_map(..., type = "typo")</code> propose cette représentation.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/typo_simple_9c2f4a5062741e2bf12e71d155a7ca30">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">var=</span><span class="st">"STATUT"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"typo"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pal =</span> <span class="fu">c</span>(<span class="st">"aquamarine4"</span>, <span class="st">"yellow3"</span>,<span class="st">"wheat"</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> .<span class="dv">7</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span> <span class="st">""</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Statut Administratif"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/typo_simple-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<section id="ordonner-les-valeurs-dans-la-légende" class="level4" data-number="3.2.5.1">
+<h4 data-number="3.2.5.1" class="anchored" data-anchor-id="ordonner-les-valeurs-dans-la-légende"><span class="header-section-number">3.2.5.1</span> Ordonner les valeurs dans la légende</h4>
+<p>L’argument <code>val_order</code> sert à ordonner les modalités dans la légende.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/typo_order_8087319a6aa3df8bb20a937f1ef925bf">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">var=</span><span class="st">"STATUT"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"typo"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pal =</span> <span class="fu">c</span>(<span class="st">"aquamarine4"</span>, <span class="st">"yellow3"</span>,<span class="st">"wheat"</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">val_order =</span> <span class="fu">c</span>(<span class="st">"Préfecture"</span>, <span class="st">"Sous-préfecture"</span>, <span class="st">"Commune simple"</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> .<span class="dv">7</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span> <span class="st">""</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Statut Administratif"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/typo_order-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="les-cartes-de-points" class="level4" data-number="3.2.5.2">
+<h4 data-number="3.2.5.2" class="anchored" data-anchor-id="les-cartes-de-points"><span class="header-section-number">3.2.5.2</span> Les cartes de points</h4>
+<p>Quand l’implantation de la couche est ponctuelle, des symboles sont utilisés pour porter les couleurs de la typologie.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/typo_point_7d5ac0281542070a0ed7a54894fb4164">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extraction des centroides de la préfectures et des sous-préfectures</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>com_ctr <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(com[com<span class="sc">$</span>STATUT <span class="sc">!=</span> <span class="st">"Commune simple"</span>, ])</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning in st_centroid.sf(com[com$STATUT != "Commune simple", ]): st_centroid
+#&gt; assumes attributes are constant over geometries of x</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com_ctr, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">"STATUT"</span>, </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"typo"</span>, </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="dv">3</span>, </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">23</span>, </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pal =</span> <span class="fu">c</span>(<span class="st">"aquamarine4"</span>, <span class="st">"yellow3"</span>),</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span> <span class="st">""</span>, </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">add =</span> <span class="cn">TRUE</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Statut Administratif"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/typo_point-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="les-cartes-de-lignes" class="level4" data-number="3.2.5.3">
+<h4 data-number="3.2.5.3" class="anchored" data-anchor-id="les-cartes-de-lignes"><span class="header-section-number">3.2.5.3</span> Les cartes de lignes</h4>
+<div class="cell" data-hash="03_cartographie_cache/html/unnamed-chunk-2_f9543b9e27cf1428f01b346aafc8148d">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélection des routes qui intersectent la commune de Cahors</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cahors <span class="ot">&lt;-</span> com[com<span class="sc">$</span>NOM_COM <span class="sc">==</span> <span class="st">"Cahors"</span>, ]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>route_cahors <span class="ot">&lt;-</span> route[<span class="fu">st_intersects</span>(<span class="at">x =</span> route, <span class="at">y =</span> cahors, <span class="at">sparse =</span> <span class="cn">FALSE</span>), ]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(cahors)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> route_cahors,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">"VOCATION"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"typo"</span>, </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">pal =</span> <span class="fu">mf_get_pal</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="st">"Dark 2"</span>),</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span> <span class="st">"Type de route"</span>,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">add =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Statut Administratif"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<!-- ## Les cartes en symboles gradués -->
+<!-- ### Polygons -->
+<!-- ### points -->
+<!-- ### lignes -->
+<!-- ## Les cartes en symboles -->
+</section>
+</section>
+<section id="carte-de-stocks-et-de-ratios" class="level3" data-number="3.2.6">
+<h3 data-number="3.2.6" class="anchored" data-anchor-id="carte-de-stocks-et-de-ratios"><span class="header-section-number">3.2.6</span> Carte de stocks et de ratios</h3>
+<p>La fonction <code>mf_map(..., var = c("var1", "var2"), type = "prop_choro")</code> représente des symboles proportionnels dont les surfaces sont proportionnelles aux valeurs d’une variable et dont la couleur repose sur la discrétisation d’une seconde variable. La fonction utilise les arguments des fonctions <code>mf_map(..., type = "prop")</code> et <code>mf_map(..., type = "choro")</code>.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/choroprop_95a173bb6ea09cdbe44ea6c9a0abcc37">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="fu">c</span>(<span class="st">"POPULATION"</span>, <span class="st">"DENS"</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"prop_choro"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">border =</span> <span class="st">"grey50"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">1</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_pos =</span> <span class="fu">c</span>(<span class="st">"topright"</span>, <span class="st">"topleft"</span>),</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span> <span class="fu">c</span>(<span class="st">"Population"</span>, <span class="st">"Densité</span><span class="sc">\n</span><span class="st">de population</span><span class="sc">\n</span><span class="st">(en hab./km2)"</span>),</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="st">"q6"</span>,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">pal =</span> <span class="st">"Magenta"</span>,</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_val_rnd =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Population"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/choroprop-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="carte-de-stocks-et-de-catégories" class="level3" data-number="3.2.7">
+<h3 data-number="3.2.7" class="anchored" data-anchor-id="carte-de-stocks-et-de-catégories"><span class="header-section-number">3.2.7</span> Carte de stocks et de catégories</h3>
+<p>La fonction <code>mf_map(..., var = c("var1", "var2"), type = "prop_typo")</code> représente des symboles proportionnels dont les surfaces sont proportionnelles aux valeurs d’une variable et dont la couleur représente les modalités d’une variable qualitative. La fonction utilise les arguments des fonctions <code>mf_map(..., type = "prop")</code> et <code>mf_map(..., type = "typo")</code>.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/typoprop_2b7565d3bd53c788f13f0d2a157c1047">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="fu">c</span>(<span class="st">"POPULATION"</span>, <span class="st">"STATUT"</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"prop_typo"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pal =</span> <span class="fu">c</span>(<span class="st">"aquamarine4"</span>, <span class="st">"yellow3"</span>,<span class="st">"wheat"</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">val_order =</span> <span class="fu">c</span>(<span class="st">"Préfecture"</span>, <span class="st">"Sous-préfecture"</span>, <span class="st">"Commune simple"</span>),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_pos =</span> <span class="fu">c</span>(<span class="st">"bottomleft"</span>,<span class="st">"topleft"</span>),</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">leg_title =</span> <span class="fu">c</span>(<span class="st">"Population</span><span class="sc">\n</span><span class="st">(2015)"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Statut administratif"</span>),</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Population"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/typoprop-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<!-- ## Cartes symboles + choro -->
+<!-- ## Les cartes raster -->
+<!-- `mf_raster()` -->
+</section>
+</section>
+<section id="mise-en-page" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="mise-en-page"><span class="header-section-number">3.3</span> Mise en page</h2>
+<div class="cell">
+
+</div>
+<p>Pour être finalisée, une carte thématique doit contenir certains éléments additionnels tels que : le titre, l’auteur, la source, l’échelle, l’orientation…</p>
+<section id="les-thèmes" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="les-thèmes"><span class="header-section-number">3.3.1</span> Les thèmes</h3>
+<p>La fonction <code>mf_theme()</code> défini un thème cartographique. L’utilisation d’un thème permet de définir plusieurs paramètres graphiques qui sont ensuite appliqués aux cartes créées avec <code>mapsf</code>. Ces paramètres sont : les marges de la carte, la couleur principale, la couleur de fond, la position et l’aspect du titre. Un thème peut également être défini avec les fonctions <code>mf_init()</code> et <code>mf_export()</code>.</p>
+<section id="utiliser-un-thème-prédéfini" class="level4" data-number="3.3.1.1">
+<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="utiliser-un-thème-prédéfini"><span class="header-section-number">3.3.1.1</span> Utiliser un thème prédéfini</h4>
+<p>Une série de thèmes prédéfinis est disponible par défaut (voir <code>?mf_theme</code>).</p>
+<div class="cell" data-hash="03_cartographie_cache/html/them1_08e325172feb536589395cbfeaac5808">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapsf)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># utilisation d'une couleur de fond pour la figure, pour voir l'utilisation des marges</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>opar <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilisation d'un thème prédéfini</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"default"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Theme : 'default'"</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"darkula"</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Theme : 'darkula'"</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"candy"</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Theme : 'candy'"</span>)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"nevermind"</span>)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Theme : 'nevermind'"</span>)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(opar)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/them1-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="modifier-un-thème-existant" class="level4" data-number="3.3.1.2">
+<h4 data-number="3.3.1.2" class="anchored" data-anchor-id="modifier-un-thème-existant"><span class="header-section-number">3.3.1.2</span> Modifier un thème existant</h4>
+<p>Il est possible de modifier un thème existant. Dans cet exemple, nous utilisons le thème “default” et nous en modifions quelques paramètres.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/theme2_ed80b65a4bf31c8d4f5859b87aa44dd2">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapsf)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>opar <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"default"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"default"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"default"</span>, <span class="at">tab =</span> <span class="cn">FALSE</span>, <span class="at">font =</span> <span class="dv">4</span>, <span class="at">bg =</span> <span class="st">"grey60"</span>, <span class="at">pos =</span> <span class="st">"center"</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"modified default"</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(opar)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/theme2-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="créer-un-thème" class="level4" data-number="3.3.1.3">
+<h4 data-number="3.3.1.3" class="anchored" data-anchor-id="créer-un-thème"><span class="header-section-number">3.3.1.3</span> Créer un thème</h4>
+<p>Il est également possible de créer un thème.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/unnamed-chunk-3_90b388e935f4dda24d4acae5c779d67b">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">bg =</span> <span class="st">"lightblue"</span>,    <span class="co"># couleur de fond</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fg =</span> <span class="st">"tomato1"</span>,      <span class="co"># couleur principale</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">1.5</span>,<span class="dv">0</span>),  <span class="co"># marges</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tab =</span> <span class="cn">FALSE</span>,         <span class="co"># style "onglet" pour le titre</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">inner =</span> <span class="cn">FALSE</span>,       <span class="co"># titre à l'intérieur de la zone de carte ou à l'extérieur</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">line =</span> <span class="fl">1.5</span>,          <span class="co"># espace dédié au titre</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pos =</span> <span class="st">"center"</span>,      <span class="co"># position du titre</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span>,           <span class="co"># taille du titre</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">font =</span> <span class="dv">2</span>             <span class="co"># type de fonte pour le titre</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"New theme"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="les-titres" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="les-titres"><span class="header-section-number">3.3.2</span> Les titres</h3>
+<p>La fonction <code>mf_title()</code> permet d’ajouter un titre à une carte.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/unnamed-chunk-4_d6e89e5c2db6d0036411b4461adf6f35">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"default"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Titre de la carte"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>Il est possible de personnaliser l’aspect du titre.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/unnamed-chunk-5_797fcaf2491c59d5d25ce3ef605b8f5f">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">txt =</span> <span class="st">"Titre de la carte"</span>, </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pos =</span> <span class="st">"center"</span>, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tab =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">bg =</span> <span class="st">"tomato3"</span>, </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">fg =</span> <span class="st">"lightblue"</span>, </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="dv">1</span>, </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">line =</span> <span class="fl">1.2</span>, </span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">font =</span> <span class="dv">1</span>, </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">inner =</span> <span class="cn">FALSE</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="flèche-dorientation" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="flèche-dorientation"><span class="header-section-number">3.3.3</span> Flèche d’orientation</h3>
+<p>La fonction <code>mf_arrow()</code> permet de choisir la position et l’aspect de la flèche d’orientation.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/north_e473efbff9f3a46531c24c491ac21dcf">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_arrow</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/north-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="échelle" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="échelle"><span class="header-section-number">3.3.4</span> Échelle</h3>
+<p>La fonction <code>mf_scale()</code> permet de choisir la position et l’aspect de l’échelle.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/scale_7753a736f2afe3775e6488fcf6bfa90c">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_scale</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">20</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/scale-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="crédits" class="level3" data-number="3.3.5">
+<h3 data-number="3.3.5" class="anchored" data-anchor-id="crédits"><span class="header-section-number">3.3.5</span> Crédits</h3>
+<p>La fonction <code>mf_credits()</code> permet d’afficher une ligne de crédits (sources, auteur…).</p>
+<div class="cell" data-hash="03_cartographie_cache/html/credit_16638fc17d70acee89ec6a2b31c20b9d">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_credits</span>(<span class="st">"IGN</span><span class="sc">\n</span><span class="st">Giraud &amp; Pécout, 2021"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/credit-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="habillage-complet" class="level3" data-number="3.3.6">
+<h3 data-number="3.3.6" class="anchored" data-anchor-id="habillage-complet"><span class="header-section-number">3.3.6</span> Habillage complet</h3>
+<p>La fonction <code>mf_layout()</code> permet d’afficher tous ces éléments.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/layout1_363f6fe6693cf25e020b46e81523fcd1">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_layout</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Martinique"</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">credits =</span> <span class="st">"IGN</span><span class="sc">\n</span><span class="st">Giraud &amp; Pécout, 2021"</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">arrow =</span> <span class="cn">TRUE</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/layout1-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="annotations" class="level3" data-number="3.3.7">
+<h3 data-number="3.3.7" class="anchored" data-anchor-id="annotations"><span class="header-section-number">3.3.7</span> Annotations</h3>
+<div class="cell" data-hash="03_cartographie_cache/html/unnamed-chunk-6_d56c6c55340c3d1d8303decaeb5961fd">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_annotation</span>(com[com<span class="sc">$</span>NOM_COM <span class="sc">==</span> <span class="st">"Cahors"</span>,], <span class="at">txt =</span> <span class="st">"Cahors"</span>, <span class="at">halo =</span> <span class="cn">TRUE</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="les-légendes" class="level3" data-number="3.3.8">
+<h3 data-number="3.3.8" class="anchored" data-anchor-id="les-légendes"><span class="header-section-number">3.3.8</span> Les légendes</h3>
+<div class="cell" data-hash="03_cartographie_cache/html/unnamed-chunk-7_245be76714c821727a725999e7a0b646">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_legend</span>(</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"prop"</span>, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">val =</span> <span class="fu">c</span>(<span class="dv">1000</span>,<span class="dv">500</span>,<span class="dv">200</span>,<span class="dv">10</span>), </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">inches =</span> .<span class="dv">4</span>, </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Population"</span>, </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">pos =</span> <span class="st">"topleft"</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_legend</span>(</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"choro"</span>, </span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">val =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>),</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">pal =</span> <span class="st">"Greens"</span>, </span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pos =</span> <span class="st">"bottomright"</span>, </span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">val_rnd =</span> <span class="dv">0</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="étiquettes" class="level3" data-number="3.3.9">
+<h3 data-number="3.3.9" class="anchored" data-anchor-id="étiquettes"><span class="header-section-number">3.3.9</span> Étiquettes</h3>
+<p>La fonction <code>mf_label()</code> est dédiée à l’afichage d’étiquettes.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/labs_a50cd51cd3819262ade1f06a956b51dd">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>com_sel <span class="ot">&lt;-</span> com[<span class="fu">st_intersects</span>(com, com[com<span class="sc">$</span>NOM_COM <span class="sc">==</span> <span class="st">"Cahors"</span>, ], <span class="at">sparse =</span> F), ]</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com_sel)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_label</span>(</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> com_sel,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">"NOM_COM"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">col=</span> <span class="st">"black"</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">halo =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">overlap =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">lines =</span> <span class="cn">FALSE</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_scale</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/labs-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>L’argument <code>halo = TRUE</code> permet d’afficher un léger halo autour des étiquettes et l’argument <code>overlap = FALSE</code> permet de créer des étiquettes ne se recouvrant pas.</p>
+</section>
+<section id="centrer-la-carte-sur-une-région" class="level3" data-number="3.3.10">
+<h3 data-number="3.3.10" class="anchored" data-anchor-id="centrer-la-carte-sur-une-région"><span class="header-section-number">3.3.10</span> Centrer la carte sur une région</h3>
+<p>La fonction <code>mf_init()</code> permet d’initialiser une carte en la centrant sur une objet spatial.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/unnamed-chunk-8_3ab660132b27dd056aa5e5560e318380">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_init</span>(<span class="at">x =</span> com_sel, <span class="at">theme =</span> <span class="st">"iceberg"</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com_sel, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">border =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="afficher-plusieurs-cartes-sur-la-même-figure" class="level3" data-number="3.3.11">
+<h3 data-number="3.3.11" class="anchored" data-anchor-id="afficher-plusieurs-cartes-sur-la-même-figure"><span class="header-section-number">3.3.11</span> Afficher plusieurs cartes sur la même figure</h3>
+<p>Il faut ici utiliser l’argument <code>mfrow</code> de la fonction <code>par()</code>. Le premier chiffre représente le nombre lignes et le deuxième le nombre de colonnes.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/mfrow0_0fa36e4dd7423f749323a98cc5429703">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define the figure layout (1 row, 2 columns)</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define theme</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"default"</span>, <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">1.2</span>,<span class="dv">0</span>), <span class="at">tab =</span> <span class="cn">FALSE</span>, <span class="at">pos =</span> <span class="st">"center"</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># first map</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="st">"TER_F"</span>, <span class="st">"prop"</span>, </span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">val_max =</span> <span class="dv">4000</span>, </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_pos =</span> <span class="st">"topleft"</span>, </span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_title =</span> <span class="st">"N."</span>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Tertiaire: Femmes"</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co"># second map</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="st">"TER_H"</span>, <span class="st">"prop"</span>, </span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">val_max =</span> <span class="dv">4000</span>, </span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_pos =</span> <span class="cn">NA</span>)</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Hommes"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/mfrow0-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="export-des-cartes" class="level3" data-number="3.3.12">
+<h3 data-number="3.3.12" class="anchored" data-anchor-id="export-des-cartes"><span class="header-section-number">3.3.12</span> Export des cartes</h3>
+<p>Il est assez difficile d’exporter des figures (cartes ou autres) dont le ratio hauteur/largeur est satisfaisant. Le ratio par défaut des figures au format png est de 1 (480x480 pixels) :</p>
+<div class="cell" data-hash="03_cartographie_cache/html/unnamed-chunk-9_f4feb5377e2293273128c3c267f1915e">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"candy"</span>, <span class="at">bg =</span> <span class="st">"grey80"</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>c2c <span class="ot">&lt;-</span> com[com<span class="sc">$</span>INSEE_COM <span class="sc">==</span> <span class="st">"46138"</span>, ]</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"img/c2c1.png"</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(c2c)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Cœur de Causse"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="img/c2c1.png" class="img-fluid"></p>
+<p>Sur cette carte beaucoup d’espace est perdu au nord et au sud de la commune.</p>
+<p>La fonction <code>mf_export()</code> permet des exports de cartes dont le ratio hauteur/largeur est contrôlé et correspond à celui d’un objet spatial.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/unnamed-chunk-10_6a26e9e63f3f9e587cece21959515303">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"candy"</span>, <span class="at">bg =</span> <span class="st">"grey80"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_export</span>(c2c, <span class="st">"img/c2c2.png"</span>, <span class="at">width =</span> <span class="dv">480</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(c2c)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Cœur de Causse"</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="img/c2c2.png" class="img-fluid"></p>
+<p>L’emprise de cette carte est exactement celle de la région affichée.</p>
+</section>
+<section id="ajouter-une-image-sur-une-carte" class="level3" data-number="3.3.13">
+<h3 data-number="3.3.13" class="anchored" data-anchor-id="ajouter-une-image-sur-une-carte"><span class="header-section-number">3.3.13</span> Ajouter une image sur une carte</h3>
+<p>Cela peut être utile pour ajouter un logo, un pictogramme. La fonction <code>readPNG()</code> du package <code>png</code> permet l’ajout d’images sur une figure.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/logo_1e85fd4f18b8801febcaa06633f9df53">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_theme</span>(<span class="st">"default"</span>, <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(png)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># import de l'image</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>logo <span class="ot">&lt;-</span> <span class="fu">readPNG</span>(<span class="st">"img/Logo CG 46 - Bleu.png"</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension de l'image en unité de la carte</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">dim</span>(logo)[<span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>] <span class="sc">*</span> <span class="dv">20</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Définition d'un point d'encrage de l'image dans la figure, ici</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># le coin supérieur gauche de la bounding box du département</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>xy <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(com)[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)]</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="at">col =</span> <span class="st">"#D1914D"</span>, <span class="at">border =</span> <span class="st">"white"</span>)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rasterImage</span>(</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">image   =</span> logo,</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">xleft   =</span> xy[<span class="dv">1</span>],</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">ybottom =</span> xy[<span class="dv">2</span>] <span class="sc">-</span> pp[<span class="dv">2</span>],</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">xright  =</span> xy[<span class="dv">1</span>] <span class="sc">+</span> pp[<span class="dv">1</span>],</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ytop    =</span> xy[<span class="dv">2</span>]</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/logo-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<!-- ### Placer précisément un élément sur la carte -->
+<!-- La fonction `locator()` permet de cliquer sur une figure et d'obtenir les coordonnées d'un point dans le système de coordonnées de la figure (de la carte). -->
+<!-- <video width="770" controls="controls"> -->
+<!-- <source src="img/locator.webm" type="video/webm" /> -->
+<!-- </video> -->
+<!-- `locator()`peut être utilisée sur la plupart des graphiques (pas ceux produits avec `ggplot2`). -->
+<!-- :::{.callout-note} -->
+<!-- [How to interactively position legends and layout elements on a map with cartography](https://rgeomatic.hypotheses.org/1837) -->
+<!-- ::: -->
+</section>
+<section id="ajouter-un-ombrage-à-une-couche" class="level3" data-number="3.3.14">
+<h3 data-number="3.3.14" class="anchored" data-anchor-id="ajouter-un-ombrage-à-une-couche"><span class="header-section-number">3.3.14</span> Ajouter un ombrage à une couche</h3>
+<p>La fonction <code>mf_shadow()</code> permet de créer une ombre à une couche de polygones.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/shadow_c5649b38ba54f659c4e61b398afb98bd">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_shadow</span>(com)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="at">add=</span><span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/shadow-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="création-de-cartons" class="level3" data-number="3.3.15">
+<h3 data-number="3.3.15" class="anchored" data-anchor-id="création-de-cartons"><span class="header-section-number">3.3.15</span> Création de cartons</h3>
+<p>La fonction <code>mf_inset_on()</code> permet de démarrer la création d’un carton. Il faut ensuite “refermer” le carton avec <code>mf_inset_off()</code>.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/inset_a27b06a5b7595d5eb595398e2b8fc3b9">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_init</span>(<span class="at">x =</span> com_sel, <span class="at">theme =</span> <span class="st">"agolalight"</span>, <span class="at">expandBB =</span> <span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">1</span>,<span class="dv">0</span>,.<span class="dv">5</span>))</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com_sel, <span class="at">col =</span> <span class="st">"tomato4"</span>, <span class="at">border =</span> <span class="st">"tomato1"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Carton France</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_inset_on</span>(<span class="at">x =</span> dep, <span class="at">pos =</span> <span class="st">"topright"</span>, <span class="at">cex =</span> .<span class="dv">3</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(dep, <span class="at">lwd =</span> .<span class="dv">5</span>, <span class="at">border=</span> <span class="st">"grey90"</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com_sel, <span class="at">col =</span> <span class="st">"tomato4"</span>, <span class="at">border =</span> <span class="st">"tomato1"</span>, <span class="at">lwd =</span> .<span class="dv">5</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_scale</span>(<span class="at">size =</span> <span class="dv">200</span>, <span class="at">pos =</span> <span class="st">"bottomleft"</span>, <span class="at">cex =</span> .<span class="dv">6</span>, <span class="at">lwd =</span> .<span class="dv">5</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_inset_off</span>()</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Carton Lot</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_inset_on</span>(<span class="at">x =</span> com, <span class="at">pos =</span> <span class="st">"bottomright"</span>, <span class="at">cex =</span> .<span class="dv">3</span>)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="at">lwd =</span> .<span class="dv">5</span>, <span class="at">border=</span> <span class="st">"grey90"</span>)</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com_sel, <span class="at">col =</span> <span class="st">"tomato4"</span>, <span class="at">border =</span> <span class="st">"tomato1"</span>, <span class="at">lwd =</span> .<span class="dv">5</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_scale</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">pos =</span> <span class="st">"bottomright"</span>, <span class="at">cex =</span> .<span class="dv">6</span>, <span class="at">lwd =</span> .<span class="dv">5</span>)</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_inset_off</span>()</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Carton Monde</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_inset_on</span>(<span class="at">x =</span> <span class="st">"worldmap"</span>, <span class="at">pos =</span> <span class="st">"topleft"</span>)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_worldmap</span>(com_sel, <span class="at">land_col =</span> <span class="st">"#cccccc"</span>,<span class="at">border_col =</span> <span class="cn">NA</span>, </span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">water_col =</span>  <span class="st">"#e3e3e3"</span>, <span class="at">col =</span> <span class="st">"tomato4"</span>)</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_inset_off</span>()</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Cahors et ses environs"</span>)</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_scale</span>(<span class="dv">1</span>, <span class="at">pos =</span> <span class="st">'bottomleft'</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/inset-1.png" class="img-fluid" width="624"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="exercices" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="exercices"><span class="header-section-number">3.4</span> Exercices</h2>
+<ol type="1">
+<li>Créez une carte représentant la population active travaillant dans l’industrie.</li>
+<li>Ajoutez les éléments d’habillage indispensables.</li>
+<li>Utilisez un thème personnalisé.</li>
+<li>Ajoutez un carton de localisation du Lot</li>
+<li>Exportez la carte au format PNG avec 800 pixels de large.</li>
+<li>Comment rendre la carte plus intelligible ? Allez-y !</li>
+</ol>
+<div class="cell" data-hash="03_cartographie_cache/html/exoa_9aefc17780e77766c3deeb444bb7fadb">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapsf)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># import des communes du Lot</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>com <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">"commune"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import des départments français</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>dep <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">"departement"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Nombre total d'actifs</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>com<span class="sc">$</span>ACT <span class="ot">&lt;-</span> com<span class="sc">$</span>AGR_H <span class="sc">+</span> com<span class="sc">$</span>AGR_F <span class="sc">+</span> com<span class="sc">$</span>IND_H <span class="sc">+</span> com<span class="sc">$</span>IND_F <span class="sc">+</span> com<span class="sc">$</span>BTP_H <span class="sc">+</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  com<span class="sc">$</span>BTP_F <span class="sc">+</span> com<span class="sc">$</span>TER_H <span class="sc">+</span> com<span class="sc">$</span>TER_F</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Nombre d'actifs dans l'industrie</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>com<span class="sc">$</span>IND <span class="ot">&lt;-</span> com<span class="sc">$</span>IND_F <span class="sc">+</span> com<span class="sc">$</span>IND_H</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Part des actifs travaillant dans l'industrie</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>com<span class="sc">$</span>PART_ACT_IND <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">*</span> com<span class="sc">$</span>IND <span class="sc">/</span> com<span class="sc">$</span>ACT</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'un thème personnalisé</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>th <span class="ot">&lt;-</span> <span class="fu">mf_theme</span>(<span class="st">"green"</span>, <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">1.5</span>,<span class="dv">0</span>), <span class="at">pos =</span> <span class="st">"left"</span>)</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Cartographie du nombre total de travailleurs de l'industrie</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_export</span>(com, <span class="st">"img/n_ind.png"</span>, <span class="at">theme =</span> th,</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">width =</span> <span class="dv">800</span>)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com, <span class="at">border =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> .<span class="dv">2</span>, <span class="at">add =</span> T)</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> dep, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lend =</span> <span class="dv">0</span>)</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com, <span class="at">var =</span> <span class="st">"IND"</span>, <span class="at">type =</span> <span class="st">"prop"</span>,</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_title =</span> <span class="st">"Nombre d'actifs</span><span class="sc">\n</span><span class="st">travaillant dans</span><span class="sc">\n</span><span class="st">l'industrie"</span>)</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Répartition des actifs travaillant dans l'industrie - 2017"</span>)</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_scale</span>(<span class="dv">5</span>)</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_arrow</span>(<span class="at">pos =</span> <span class="st">"topright"</span>)</span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a><span class="co"># notez l'utilisation ici de paste0() qui permet de concatener des chaines</span></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a><span class="co"># de caractères et de \n qui permet d'aller à la ligne</span></span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_credits</span>(<span class="fu">paste0</span>(<span class="st">"Admin Express COG Carto 3.0, IGN - 2021 &amp; "</span>,</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"BD CARTO® 4.0, IGN - 2021 ; Recensements harmonisés - "</span>,</span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Séries départementales et communales, INSEE - 2020</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Auteurs : T. Giraud &amp; H. Pecout, 2022"</span>))</span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; png 
+#&gt;   2</code></pre>
+</div>
+</div>
+<p><img src="img/n_ind.png" class="img-fluid"></p>
+<div class="cell" data-hash="03_cartographie_cache/html/exob_ce632ee6ccc8eed98265c0f49263754a">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cartographie de la part des actifs travaillant dans l'industrie</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Quelle est la forme de la distribution que nous voulons cartographier ?</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(com<span class="sc">$</span>PART_ACT_IND)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/exob-1.png" class="img-fluid" width="480"></p>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(com<span class="sc">$</span>PART_ACT_IND, <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/exob-2.png" class="img-fluid" width="480"></p>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(com<span class="sc">$</span>PART_ACT_IND)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt;   0.000   7.407  14.286  16.282  23.077 100.000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### &gt; Seules 2 communes ont 100% de travailleurs dans l'industrie</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="do">#### Ces communes ont moins de 15 actifs</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélection des communes ayant plus de 15 actifs</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>com_sel <span class="ot">&lt;-</span> com[com<span class="sc">$</span>ACT <span class="sc">&gt;</span> <span class="dv">15</span>, ]</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Quelle est la forme de cette (nouvelle) distribution</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(com_sel<span class="sc">$</span>PART_ACT_IND)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/exob-3.png" class="img-fluid" width="480"></p>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(com_sel<span class="sc">$</span>PART_ACT_IND, <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/exob-4.png" class="img-fluid" width="480"></p>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(com_sel<span class="sc">$</span>PART_ACT_IND)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt;   0.000   7.408  14.286  15.783  22.466  60.000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation d'un vecteur contenant les limites de classes en</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="co"># utilisant la méthode des quantiles</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>bks <span class="ot">&lt;-</span> <span class="fu">mf_get_breaks</span>(com_sel<span class="sc">$</span>PART_ACT_IND, <span class="at">nbreaks =</span> <span class="dv">5</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="st">"quantile"</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(com_sel<span class="sc">$</span>PART_ACT_IND, bks)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_cartographie_files/figure-html/exob-5.png" class="img-fluid" width="480"></p>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_export</span>(com, <span class="st">"img/s_ind.png"</span>, <span class="at">theme =</span> th,</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">width =</span> <span class="dv">800</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cartographie</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com,</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">var =</span> <span class="st">"PART_ACT_IND"</span>,</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> <span class="st">"choro"</span>,</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">breaks =</span> bks,         <span class="co"># Utilisation des bornes de classes créées précédement</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_val_rnd =</span> <span class="dv">0</span>,      <span class="co"># arrondir les valeurs dans la légende</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">pal =</span> <span class="st">"Red-Yellow"</span>,   <span class="co"># Utilisation d'une palette de couleur</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_title =</span> <span class="st">"Part des actifs</span><span class="sc">\n</span><span class="st">travaillant dans</span><span class="sc">\n</span><span class="st">l'industrie"</span>,</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">add =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">col_na =</span> <span class="st">"grey"</span>,</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_no_data =</span> <span class="st">"Communes de moins de 15 actifs"</span>) <span class="co"># texte du no data dans la légende</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Répartition des actifs travaillant dans l'industrie - 2017"</span>)</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_scale</span>(<span class="dv">5</span>)</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_arrow</span>(<span class="at">pos =</span> <span class="st">"topright"</span>)</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_credits</span>(<span class="fu">paste0</span>(<span class="st">"Admin Express COG Carto 3.0, IGN - 2021 &amp; "</span>,</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"BD CARTO® 4.0, IGN - 2021 ; Recensements harmonisés - "</span>,</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Séries départementales et communales, INSEE - 2020</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Auteurs : T. Giraud &amp; H. Pecout, 2022"</span>))</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; png 
+#&gt;   2</code></pre>
+</div>
+</div>
+<p><img src="img/s_ind.png" class="img-fluid"></p>
+<p>Nous allons maintenant combiner le nombre total d’actifs et la parts des travailleurs de l’industrie.</p>
+<div class="cell" data-hash="03_cartographie_cache/html/exoc_2b5ee902a9ae4e144a8a4f71a1606f8e">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_export</span>(com, <span class="st">"img/c_ind.png"</span>, <span class="at">theme =</span> th,</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">width =</span> <span class="dv">800</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> com, <span class="at">border =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> .<span class="dv">2</span>, <span class="at">add =</span> T)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(<span class="at">x =</span> dep, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lend =</span> <span class="dv">0</span>)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="fu">c</span>(<span class="st">"ACT"</span>, <span class="st">"PART_ACT_IND"</span>), <span class="st">"prop_choro"</span>,</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">breaks =</span> bks,</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">pal =</span> <span class="st">"Red-Yellow"</span>,</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">inches =</span> .<span class="dv">4</span>,</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">border =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> .<span class="dv">7</span>,</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_val_rnd =</span>  <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_pos =</span> <span class="fu">c</span>(<span class="dv">538000</span>,<span class="dv">6442000</span>, <span class="dv">538000</span>, <span class="dv">6424000</span>),  <span class="co"># ici les légendes sont positionnées manuellement</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_title =</span> <span class="fu">c</span>(<span class="st">"Nombre d'actifs*"</span>,</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Part des actifs</span><span class="sc">\n</span><span class="st">dans l'industrie (en %)"</span>),</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">col_na =</span> <span class="st">"grey"</span>,</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_no_data =</span> <span class="st">"Communes de moins de 15 actifs"</span>)</span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajout d'annotations</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_annotation</span>(<span class="at">x =</span> com[com<span class="sc">$</span>NOM_COM<span class="sc">==</span><span class="st">"Biars-sur-Cère"</span>,],</span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">txt =</span> <span class="st">"Andros"</span>,</span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">col_arrow =</span> th<span class="sc">$</span>fg, <span class="at">halo =</span> T, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_annotation</span>(<span class="at">x =</span> com[com<span class="sc">$</span>NOM_COM<span class="sc">==</span><span class="st">"Figeac"</span>,],</span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">txt =</span> <span class="st">"Industrie</span><span class="sc">\n</span><span class="st">aéronautique"</span>,</span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">col_arrow =</span> th<span class="sc">$</span>fg, <span class="at">pos =</span> <span class="st">"bottomright"</span>, <span class="at">halo =</span> T, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_annotation</span>(<span class="at">x =</span> com[com<span class="sc">$</span>NOM_COM<span class="sc">==</span><span class="st">"Gramat"</span>,],</span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">txt =</span> <span class="st">"La Quercynoise (?)"</span>,</span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>              <span class="at">col_arrow =</span> th<span class="sc">$</span>fg, <span class="at">pos =</span> <span class="st">"topleft"</span>, <span class="at">s =</span> <span class="dv">1</span>, <span class="at">halo =</span> T,</span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a>              <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_title</span>(<span class="st">"Répartition des actifs travaillant dans l'industrie - 2017"</span>)</span>
+<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-31"><a href="#cb54-31" aria-hidden="true" tabindex="-1"></a><span class="co"># ajout d'un carton -&gt;</span></span>
+<span id="cb54-32"><a href="#cb54-32" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_inset_on</span>(<span class="at">fig =</span> <span class="fu">c</span>(.<span class="dv">8</span>,<span class="fl">0.98</span>,<span class="fl">0.1</span>,<span class="fl">0.3</span>))</span>
+<span id="cb54-33"><a href="#cb54-33" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(dep, <span class="at">lwd =</span> .<span class="dv">1</span>)</span>
+<span id="cb54-34"><a href="#cb54-34" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="at">border =</span> <span class="cn">NA</span>, <span class="at">add =</span> T, <span class="at">col =</span> th<span class="sc">$</span>fg)</span>
+<span id="cb54-35"><a href="#cb54-35" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> th<span class="sc">$</span>fg, <span class="at">lwd =</span> .<span class="dv">5</span>)</span>
+<span id="cb54-36"><a href="#cb54-36" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_inset_off</span>()</span>
+<span id="cb54-37"><a href="#cb54-37" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;- fin du carton</span></span>
+<span id="cb54-38"><a href="#cb54-38" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_scale</span>(<span class="dv">5</span>)</span>
+<span id="cb54-39"><a href="#cb54-39" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_arrow</span>(<span class="st">"topright"</span>)</span>
+<span id="cb54-40"><a href="#cb54-40" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_credits</span>(<span class="fu">paste0</span>(<span class="st">"Admin Express COG Carto 3.0, IGN - 2021 &amp; "</span>,</span>
+<span id="cb54-41"><a href="#cb54-41" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"BD CARTO® 4.0, IGN - 2021 ; Recensements harmonisés - "</span>,</span>
+<span id="cb54-42"><a href="#cb54-42" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Séries départementales et communales, INSEE - 2020</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb54-43"><a href="#cb54-43" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Auteurs : T. Giraud &amp; H. Pecout, 2022"</span>))</span>
+<span id="cb54-44"><a href="#cb54-44" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; png 
+#&gt;   2</code></pre>
+</div>
+</div>
+<p><img src="img/c_ind.png" class="img-fluid"></p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-R-ggspatial" class="csl-entry" role="doc-biblioentry">
+Dunnington, D. (2021). <em><span>ggspatial</span>: Spatial Data Framework for <span>ggplot2</span></em>. <a href="https://CRAN.R-project.org/package=ggspatial">https://CRAN.R-project.org/package=ggspatial</a>
+</div>
+<div id="ref-R-mapsf" class="csl-entry" role="doc-biblioentry">
+Giraud, T. (2021). <em>mapsf: Thematic Cartography</em>.
+</div>
+<div id="ref-R-cartography" class="csl-entry" role="doc-biblioentry">
+Giraud, T. et Lambert, N. (2018). <em>cartography: Thematic Cartography</em>. <a href="https://github.com/riatelab/cartography/">https://github.com/riatelab/cartography/</a>
+</div>
+<div id="ref-Tennekes18" class="csl-entry" role="doc-biblioentry">
+Tennekes, M. (2018). <span>tmap</span>: Thematic Maps in <span>R</span>. <em>Journal of Statistical Software</em>, <em>84</em>(6), 1‑39. <a href="https://doi.org/10.18637/jss.v084.i06">https://doi.org/10.18637/jss.v084.i06</a>
+</div>
+<div id="ref-Wickham16" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2016). <em>ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copié");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02_donnees_vectorielles.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04_references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="img/by-nc-sa.png" class="img-fluid" alt="CreativeCommonsLicense"></a></div>   
+  </div>
+</footer>
+
+
+
+</body></html>

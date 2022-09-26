@@ -1,0 +1,252 @@
+---
+knitr:
+  opts_chunk: 
+    collapse: false
+    comment: "#>" 
+    fig.height: 4 
+    fig.width: 4.8
+    cache: true
+    crop: true
+---
+
+# Manipuler les données vectorielles
+
+
+```{r opt}
+#| echo: false
+#| cache: false
+#| include: false
+knitr::knit_hooks$set(crop = function(before, options, envir){
+  if (before){
+    par(mar=c(0,0,0,0))
+  } 
+})
+knitr::knit_hooks$set(small_m = function(before, options, envir){
+  if (before){
+    par(mar=c(0,0,1.2,0))
+  } 
+})
+```
+
+
+## Format des objets spatiaux `sf`
+
+
+![](img/sf.png)
+
+
+Les objets `sf` sont des `data.frame` dont l'une des colonnes contient des géométries. Cette colonne est de la classe sfc (*simple feature column*) et chaque individu de la colonne est un sfg (*simple feature geometry)*.   
+Ce format est très pratique dans la mesure ou les données et les géométries sont intrinsèquement liées dans un même objet. 
+
+:::{.callout-note}
+## Vignette décrivant le format simple feature
+[Simple Features for R](https://r-spatial.github.io/sf/articles/sf1.html)
+:::
+
+
+
+## Import et export de données
+
+Les fonctions `st_read()` et `st_write()` permettent d'importer et d'exporter de nombreux types de fichiers.  
+Les lignes suivantes importent la couche des communes du département du Lot situé dans le fichier [geopackage](https://www.geopackage.org/) **lot46.gpkg**.
+
+```{r import}
+library(sf)
+com <- st_read("data/lot46.gpkg", layer = "commune")
+```
+
+Les lignes suivantes exportent l'objet **com** dans un dossier **data** aux formats geopackage et shapefile.   
+```{r export}
+st_write(obj = com, dsn = "data/com.gpkg", layer = "commune", delete_layer = TRUE)
+st_write(obj = com, "data/com.shp", layer_options = "ENCODING=UTF-8", delete_layer = TRUE)
+```
+
+
+## Affichage
+
+
+**Aperçu des variables** via les fonctions `head()` et `plot()`.
+
+```{r aff1}
+head(com)
+plot(com)
+```
+
+**Affichage de la géométrie** uniquement.
+
+```{r aff2}
+plot(st_geometry(com))
+```
+
+## Les systèmes de coordonnées
+
+### Consulter le système de coordonnées d'un objet
+La fonction `st_crs()` permet de consulter le système de coordonnées utilisé par un objet sf.
+
+```{r proj1}
+st_crs(com)
+```
+
+### Modifier le système de coordonnées d'un objet 
+
+La fonction `st_transform()` permet de change le système de coordonnées d'un objet sf, de le reprojeter. 
+
+```{r proj2}
+#| small_m: true
+plot(st_geometry(com))
+title("EPSG: 2154")
+com_reproj <- st_transform(com, "epsg:3035")
+plot(st_geometry(com_reproj))
+title("EPSG: 3035")
+```
+Le site [Spatial Reference](http://spatialreference.org/){target="_blank"} met à disposition les références de très nombreux systèmes de coordonnées. 
+
+## Sélection par attributs
+Les objets `sf` **sont** des `data.frame`, on peut donc sélectionner leur lignes et leur colonnes de la même manière que les `data.frame`. 
+
+```{r selectAttr}
+# selection de ligne
+com[1:2, ]
+
+com[com$NOM_COM == "Gramat", ]
+
+# selection de colonnes
+com[com$NOM_COM == "Gramat", 1:4]
+```
+
+
+## Sélection spatiale
+
+
+### Intersections
+Sélection des routes intesectant la commune de Gramat. 
+
+```{r intersects}
+route <- st_read("data/lot46.gpkg", layer = "route", quiet = TRUE)
+gramat <-  com[com$NOM_COM == "Gramat", ]
+inter <- st_intersects(x = route, y = gramat, sparse = FALSE)
+head(inter)
+dim(inter)
+```
+
+L'objet **inter** est une matrice qui indique pour chacun des éléments de l'objet **route** (16096 éléments) si il  
+intersecte chacun des élément de l'objet **gramat** (1 élément). 
+La dimension de la matrice est donc bien 16096 lignes * 1 colonne.  
+Notez l'utilisation du paramètre `sparse = FALSE` ici. 
+Il est ensuite possible de créer une colonne à partir de cet objet :
+
+```{r intersects2}
+route$intersect_gramat <- inter
+plot(st_geometry(gramat), col = "lightblue")
+plot(st_geometry(route), add = TRUE)
+plot(st_geometry(route[route$intersect_gramat, ]), 
+     col = "tomato", lwd = 2, add = TRUE)
+```
+
+
+
+
+### Contains / Within
+Sélection des routes contenues dans la commune de Gramat. 
+La fonctin `st_within()` fonctionne comme la fonction `st_intersects()`
+
+```{r within}
+route$within_gramat <- st_within(route, gramat, sparse = FALSE)
+plot(st_geometry(gramat), col = "lightblue")
+plot(st_geometry(route), add = TRUE)
+plot(st_geometry(route[route$within_gramat, ]), col = "tomato", 
+     lwd = 2, add = TRUE)
+
+```
+
+
+
+
+
+
+## Opérations sur les géométries
+
+
+### Extraire des centroides
+
+```{r centroids}
+com_c <- st_centroid(com)
+plot(st_geometry(com))
+plot(st_geometry(com_c), add = TRUE, col = "red", cex = .5, pch = 20)
+```
+
+
+### Agréger des polygones
+
+```{r aggreg}
+dep_46 <- st_union(com)
+plot(st_geometry(com), col = "lightblue")
+plot(st_geometry(dep_46), add = TRUE, lwd = 1.2, border = "red")
+```
+
+### Agréger des polygones en fonction d'une variable
+
+```{r aggreg2}
+com_u <- aggregate(x = com[,c("POPULATION")],
+                   by = list(STATUT = com$STATUT),
+                   FUN = "sum")
+plot(com_u)
+```
+
+
+
+### Construire une zone tampon
+
+```{r buffers}
+gramat_b <- st_buffer(x = gramat, dist = 5000)
+plot(st_geometry(gramat_b), col = "lightblue", lwd=2, border = "red")
+plot(st_geometry(gramat), add = TRUE, lwd = 2)
+```
+
+### Réaliser une intersection 
+
+En utilisant la fonction `st_intersection()` on va découper une couche par une autre. 
+
+```{r intersect2}
+# création d'une zone tampon autour du centroid de la commune de Gramat
+# en utilisant le pipe
+zone <- st_geometry(gramat) |>
+  st_centroid() |>
+  st_buffer(10000)
+plot(st_geometry(com))
+plot(zone, border = "red", lwd = 2, add = TRUE)
+com_z <- st_intersection(x = com, y = zone)
+plot(st_geometry(com))
+plot(st_geometry(com_z), col="red", border="green", add=T)
+plot(st_geometry(com_z))
+```
+
+
+
+
+
+## Mesures
+
+### Créer une matrice de distances
+
+Si le système de projection du jeu de données est renseigné les distances sont exprimées dans l'unité de mesure de la projection (en mètres le plus souvent).
+```{r distance}
+mat <- st_distance(x = com_c, y = com_c)
+mat[1:5,1:5]
+```
+
+
+
+
+## Exercices
+
+
+### Calculer le nombre de restaurants par communes
+
+* Quelles communes ont plus de 10 restaurants et moins de 1000 habitants ?
+
+
+
+* Créez une carte où vous afficherez toutes les communes en gris et les communes sélectionnées plus haut en rouge. 
+
+
