@@ -1,8 +1,10 @@
 project:
   type: book
+  output-dir: docs
   
 book:
   title: "Cartographie avec R"
+  description: "Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R."
   author:
     - name: Timothée Giraud
       orcid: 0000-0001-5679-6536
@@ -29,8 +31,11 @@ book:
   page-footer: 
     left: "[![CreativeCommonsLicense](img/by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
   favicon: img/globe-africa-solid.svg
-  twitter-card: true
-  creator: "rgeomatic"
+  twitter-card: 
+    image: img/globe-africa-solid.svg
+    card-style: summary_large_image
+    creator: "@rgeomatic"
+  site-url: https://rcarto.github.io/ined2022/
   open-graph: true
   chapters:
     - index.qmd
@@ -53,4 +58,3 @@ format:
     theme:
       light: cosmo
       dark: cyborg
-
