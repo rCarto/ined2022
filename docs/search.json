@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Cartographie avec R",
     "section": "",
-    "text": "Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.\nL’objectif de ce document est de fournir un support à l’apprentissage de la cartographie avec R.\nComment utiliser le manuel\nLe projet RStudio contenant l’ensemble des données utilisées dans le manuel est disponible ici. Une fois le dossier décompressé il est possible de tester l’ensemble des manipulations proposées dans ce manuel dans le projet RStudio geodata.\nContribution et feedback\nVous pouvez nous envoyer vos remarques et suggestions en postant une issue sur le dépôt GitHub de ce document."
+    "text": "Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.\nL’objectif de ce document est de fournir un support à l’apprentissage de la cartographie avec R.\nComment utiliser le manuel\nLe projet RStudio contenant l’ensemble des données utilisées dans le manuel est disponible ici. Une fois le dossier décompressé il est possible de tester l’ensemble des manipulations proposées dans ce manuel dans le projet RStudio geodata.\nContribution et feedback\nVous pouvez nous envoyer vos remarques et suggestions en postant une issue sur le dépôt GitHub de ce document.\n\n\n\n\n\n\nCe document est dérivé de deux supports de cours plus complets : Géomatique avec R et Cartographie avec R."
   },
   {
     "objectID": "historique.html",
