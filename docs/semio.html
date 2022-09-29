@@ -8,7 +8,7 @@
 
 <meta name="description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
 
-<title>Cartographie avec R - 2&nbsp; Les données spatiales</title>
+<title>Cartographie avec R - 5&nbsp; La sémiologie graphique</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,13 +21,32 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
-<link href="./02_donnees_vectorielles.html" rel="next">
-<link href="./historique.html" rel="prev">
+<link href="./type_de_carte.html" rel="next">
+<link href="./mapsf.html" rel="prev">
 <link href="./img/globe-africa-solid.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -54,10 +73,10 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Cartographie avec R - 2&nbsp; Les données spatiales">
+<meta property="og:title" content="Cartographie avec R - 5&nbsp; La sémiologie graphique">
 <meta property="og:description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
 <meta property="og:site-name" content="Cartographie avec R">
-<meta name="twitter:title" content="Cartographie avec R - 2&nbsp; Les données spatiales">
+<meta name="twitter:title" content="Cartographie avec R - 5&nbsp; La sémiologie graphique">
 <meta name="twitter:description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
 <meta name="twitter:image" content="https://rcarto.github.io/ined2022/img/globe-africa-solid.svg">
 <meta name="twitter:creator" content="@rgeomatic">
@@ -70,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -111,7 +130,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
+  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -136,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./semio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></a>
+  <a href="./semio.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -183,7 +202,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></h1>
 </div>
 
 <div>
@@ -202,12 +221,49 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Pour stocker, manipuler, analyser et représenter de l’information géographique, on distingue généralement 2 types de données : le raster et le vecteur.</p>
-<p><img src="img/raster_vecteur_2.png" class="img-fluid"></p>
-<p>Les données vectorielles sont souvent associées à des données attributaires.</p>
-<p><img src="img/attrib.png" class="img-fluid"></p>
+<blockquote class="blockquote">
+<p>La <strong>sémiologie graphique</strong> est, de façon générale, l’ensemble des règles qui régissent la construction d’un système de signes ou langage permettant la traduction graphique d’une information. Depuis la parution de la Sémiologie graphique de Jacques <span class="citation" data-cites="Bertin67">Bertin (<a href="05_references.html#ref-Bertin67" role="doc-biblioref">1967</a>)</span>, elle désigne surtout <strong>un ensemble standardisé des règles et de pratiques inhérentes à la représentation cartographique</strong> au-delà des travaux réalisés par Bertin.<br>
+<small><a href="https://fr.wikipedia.org/wiki/S%C3%A9miologie_graphique">wikipedia</a></small></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>La sémiologie graphique utilise les propriétés de l’image visuelle pour faire apparaitre les relations de <strong>différence</strong>, d’<strong>ordre</strong> et de <strong>proportionnalité</strong> entre les données.<br>
+<small>D’après <span class="citation" data-cites="Bertin67">Bertin (<a href="05_references.html#ref-Bertin67" role="doc-biblioref">1967</a>)</span></small></p>
+</blockquote>
+<p>Pour une première approche de la cartographie thématique on peut se référer à la figure suivante qui résume de manière simplifiée la relation entre un type de variable et sa représentation graphique correcte.</p>
+<p><img src="img/arbre_type_data.png" class="img-fluid"></p>
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Pourquoi on ne représente <a href="https://neocarto.hypotheses.org/5717">pas de stocks en aplat !</a></p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Quelques ouvrages de référence en cartographie thématique : <span class="citation" data-cites="Bertin67">Bertin (<a href="05_references.html#ref-Bertin67" role="doc-biblioref">1967</a>)</span>, <span class="citation" data-cites="Beguin10">Pumain et Béguin (<a href="05_references.html#ref-Beguin10" role="doc-biblioref">2010</a>)</span>, <span class="citation" data-cites="Lambert16">Lambert et Zanin (<a href="05_references.html#ref-Lambert16" role="doc-biblioref">2016</a>)</span>.</p>
+</div>
+</div>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-Bertin67" class="csl-entry" role="doc-biblioentry">
+Bertin, J. (1967). S<span>é</span>miologie Graphique: Les Diagrammes, Les R<span>é</span>seaux, Les Cartes, Les R<span>é</span>impressions Des <span>É</span>ditions De l’Ecole Des Hautes <span>É</span>tudes en Sciences Sociales. Paris: Mouton &amp; Gauthier-Villars.
+</div>
+<div id="ref-Lambert16" class="csl-entry" role="doc-biblioentry">
+Lambert, N. et Zanin, C. (2016). <em>Manuel de cartographie: principes, m<span>é</span>thodes, applications</em>. Armand Colin.
+</div>
+<div id="ref-Beguin10" class="csl-entry" role="doc-biblioentry">
+Pumain, D. et Béguin, M. (2010). <em>La repr<span>é</span>sentation des donn<span>é</span>es g<span>é</span>ographiques: Statistique et cartographie</em>. Armand Colin.
+</div>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -310,13 +366,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./historique.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></span>
+      <a href="./mapsf.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02_donnees_vectorielles.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./type_de_carte.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Les types de cartes</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,27 @@
+# La sémiologie graphique
+
+> La **sémiologie graphique** est, de façon générale, l'ensemble des règles qui régissent la construction d'un système de signes ou langage permettant la traduction graphique d'une information. Depuis la parution de la Sémiologie graphique de Jacques @Bertin67, elle désigne surtout **un ensemble standardisé des règles et de pratiques inhérentes à la représentation cartographique** au-delà des travaux réalisés par Bertin.   
+<small>[wikipedia](https://fr.wikipedia.org/wiki/S%C3%A9miologie_graphique)</small>
+
+
+
+> La sémiologie graphique utilise les propriétés de l'image visuelle pour faire apparaitre les relations de **différence**, d'**ordre** et de **proportionnalité** entre les données.  
+<small>D'après @Bertin67</small>
+
+
+
+Pour une première approche de la cartographie thématique on peut se référer à la figure suivante qui résume de manière simplifiée la relation entre un type de variable et sa représentation graphique correcte. 
+
+![](img/arbre_type_data.png)
+
+
+:::{.callout-note}
+Pourquoi on ne représente [pas de stocks en aplat !](https://neocarto.hypotheses.org/5717)
+
+:::
+
+
+:::{.callout-note}
+Quelques ouvrages de référence en cartographie thématique : @Bertin67, @Beguin10, @Lambert16.  
+:::
+

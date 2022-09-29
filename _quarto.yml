@@ -4,7 +4,7 @@ project:
   
 book:
   title: "Cartographie avec R"
-  description: "Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R."
+  description: "<small>*Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.*</small>"
   author:
     - name: Timothée Giraud
       orcid: 0000-0001-5679-6536
@@ -15,18 +15,18 @@ book:
           name: RIATE
           url: https://riate.cnrs.fr
         - id: 2
-          name: INED
+          name: INED (associé)
           url: https://www.ined.fr/
     - name: Bénédicte Garnier
       url: https://www.ined.fr/fr/recherche/chercheurs/Garnier+B%C3%A9n%C3%A9dicte
       affiliations:
-        - id: 1
+        - id: 3
           name: INED
           url: https://www.ined.fr/
   date: "23 septembre 2022"
   search: false
   repo-url: https://github.com/rcarto/ined2022/
-  sharing: [twitter]
+  sharing: []
   cover-image: img/globe-africa-solid.svg
   page-footer: 
     left: "[![CreativeCommonsLicense](img/by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
@@ -39,10 +39,23 @@ book:
   open-graph: true
   chapters:
     - index.qmd
-    - 01_ecosysteme_spatial.qmd
-    - 02_donnees_vectorielles.qmd
-    - 03_cartographie.qmd
-    - 04_references.qmd
+    - part: "**I. L'ÉCOSYSTÈME SPATIAL DE R**"
+      chapters: 
+       - historique.qmd
+       - 01_ecosysteme_spatial.qmd
+       - 02_donnees_vectorielles.qmd
+    - part: "**II. CARTOGRAPHIE**"
+      chapters: 
+        - mapsf.qmd
+        - semio.qmd
+        - type_de_carte.qmd
+        - 03_cartographie.qmd
+    - 05_references.qmd  
+  appendices: 
+    - 04_acquisition_donnees.qmd
+    
+
+
 
 bibliography: references.bib
 
@@ -55,6 +68,4 @@ format:
   html:
     callout-appearance: simple
     callout-icon: false
-    theme:
-      light: cosmo
-      dark: cyborg
+    theme: cosmo

@@ -8,7 +8,7 @@
 
 <meta name="description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
 
-<title>Cartographie avec R - 2&nbsp; Les données spatiales</title>
+<title>Cartographie avec R - 4&nbsp; mapsf</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,13 +21,32 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
-<link href="./02_donnees_vectorielles.html" rel="next">
-<link href="./historique.html" rel="prev">
+<link href="./semio.html" rel="next">
+<link href="./02_donnees_vectorielles.html" rel="prev">
 <link href="./img/globe-africa-solid.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -54,10 +73,10 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Cartographie avec R - 2&nbsp; Les données spatiales">
+<meta property="og:title" content="Cartographie avec R - 4&nbsp; mapsf">
 <meta property="og:description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
 <meta property="og:site-name" content="Cartographie avec R">
-<meta name="twitter:title" content="Cartographie avec R - 2&nbsp; Les données spatiales">
+<meta name="twitter:title" content="Cartographie avec R - 4&nbsp; mapsf">
 <meta name="twitter:description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
 <meta name="twitter:image" content="https://rcarto.github.io/ined2022/img/globe-africa-solid.svg">
 <meta name="twitter:creator" content="@rgeomatic">
@@ -70,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -111,7 +130,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
+  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -131,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mapsf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></a>
+  <a href="./mapsf.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -183,7 +202,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></h1>
 </div>
 
 <div>
@@ -202,12 +221,51 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Pour stocker, manipuler, analyser et représenter de l’information géographique, on distingue généralement 2 types de données : le raster et le vecteur.</p>
-<p><img src="img/raster_vecteur_2.png" class="img-fluid"></p>
-<p>Les données vectorielles sont souvent associées à des données attributaires.</p>
-<p><img src="img/attrib.png" class="img-fluid"></p>
+<p><img src="img/logo.png" align="right" alt="" width="120"></p>
+<p>L’écosystème spatial du logiciel libre R est riche, dynamique et mature et plusieurs packages permettent d’importer, de traiter et de représenter les données spatiales. Le package <a href="https://CRAN.R-project.org/package=mapsf"><code>mapsf</code></a> <span class="citation" data-cites="R-mapsf">(<a href="05_references.html#ref-R-mapsf" role="doc-biblioref">Giraud, 2021</a>)</span> s’appuie sur cet écosystème pour intégrer la création de cartes thématiques de qualité dans les chaînes de traitement avec R.</p>
+<p>D’autres packages peuvent être utilisés pour réaliser des cartes thématiques. Le package <code>ggplot2</code> <span class="citation" data-cites="Wickham16">(<a href="05_references.html#ref-Wickham16" role="doc-biblioref">Wickham, 2016</a>)</span>, en association avec le package <code>ggspatial</code> <span class="citation" data-cites="R-ggspatial">(<a href="05_references.html#ref-R-ggspatial" role="doc-biblioref">Dunnington, 2021</a>)</span>, permet par exemple d’afficher des objets spatiaux et de réaliser des cartes thématiques simples. Le package <code>tmap</code> <span class="citation" data-cites="Tennekes18">(<a href="05_references.html#ref-Tennekes18" role="doc-biblioref">Tennekes, 2018</a>)</span> est dédié à la création de cartes thématiques, il utilise une syntaxe proche de celle de <code>ggplot2</code> (enchaînement d’instructions combinées avec le signe ‘+’). La documentation et les tutoriels pour utiliser ces deux packages sont facilement accessibles sur le web.</p>
+<p>Ici, nous utiliserons principalement le package <code>mapsf</code> dont les fonctionnalités sont assez complètes et la prise en main plutôt simple. De plus, le package est relativement léger.</p>
+<p><code>mapsf</code> permet de créer la plupart des types de carte utilisés habituellement en cartographie statistique (cartes choroplèthes, typologies, symboles proportionnels ou gradués…).<br>
+Pour chaque type de carte, plusieurs paramètres permettent de personnaliser la représentation cartographique. Ces paramètres sont les mêmes que ceux que l’on retrouve dans les logiciels de SIG ou de cartographie usuels (par exemple, le choix des discrétisations et des palettes de couleurs, la modification de de la taille des symboles ou la personnalisation des légendes).<br>
+Associées aux fonctions de représentation des données d’autres fonctions sont dédiées à l’habillage cartographique (thèmes ou chartes graphiques, légendes, échelles, flèches d’orientation, titre, crédits, annotations…), à la création de cartons ou à l’export des cartes.<br>
+<code>mapsf</code> est le successeur de <a href="http://riatelab.github.io/cartography/docs/"><code>cartography</code></a> <span class="citation" data-cites="R-cartography">(<a href="05_references.html#ref-R-cartography" role="doc-biblioref">Giraud et Lambert, 2018</a>)</span>, il offre les mêmes fonctionnalités principales tout en étant plus léger et plus ergonomique.</p>
+<div class="callout-note callout callout-style-simple no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Pour utiliser ce package plusieurs sources de documentation peuvent être consultées.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>La documentation du package accessible <a href="http://riatelab.github.io/mapsf/">sur internet</a> ou directement dans R (<code>?mapsf</code>).</li>
+<li>Une <a href="https://raw.githubusercontent.com/riatelab/mapsf/master/vignettes/web_only/img/mapsf_cheatsheet.pdf"><em>cheat sheet</em></a>. <img src="img/mapsf_cheatsheet.png" class="img-fluid"></li>
+<li>Les <a href="https://riatelab.github.io/mapsf/articles/">vignettes</a> associées au package présentent des exemples de scripts.</li>
+<li>Le blog <a href="https://rgeomatic.hypotheses.org/">R Géomatique</a> qui met à disposition ressources et exemples liés au package et plus généralement à l’écosystème spatial de R.</li>
+</ul>
+</div>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-R-ggspatial" class="csl-entry" role="doc-biblioentry">
+Dunnington, D. (2021). <em><span>ggspatial</span>: Spatial Data Framework for <span>ggplot2</span></em>. <a href="https://CRAN.R-project.org/package=ggspatial">https://CRAN.R-project.org/package=ggspatial</a>
+</div>
+<div id="ref-R-mapsf" class="csl-entry" role="doc-biblioentry">
+Giraud, T. (2021). <em>mapsf: Thematic Cartography</em>.
+</div>
+<div id="ref-R-cartography" class="csl-entry" role="doc-biblioentry">
+Giraud, T. et Lambert, N. (2018). <em>cartography: Thematic Cartography</em>. <a href="https://github.com/riatelab/cartography/">https://github.com/riatelab/cartography/</a>
+</div>
+<div id="ref-Tennekes18" class="csl-entry" role="doc-biblioentry">
+Tennekes, M. (2018). <span>tmap</span>: Thematic Maps in <span>R</span>. <em>Journal of Statistical Software</em>, <em>84</em>(6), 1‑39. <a href="https://doi.org/10.18637/jss.v084.i06">https://doi.org/10.18637/jss.v084.i06</a>
+</div>
+<div id="ref-Wickham16" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2016). <em>ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>
+</div>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -310,13 +368,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./historique.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></span>
+      <a href="./02_donnees_vectorielles.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02_donnees_vectorielles.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./semio.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

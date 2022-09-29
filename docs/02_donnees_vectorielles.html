@@ -8,7 +8,7 @@
 
 <meta name="description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
 
-<title>Cartographie avec R - 2&nbsp; Manipuler les données vectorielles</title>
+<title>Cartographie avec R - 3&nbsp; Manipuler les données vectorielles</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,7 +89,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
-<link href="./03_cartographie.html" rel="next">
+<link href="./mapsf.html" rel="next">
 <link href="./01_ecosysteme_spatial.html" rel="prev">
 <link href="./img/globe-africa-solid.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -98,12 +98,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "Pas de résultats",
@@ -119,10 +117,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }</script>
 
 
-<meta property="og:title" content="Cartographie avec R - 2&nbsp; Manipuler les données vectorielles">
+<meta property="og:title" content="Cartographie avec R - 3&nbsp; Manipuler les données vectorielles">
 <meta property="og:description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
 <meta property="og:site-name" content="Cartographie avec R">
-<meta name="twitter:title" content="Cartographie avec R - 2&nbsp; Manipuler les données vectorielles">
+<meta name="twitter:title" content="Cartographie avec R - 3&nbsp; Manipuler les données vectorielles">
 <meta name="twitter:description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
 <meta name="twitter:image" content="https://rcarto.github.io/ined2022/img/globe-africa-solid.svg">
 <meta name="twitter:creator" content="@rgeomatic">
@@ -135,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -149,10 +147,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Cartographie avec R</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/rcarto/ined2022/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
-  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
@@ -160,29 +156,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Préambule</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><em>Préambule</em></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true"><strong>I. L’ÉCOSYSTÈME SPATIAL DE R</strong></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./historique.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_donnees_vectorielles.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true"><strong>II. CARTOGRAPHIE</strong></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mapsf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./semio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./type_de_carte.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Les types de cartes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_cartographie.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mise en page</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L’écosystème spatial de R</span></a>
+  <a href="./05_references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Annexes</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_donnees_vectorielles.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></a>
+  <a href="./04_acquisition_donnees.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Acquisition de données spatiales</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./03_cartographie.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cartographie</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04_references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -192,35 +243,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table des matières</h2>
    
   <ul>
-  <li><a href="#format-des-objets-spatiaux-sf" id="toc-format-des-objets-spatiaux-sf" class="nav-link active" data-scroll-target="#format-des-objets-spatiaux-sf"><span class="toc-section-number">2.1</span>  Format des objets spatiaux <code>sf</code></a></li>
-  <li><a href="#import-et-export-de-données" id="toc-import-et-export-de-données" class="nav-link" data-scroll-target="#import-et-export-de-données"><span class="toc-section-number">2.2</span>  Import et export de données</a></li>
-  <li><a href="#affichage" id="toc-affichage" class="nav-link" data-scroll-target="#affichage"><span class="toc-section-number">2.3</span>  Affichage</a></li>
-  <li><a href="#les-systèmes-de-coordonnées" id="toc-les-systèmes-de-coordonnées" class="nav-link" data-scroll-target="#les-systèmes-de-coordonnées"><span class="toc-section-number">2.4</span>  Les systèmes de coordonnées</a>
+  <li><a href="#format-des-objets-spatiaux-sf" id="toc-format-des-objets-spatiaux-sf" class="nav-link active" data-scroll-target="#format-des-objets-spatiaux-sf"><span class="toc-section-number">3.1</span>  Format des objets spatiaux <code>sf</code></a></li>
+  <li><a href="#import-et-export-de-données" id="toc-import-et-export-de-données" class="nav-link" data-scroll-target="#import-et-export-de-données"><span class="toc-section-number">3.2</span>  Import et export de données</a></li>
+  <li><a href="#affichage" id="toc-affichage" class="nav-link" data-scroll-target="#affichage"><span class="toc-section-number">3.3</span>  Affichage</a></li>
+  <li><a href="#les-systèmes-de-coordonnées" id="toc-les-systèmes-de-coordonnées" class="nav-link" data-scroll-target="#les-systèmes-de-coordonnées"><span class="toc-section-number">3.4</span>  Les systèmes de coordonnées</a>
   <ul class="collapse">
-  <li><a href="#consulter-le-système-de-coordonnées-dun-objet" id="toc-consulter-le-système-de-coordonnées-dun-objet" class="nav-link" data-scroll-target="#consulter-le-système-de-coordonnées-dun-objet"><span class="toc-section-number">2.4.1</span>  Consulter le système de coordonnées d’un objet</a></li>
-  <li><a href="#modifier-le-système-de-coordonnées-dun-objet" id="toc-modifier-le-système-de-coordonnées-dun-objet" class="nav-link" data-scroll-target="#modifier-le-système-de-coordonnées-dun-objet"><span class="toc-section-number">2.4.2</span>  Modifier le système de coordonnées d’un objet</a></li>
+  <li><a href="#consulter-le-système-de-coordonnées-dun-objet" id="toc-consulter-le-système-de-coordonnées-dun-objet" class="nav-link" data-scroll-target="#consulter-le-système-de-coordonnées-dun-objet"><span class="toc-section-number">3.4.1</span>  Consulter le système de coordonnées d’un objet</a></li>
+  <li><a href="#modifier-le-système-de-coordonnées-dun-objet" id="toc-modifier-le-système-de-coordonnées-dun-objet" class="nav-link" data-scroll-target="#modifier-le-système-de-coordonnées-dun-objet"><span class="toc-section-number">3.4.2</span>  Modifier le système de coordonnées d’un objet</a></li>
   </ul></li>
-  <li><a href="#sélection-par-attributs" id="toc-sélection-par-attributs" class="nav-link" data-scroll-target="#sélection-par-attributs"><span class="toc-section-number">2.5</span>  Sélection par attributs</a></li>
-  <li><a href="#sélection-spatiale" id="toc-sélection-spatiale" class="nav-link" data-scroll-target="#sélection-spatiale"><span class="toc-section-number">2.6</span>  Sélection spatiale</a>
+  <li><a href="#sélection-par-attributs" id="toc-sélection-par-attributs" class="nav-link" data-scroll-target="#sélection-par-attributs"><span class="toc-section-number">3.5</span>  Sélection par attributs</a></li>
+  <li><a href="#sélection-spatiale" id="toc-sélection-spatiale" class="nav-link" data-scroll-target="#sélection-spatiale"><span class="toc-section-number">3.6</span>  Sélection spatiale</a>
   <ul class="collapse">
-  <li><a href="#intersections" id="toc-intersections" class="nav-link" data-scroll-target="#intersections"><span class="toc-section-number">2.6.1</span>  Intersections</a></li>
-  <li><a href="#contains-within" id="toc-contains-within" class="nav-link" data-scroll-target="#contains-within"><span class="toc-section-number">2.6.2</span>  Contains / Within</a></li>
+  <li><a href="#intersections" id="toc-intersections" class="nav-link" data-scroll-target="#intersections"><span class="toc-section-number">3.6.1</span>  Intersections</a></li>
+  <li><a href="#contains-within" id="toc-contains-within" class="nav-link" data-scroll-target="#contains-within"><span class="toc-section-number">3.6.2</span>  Contains / Within</a></li>
   </ul></li>
-  <li><a href="#opérations-sur-les-géométries" id="toc-opérations-sur-les-géométries" class="nav-link" data-scroll-target="#opérations-sur-les-géométries"><span class="toc-section-number">2.7</span>  Opérations sur les géométries</a>
+  <li><a href="#opérations-sur-les-géométries" id="toc-opérations-sur-les-géométries" class="nav-link" data-scroll-target="#opérations-sur-les-géométries"><span class="toc-section-number">3.7</span>  Opérations sur les géométries</a>
   <ul class="collapse">
-  <li><a href="#extraire-des-centroides" id="toc-extraire-des-centroides" class="nav-link" data-scroll-target="#extraire-des-centroides"><span class="toc-section-number">2.7.1</span>  Extraire des centroides</a></li>
-  <li><a href="#agréger-des-polygones" id="toc-agréger-des-polygones" class="nav-link" data-scroll-target="#agréger-des-polygones"><span class="toc-section-number">2.7.2</span>  Agréger des polygones</a></li>
-  <li><a href="#agréger-des-polygones-en-fonction-dune-variable" id="toc-agréger-des-polygones-en-fonction-dune-variable" class="nav-link" data-scroll-target="#agréger-des-polygones-en-fonction-dune-variable"><span class="toc-section-number">2.7.3</span>  Agréger des polygones en fonction d’une variable</a></li>
-  <li><a href="#construire-une-zone-tampon" id="toc-construire-une-zone-tampon" class="nav-link" data-scroll-target="#construire-une-zone-tampon"><span class="toc-section-number">2.7.4</span>  Construire une zone tampon</a></li>
-  <li><a href="#réaliser-une-intersection" id="toc-réaliser-une-intersection" class="nav-link" data-scroll-target="#réaliser-une-intersection"><span class="toc-section-number">2.7.5</span>  Réaliser une intersection</a></li>
+  <li><a href="#extraire-des-centroides" id="toc-extraire-des-centroides" class="nav-link" data-scroll-target="#extraire-des-centroides"><span class="toc-section-number">3.7.1</span>  Extraire des centroides</a></li>
+  <li><a href="#agréger-des-polygones" id="toc-agréger-des-polygones" class="nav-link" data-scroll-target="#agréger-des-polygones"><span class="toc-section-number">3.7.2</span>  Agréger des polygones</a></li>
+  <li><a href="#agréger-des-polygones-en-fonction-dune-variable" id="toc-agréger-des-polygones-en-fonction-dune-variable" class="nav-link" data-scroll-target="#agréger-des-polygones-en-fonction-dune-variable"><span class="toc-section-number">3.7.3</span>  Agréger des polygones en fonction d’une variable</a></li>
+  <li><a href="#construire-une-zone-tampon" id="toc-construire-une-zone-tampon" class="nav-link" data-scroll-target="#construire-une-zone-tampon"><span class="toc-section-number">3.7.4</span>  Construire une zone tampon</a></li>
+  <li><a href="#réaliser-une-intersection" id="toc-réaliser-une-intersection" class="nav-link" data-scroll-target="#réaliser-une-intersection"><span class="toc-section-number">3.7.5</span>  Réaliser une intersection</a></li>
   </ul></li>
-  <li><a href="#mesures" id="toc-mesures" class="nav-link" data-scroll-target="#mesures"><span class="toc-section-number">2.8</span>  Mesures</a>
+  <li><a href="#mesures" id="toc-mesures" class="nav-link" data-scroll-target="#mesures"><span class="toc-section-number">3.8</span>  Mesures</a>
   <ul class="collapse">
-  <li><a href="#créer-une-matrice-de-distances" id="toc-créer-une-matrice-de-distances" class="nav-link" data-scroll-target="#créer-une-matrice-de-distances"><span class="toc-section-number">2.8.1</span>  Créer une matrice de distances</a></li>
+  <li><a href="#créer-une-matrice-de-distances" id="toc-créer-une-matrice-de-distances" class="nav-link" data-scroll-target="#créer-une-matrice-de-distances"><span class="toc-section-number">3.8.1</span>  Créer une matrice de distances</a></li>
   </ul></li>
-  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices"><span class="toc-section-number">2.9</span>  Exercices</a>
+  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices"><span class="toc-section-number">3.9</span>  Exercices</a>
   <ul class="collapse">
-  <li><a href="#calculer-le-nombre-de-restaurants-par-communes" id="toc-calculer-le-nombre-de-restaurants-par-communes" class="nav-link" data-scroll-target="#calculer-le-nombre-de-restaurants-par-communes"><span class="toc-section-number">2.9.1</span>  Calculer le nombre de restaurants par communes</a></li>
+  <li><a href="#calculer-le-nombre-de-restaurants-par-communes" id="toc-calculer-le-nombre-de-restaurants-par-communes" class="nav-link" data-scroll-target="#calculer-le-nombre-de-restaurants-par-communes"><span class="toc-section-number">3.9.1</span>  Calculer le nombre de restaurants par communes</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -230,12 +281,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></h1>
 </div>
 
 <div>
   <div class="description">
-    Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.
+    <small><em>Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.</em></small>
   </div>
 </div>
 
@@ -249,8 +300,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="format-des-objets-spatiaux-sf" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="format-des-objets-spatiaux-sf"><span class="header-section-number">2.1</span> Format des objets spatiaux <code>sf</code></h2>
+<section id="format-des-objets-spatiaux-sf" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="format-des-objets-spatiaux-sf"><span class="header-section-number">3.1</span> Format des objets spatiaux <code>sf</code></h2>
 <p><img src="img/sf.png" class="img-fluid"></p>
 <p>Les objets <code>sf</code> sont des <code>data.frame</code> dont l’une des colonnes contient des géométries. Cette colonne est de la classe sfc (<em>simple feature column</em>) et chaque individu de la colonne est un sfg (<em>simple feature geometry)</em>.<br>
 Ce format est très pratique dans la mesure ou les données et les géométries sont intrinsèquement liées dans un même objet.</p>
@@ -268,8 +319,8 @@ Vignette décrivant le format simple feature
 </div>
 </div>
 </section>
-<section id="import-et-export-de-données" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="import-et-export-de-données"><span class="header-section-number">2.2</span> Import et export de données</h2>
+<section id="import-et-export-de-données" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="import-et-export-de-données"><span class="header-section-number">3.2</span> Import et export de données</h2>
 <p>Les fonctions <code>st_read()</code> et <code>st_write()</code> permettent d’importer et d’exporter de nombreux types de fichiers.<br>
 Les lignes suivantes importent la couche des communes du département du Lot situé dans le fichier <a href="https://www.geopackage.org/">geopackage</a> <strong>lot46.gpkg</strong>.</p>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/import_e8df4e40525002a04abed01092ba0be8">
@@ -305,8 +356,8 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 </div>
 </div>
 </section>
-<section id="affichage" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="affichage"><span class="header-section-number">2.3</span> Affichage</h2>
+<section id="affichage" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="affichage"><span class="header-section-number">3.3</span> Affichage</h2>
 <p><strong>Aperçu des variables</strong> via les fonctions <code>head()</code> et <code>plot()</code>.</p>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/aff1_7b32bfbc3f6fa6b34a55196aa888b1d3">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -355,10 +406,10 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 </div>
 </div>
 </section>
-<section id="les-systèmes-de-coordonnées" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="les-systèmes-de-coordonnées"><span class="header-section-number">2.4</span> Les systèmes de coordonnées</h2>
-<section id="consulter-le-système-de-coordonnées-dun-objet" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="consulter-le-système-de-coordonnées-dun-objet"><span class="header-section-number">2.4.1</span> Consulter le système de coordonnées d’un objet</h3>
+<section id="les-systèmes-de-coordonnées" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="les-systèmes-de-coordonnées"><span class="header-section-number">3.4</span> Les systèmes de coordonnées</h2>
+<section id="consulter-le-système-de-coordonnées-dun-objet" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="consulter-le-système-de-coordonnées-dun-objet"><span class="header-section-number">3.4.1</span> Consulter le système de coordonnées d’un objet</h3>
 <p>La fonction <code>st_crs()</code> permet de consulter le système de coordonnées utilisé par un objet sf.</p>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/proj1_621a9a4b8c3a9d4736ce5e74a9085c4c">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -410,8 +461,8 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 </div>
 </div>
 </section>
-<section id="modifier-le-système-de-coordonnées-dun-objet" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="modifier-le-système-de-coordonnées-dun-objet"><span class="header-section-number">2.4.2</span> Modifier le système de coordonnées d’un objet</h3>
+<section id="modifier-le-système-de-coordonnées-dun-objet" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="modifier-le-système-de-coordonnées-dun-objet"><span class="header-section-number">3.4.2</span> Modifier le système de coordonnées d’un objet</h3>
 <p>La fonction <code>st_transform()</code> permet de change le système de coordonnées d’un objet sf, de le reprojeter.</p>
 <div class="cell" data-small_m="true" data-hash="02_donnees_vectorielles_cache/html/proj2_a30ea854a15dc0d1e81995e97ad9159f">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span>
@@ -429,8 +480,8 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 <p>Le site <a href="http://spatialreference.org/" target="_blank">Spatial Reference</a> met à disposition les références de très nombreux systèmes de coordonnées.</p>
 </section>
 </section>
-<section id="sélection-par-attributs" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="sélection-par-attributs"><span class="header-section-number">2.5</span> Sélection par attributs</h2>
+<section id="sélection-par-attributs" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sélection-par-attributs"><span class="header-section-number">3.5</span> Sélection par attributs</h2>
 <p>Les objets <code>sf</code> <strong>sont</strong> des <code>data.frame</code>, on peut donc sélectionner leur lignes et leur colonnes de la même manière que les <code>data.frame</code>.</p>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/selectAttr_8b6a0ffef8f2d4f9b6faac5c8421c40f">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selection de ligne</span></span>
@@ -473,10 +524,10 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 </div>
 </div>
 </section>
-<section id="sélection-spatiale" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="sélection-spatiale"><span class="header-section-number">2.6</span> Sélection spatiale</h2>
-<section id="intersections" class="level3" data-number="2.6.1">
-<h3 data-number="2.6.1" class="anchored" data-anchor-id="intersections"><span class="header-section-number">2.6.1</span> Intersections</h3>
+<section id="sélection-spatiale" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="sélection-spatiale"><span class="header-section-number">3.6</span> Sélection spatiale</h2>
+<section id="intersections" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="intersections"><span class="header-section-number">3.6.1</span> Intersections</h3>
 <p>Sélection des routes intesectant la commune de Gramat.</p>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/intersects_cfd88a537c5d77dfe6fe32c15de3485b">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>route <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">"route"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
@@ -511,8 +562,8 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 </div>
 </section>
-<section id="contains-within" class="level3" data-number="2.6.2">
-<h3 data-number="2.6.2" class="anchored" data-anchor-id="contains-within"><span class="header-section-number">2.6.2</span> Contains / Within</h3>
+<section id="contains-within" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="contains-within"><span class="header-section-number">3.6.2</span> Contains / Within</h3>
 <p>Sélection des routes contenues dans la commune de Gramat. La fonctin <code>st_within()</code> fonctionne comme la fonction <code>st_intersects()</code></p>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/within_88d30a7ef228e3cb659d1b00085b59ea">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>route<span class="sc">$</span>within_gramat <span class="ot">&lt;-</span> <span class="fu">st_within</span>(route, gramat, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
@@ -526,10 +577,10 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 </section>
 </section>
-<section id="opérations-sur-les-géométries" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="opérations-sur-les-géométries"><span class="header-section-number">2.7</span> Opérations sur les géométries</h2>
-<section id="extraire-des-centroides" class="level3" data-number="2.7.1">
-<h3 data-number="2.7.1" class="anchored" data-anchor-id="extraire-des-centroides"><span class="header-section-number">2.7.1</span> Extraire des centroides</h3>
+<section id="opérations-sur-les-géométries" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="opérations-sur-les-géométries"><span class="header-section-number">3.7</span> Opérations sur les géométries</h2>
+<section id="extraire-des-centroides" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="extraire-des-centroides"><span class="header-section-number">3.7.1</span> Extraire des centroides</h3>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/centroids_0e7709cb6f96ab8d7bfe526d9cf48fdc">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>com_c <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -543,8 +594,8 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 </div>
 </section>
-<section id="agréger-des-polygones" class="level3" data-number="2.7.2">
-<h3 data-number="2.7.2" class="anchored" data-anchor-id="agréger-des-polygones"><span class="header-section-number">2.7.2</span> Agréger des polygones</h3>
+<section id="agréger-des-polygones" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="agréger-des-polygones"><span class="header-section-number">3.7.2</span> Agréger des polygones</h3>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/aggreg_ed3a79a0719d3d76542b3e0126c2fb63">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dep_46 <span class="ot">&lt;-</span> <span class="fu">st_union</span>(com)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com), <span class="at">col =</span> <span class="st">"lightblue"</span>)</span>
@@ -554,8 +605,8 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 </div>
 </section>
-<section id="agréger-des-polygones-en-fonction-dune-variable" class="level3" data-number="2.7.3">
-<h3 data-number="2.7.3" class="anchored" data-anchor-id="agréger-des-polygones-en-fonction-dune-variable"><span class="header-section-number">2.7.3</span> Agréger des polygones en fonction d’une variable</h3>
+<section id="agréger-des-polygones-en-fonction-dune-variable" class="level3" data-number="3.7.3">
+<h3 data-number="3.7.3" class="anchored" data-anchor-id="agréger-des-polygones-en-fonction-dune-variable"><span class="header-section-number">3.7.3</span> Agréger des polygones en fonction d’une variable</h3>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/aggreg2_4a2ee401053f6db677b28dd21c3092d0">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>com_u <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="at">x =</span> com[,<span class="fu">c</span>(<span class="st">"POPULATION"</span>)],</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">by =</span> <span class="fu">list</span>(<span class="at">STATUT =</span> com<span class="sc">$</span>STATUT),</span>
@@ -566,8 +617,8 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 </div>
 </section>
-<section id="construire-une-zone-tampon" class="level3" data-number="2.7.4">
-<h3 data-number="2.7.4" class="anchored" data-anchor-id="construire-une-zone-tampon"><span class="header-section-number">2.7.4</span> Construire une zone tampon</h3>
+<section id="construire-une-zone-tampon" class="level3" data-number="3.7.4">
+<h3 data-number="3.7.4" class="anchored" data-anchor-id="construire-une-zone-tampon"><span class="header-section-number">3.7.4</span> Construire une zone tampon</h3>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/buffers_4e709ced142324eb946aaba99cb982e3">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>gramat_b <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(<span class="at">x =</span> gramat, <span class="at">dist =</span> <span class="dv">5000</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gramat_b), <span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">border =</span> <span class="st">"red"</span>)</span>
@@ -577,8 +628,8 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 </div>
 </section>
-<section id="réaliser-une-intersection" class="level3" data-number="2.7.5">
-<h3 data-number="2.7.5" class="anchored" data-anchor-id="réaliser-une-intersection"><span class="header-section-number">2.7.5</span> Réaliser une intersection</h3>
+<section id="réaliser-une-intersection" class="level3" data-number="3.7.5">
+<h3 data-number="3.7.5" class="anchored" data-anchor-id="réaliser-une-intersection"><span class="header-section-number">3.7.5</span> Réaliser une intersection</h3>
 <p>En utilisant la fonction <code>st_intersection()</code> on va découper une couche par une autre.</p>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/intersect2_b55776cde0a734f84d62b0f6d548b7d7">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># création d'une zone tampon autour du centroid de la commune de Gramat</span></span>
@@ -608,10 +659,10 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 </section>
 </section>
-<section id="mesures" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="mesures"><span class="header-section-number">2.8</span> Mesures</h2>
-<section id="créer-une-matrice-de-distances" class="level3" data-number="2.8.1">
-<h3 data-number="2.8.1" class="anchored" data-anchor-id="créer-une-matrice-de-distances"><span class="header-section-number">2.8.1</span> Créer une matrice de distances</h3>
+<section id="mesures" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="mesures"><span class="header-section-number">3.8</span> Mesures</h2>
+<section id="créer-une-matrice-de-distances" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="créer-une-matrice-de-distances"><span class="header-section-number">3.8.1</span> Créer une matrice de distances</h3>
 <p>Si le système de projection du jeu de données est renseigné les distances sont exprimées dans l’unité de mesure de la projection (en mètres le plus souvent).</p>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/distance_78bf5a76449a73b4e178dfba701186c1">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">st_distance</span>(<span class="at">x =</span> com_c, <span class="at">y =</span> com_c)</span>
@@ -628,10 +679,10 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 </section>
 </section>
-<section id="exercices" class="level2" data-number="2.9">
-<h2 data-number="2.9" class="anchored" data-anchor-id="exercices"><span class="header-section-number">2.9</span> Exercices</h2>
-<section id="calculer-le-nombre-de-restaurants-par-communes" class="level3" data-number="2.9.1">
-<h3 data-number="2.9.1" class="anchored" data-anchor-id="calculer-le-nombre-de-restaurants-par-communes"><span class="header-section-number">2.9.1</span> Calculer le nombre de restaurants par communes</h3>
+<section id="exercices" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="exercices"><span class="header-section-number">3.9</span> Exercices</h2>
+<section id="calculer-le-nombre-de-restaurants-par-communes" class="level3" data-number="3.9.1">
+<h3 data-number="3.9.1" class="anchored" data-anchor-id="calculer-le-nombre-de-restaurants-par-communes"><span class="header-section-number">3.9.1</span> Calculer le nombre de restaurants par communes</h3>
 <ul>
 <li><p>Quelles communes ont plus de 10 restaurants et moins de 1000 habitants ?</p></li>
 <li><p>Créez une carte où vous afficherez toutes les communes en gris et les communes sélectionnées plus haut en rouge.</p></li>
@@ -662,119 +713,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  let localAlternateSentinel = 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } 
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -856,12 +794,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./01_ecosysteme_spatial.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L’écosystème spatial de R</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./03_cartographie.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cartographie</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./mapsf.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

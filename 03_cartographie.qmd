@@ -8,53 +8,11 @@ knitr:
     cache: true
 ---
 
-# Cartographie 
-
-L’écosystème spatial du logiciel libre R est riche, dynamique et mature et plusieurs packages permettent d’importer, de traiter et de représenter les données spatiales. Le package [`mapsf`](https://CRAN.R-project.org/package=mapsf) [@R-mapsf] s’appuie sur cet écosystème pour intégrer la création de cartes thématiques de qualité dans les chaînes de traitement avec R.
-
-D'autres packages peuvent être utilisés pour réaliser des cartes thématiques. Le package `ggplot2` [@Wickham16], en association avec le package `ggspatial` [@R-ggspatial], permet par exemple d'afficher des objets spatiaux et de réaliser des cartes thématiques simples. Le package `tmap` [@Tennekes18] est dédié à la création de cartes thématiques, il utilise une syntaxe proche de celle de `ggplot2` (enchaînement d'instructions combinées avec le signe '+'). La documentation et les tutoriels pour utiliser ces deux packages sont facilement accessibles sur le web.
-
-Ici, nous utiliserons principalement le package `mapsf` dont les fonctionnalités sont assez complètes et la prise en main plutôt simple. De plus, le package est relativement léger.
-
-
-
-## `mapsf`
-
-<img src="img/logo.png" align="right" alt="" width="120" />
-
-`mapsf` permet de créer la plupart des types de carte utilisés habituellement en cartographie statistique (cartes choroplèthes, typologies, symboles proportionnels ou gradués…).  
-Pour chaque type de carte, plusieurs paramètres permettent de personnaliser la représentation cartographique. Ces paramètres sont les mêmes que ceux que l’on retrouve dans les logiciels de SIG ou de cartographie usuels (par exemple, le choix des discrétisations et des palettes de couleurs, la modification de de la taille des symboles ou la personnalisation des légendes).  
-Associées aux fonctions de représentation des données d’autres fonctions sont dédiées à l’habillage cartographique (thèmes ou chartes graphiques, légendes, échelles, flèches d’orientation, titre, crédits, annotations...), à la création de cartons ou à l’export des cartes.  
-`mapsf` est le successeur de [`cartography`](http://riatelab.github.io/cartography/docs/) [@R-cartography], il offre les mêmes fonctionnalités principales tout en étant plus léger et plus ergonomique.
-
-
-:::{.callout-note}
-
-## Pour utiliser ce package plusieurs sources de documentation peuvent être consultées. 
-
-* La documentation du package accessible [sur internet](http://riatelab.github.io/mapsf/) ou directement dans R (`?mapsf`).
-* Une [*cheat sheet*](https://raw.githubusercontent.com/riatelab/mapsf/master/vignettes/web_only/img/mapsf_cheatsheet.pdf).
-![](img/mapsf_cheatsheet.png)
-* Les [vignettes](https://riatelab.github.io/mapsf/articles/) associées au package présentent des exemples de scripts.
-* Le blog [R Géomatique](https://rgeomatic.hypotheses.org/) qui met à disposition ressources et exemples liés au package et plus généralement à l'écosystème spatial de R.
-:::
-
-
-
-## Les types de cartes  
-
-La fonction `mf_map()` est la fonction centrale du package `mapsf`. Elle permet de réaliser la plupart des représentations usuelles en cartographie.
-Ces arguments principaux sont :
-
-- `x`, un objet sf ;
-- `var`, le nom de la variable à représenter ;
-- `type`, le type de représentation.
-
-### Les données d'exemple
-
-Les lignes suivantes importent les couches d'information spatiales situées dans le fichier [geopackage](https://www.geopackage.org/) **lot46.gpkg**.
+# Mise en page 
 
 ```{r}
+#| include: false
+
 library(sf)
 # import des communes du Lot
 com <- st_read("data/lot46.gpkg", layer = "commune", quiet = TRUE)
@@ -65,368 +23,6 @@ resto <- st_read("data/lot46.gpkg", layer = "restaurant", quiet = TRUE)
 # import des routes
 route <- st_read("data/lot46.gpkg", layer = "route", quiet = TRUE)
 ```
-
-
-### Afficher un fond de carte
-
-Utilisée sans précision de type, la fonction `mf_map()` affiche simplement le fond de carte.
-
-```{r mf_base}
-library(mapsf)
-# Communes
-mf_map(x = com, border = "white")
-mf_map(x = dep, lwd = 2, col = NA, add = TRUE)
-mf_map(x = route, lwd = .5, col = "ivory4", add = TRUE)
-mf_map(x = resto, pch = 20, cex = .7, col = "darkred", add = TRUE)
-```
-
-
-### Carte de symboles proportionnels
-
-Les cartes de symboles proportionnels sont utilisées pour représenter les variables de stocks (variables quantitatives absolues, la somme et la moyenne ont un sens).
-La fonction `mf_map(..., type = "prop")` propose cette représentation.
-
-```{r proportional_symbols}
-# Communes
-mf_map(x = com)
-# Symboles proportionnels
-mf_map(
-  x = com, 
-  var = "POPULATION",
-  type = "prop",
-  leg_title = "Population totale\n(2015)"
-)
-# Titre
-mf_title("Distribution de la population dans le Lot")
-```
-
-#### Comparer plusieurs cartes
-
-Il est possible de fixer les dimensions du plus grand symbole correspondant à une certaine valeur avec les arguments `inches` et `val_max`. Nous pouvons ainsi construire des cartes en symboles proportionnels comparables. 
-
-```{r proportional_symbols_comp}
-#| fig-height: 4
-
-# Afficher deux cartes en vis-à-vis
-par(mfrow = c(1,2))
-# Communes
-mf_map(x = com, border = "grey90", lwd = .5)
-# Population active occupée dans l'industrie, les hommes
-mf_map(
-  x = com, 
-  var = "IND_H", 
-  type = "prop", 
-  inches = .2, 
-  val_max = 600, 
-  leg_title = "Hommes", 
-  leg_val_cex = .5,
-)
-# ajout d'un titre
-mf_title("Population active occupée dans l'industrie")
-
-# Communes
-mf_map(x = com, border = "grey90", lwd = .5)
-# Population active occupée dans l'industrie, les femmes
-mf_map(
-  x = com, 
-  var = "IND_F", 
-  type = "prop",
-  inches = .2, 
-  val_max = 600, 
-  leg_title ="Femmes", 
-  leg_val_cex = .5
-)
-
-# ajout d'un titre
-mf_title("Population active occupée dans l'industrie")
-
-```
-
-Nous avons ici affiché deux cartes en vis-à-vis, voir le point [Afficher plusieurs cartes sur la même figure](#afficher-plusieurs-cartes-sur-la-même-figure) pour plus de détails. 
-
-
-
-<!-- ### Les cartes de liens proportionnels -->
-
-<!-- TO DO -->
-
-
-
-
-
-
-
-### Carte choroplèthe
-
-Les cartes choroplèthes sont utilisées pour représenter les variables de ratios (variables quantitatives relatives, la moyenne a un sens, la somme n'a pas de sens).
-
-Pour ce genre de représentation il faut au préalable :
-
-* choisir une méthode de discrétisation pour transformer une série statistique continue en classes définies par des intervalles,
-* choisir un nombre de classes,
-* choisir une palette de couleurs.
-
-La fonction `mf_map(..., type = "choro")` permet de créer des cartes choroplètes. Les arguments `nbreaks` et `breaks` servent à paramétrer les discrétisations, et la fonction `mf_get_breaks()` permet de travailler sur les discrétisations en dehors de la fonction `mf_map()`. De même, l'argument `pal` est utilisé pour renseigner une palette de couleur, mais plusieurs fonctions peuvent être utilisées pour paramétrer les palettes en dehors de la fonction (`mf_get_pal`...).
-
-
-```{r choro}
-# Densité de population (hab./km2) en utilisant la fonction sf::st_area()
-com$DENS <- 1e6 * com$POP / as.numeric(st_area(com))
-mf_map(
-  x = com,
-  var = "DENS",
-  type = "choro",
-  breaks = "quantile",
-  pal = "Dark Mint",
-  lwd = 1,
-  leg_title = "Densité de population\n(habitants par km2)", 
-  leg_val_rnd = 0
-)
-mf_title("Distribution de la population dans le Lot (2018)")
-```
-
-
-#### Discrétisations {#discretisation}
-
-La fonction `mf_get_breaks()` met à disposition les méthodes de discrétisations de variables classique : quantiles, moyenne/écart-type, amplitudes égales, moyennes emboîtées, Fisher-Jenks, géométrique ...
-
-```{r discr2, fig.height=6, fig.width=8}
-com$POP_ACT <- 
-  com$AGR_H + com$AGR_F + 
-  com$IND_H + com$IND_F + 
-  com$BTP_H + com$BTP_F + 
-  com$TER_H + com$TER_F
-com$SHARE_ACT <- 100 * com$POP_ACT / com$POPULATION
-
-d1 <- mf_get_breaks(com$SHARE_ACT, nbreaks = 6, breaks = "equal", freq = T)
-d2 <- mf_get_breaks(com$SHARE_ACT, nbreaks = 6, breaks = "quantile")
-d3 <- mf_get_breaks(com$SHARE_ACT, nbreaks = 6, breaks = "geom")
-d4 <- mf_get_breaks(com$SHARE_ACT, breaks = "msd", central = FALSE)
-```
-
-
-```{r discr3, fig.height=6, fig.width=8, echo = FALSE}
-opar <- par(mfrow = c(2,2))
-hist(com$SHARE_ACT, breaks = d1, main = "d1 : amplitudes égales")
-rug(com$SHARE_ACT)
-hist(com$SHARE_ACT, breaks = d2, main = "d2 : effectifs égaux")
-abline(v = quantile(com$SHARE_ACT, probs = seq(0,1,length.out = 7)), col  = "red")
-legend("topright", legend = "quantiles", col = "red", lty = 1, bty = "n")
-rug(com$SHARE_ACT)
-hist(com$SHARE_ACT, breaks = d3, main = "d3 : progression géométrique")
-rug(com$SHARE_ACT)
-hist(com$SHARE_ACT, breaks = d4, main = "d4 : moyenne & écart-type")
-abline(v = mean(com$SHARE_ACT), col  = "red")
-abline(v = mean(com$SHARE_ACT) + sd(com$SHARE_ACT), col  = "blue")
-abline(v = mean(com$SHARE_ACT) - sd(com$SHARE_ACT), col  = "blue")
-legend("topright", legend = c("moyenne", "moyenne +/-\nun écart-type"), col = c("red", "blue"), lty = 1, bty = "n")
-rug(com$SHARE_ACT)
-par(opar)
-```
-
-#### Palettes de couleurs {#palettes}
-
-L'argument `pal` de `mf_map()` est dédié au choix d'une palette de couleur. Les palettes fournies par la fonction `hcl.colors()` peuvent être utilisées directement.
-
-```{r pal1, fig.width = 4, fig.height = 4}
-mf_map(x = com, var = "SHARE_ACT", type = "choro",
-       breaks = d4, pal = "Blues 3")
-```
-
-
-![](img/swatch-plot-1.svg)
-
-La fonction `mf_get_pal()` permet de construire une palette de couleur.
-Cette fonction est surtout utile pour créer des palettes divergentes asymétriques équilibrées. 
-
-```{r pal2,  fig.height=3, nm=TRUE}
-mypal <- mf_get_pal(n = c(6,3), palette = c("Burg", "Teal"))
-image(1:9, 1, as.matrix(1:9), col=mypal, xlab = "", ylab = "", xaxt = "n",
-      yaxt = "n",bty = "n")
-```
-
-
-#### Pour une couche de points
-
-Il est possible d'utiliser ce mode de représentation en implémentation ponctuelle également. 
-
-```{r choropt}
-com_c <- st_centroid(com)
-mf_map(com)
-mf_map(
-  x = com_c,
-  var = "DENS",
-  type = "choro",
-  breaks = "quantile",
-  nbreaks = 4,
-  pal = "Dark Mint",
-  pch = 24,
-  cex = 2,
-  border = "white",
-  lwd = .7,
-  leg_pos = "topleft",
-  leg_title = "Densité de population\n(habitants par km2)", 
-  leg_val_rnd = 0, 
-  add = TRUE
-)
-mf_title("Distribution de la population dans le Lot (2018)")
-
-```
-
-
-
-### Carte de typologie
-Les cartes de typologies sont utilisées pour représenter les variables qualitatives.  
-La fonction `mf_map(..., type = "typo")` propose cette représentation.
-
-```{r typo_simple}
-mf_map(
-  x = com,
-  var="STATUT",
-  type = "typo",
-  pal = c("aquamarine4", "yellow3","wheat"),
-  lwd = .7,
-  leg_title = ""
-)
-mf_title("Statut Administratif")
-```
-
-
-#### Ordonner les valeurs dans la légende
-
-L'argument `val_order` sert à ordonner les modalités dans la légende.
-
-```{r typo_order}
-mf_map(
-  x = com,
-  var="STATUT",
-  type = "typo",
-  pal = c("aquamarine4", "yellow3","wheat"),
-  val_order = c("Préfecture", "Sous-préfecture", "Commune simple"),
-  lwd = .7,
-  leg_title = ""
-)
-mf_title("Statut Administratif")
-```
-
-
-#### Les cartes de points
-Quand l'implantation de la couche est ponctuelle, des symboles sont utilisés pour porter les couleurs de la typologie.
-
-```{r typo_point}
-# extraction des centroides de la préfectures et des sous-préfectures
-com_ctr <- st_centroid(com[com$STATUT != "Commune simple", ])
-mf_map(com)
-mf_map(
-  x = com_ctr, 
-  var = "STATUT", 
-  type = "typo", 
-  cex = 3, 
-  pch = 23, 
-  pal = c("aquamarine4", "yellow3"),
-  leg_title = "", 
-  add = TRUE
-)
-mf_title("Statut Administratif")
-
-```
-
-
-#### Les cartes de lignes
-
-```{r}
-# Sélection des routes qui intersectent la commune de Cahors
-cahors <- com[com$NOM_COM == "Cahors", ]
-route_cahors <- route[st_intersects(x = route, y = cahors, sparse = FALSE), ]
-mf_map(cahors)
-mf_map(
-  x = route_cahors,
-  var = "VOCATION",
-  type = "typo", 
-  lwd = 2,
-  pal = mf_get_pal(n = 4, "Dark 2"),
-  leg_title = "Type de route",
-  add = TRUE
-)
-mf_title("Statut Administratif")
-```
-
-
-
-<!-- ## Les cartes en symboles gradués -->
-
-<!-- ### Polygons -->
-
-<!-- ### points -->
-
-<!-- ### lignes -->
-
-
-
-<!-- ## Les cartes en symboles -->
-
-
-
-
-### Carte de stocks et de ratios
-La fonction `mf_map(..., var = c("var1", "var2"), type = "prop_choro")` représente des symboles proportionnels dont les surfaces sont proportionnelles aux valeurs d'une variable et dont la couleur repose sur la discrétisation d'une seconde variable. La fonction utilise les arguments des fonctions `mf_map(..., type = "prop")` et `mf_map(..., type = "choro")`.
-
-```{r choroprop}
-mf_map(x = com)
-mf_map(
-  x = com,
-  var = c("POPULATION", "DENS"),
-  type = "prop_choro",
-  border = "grey50",
-  lwd = 1,
-  leg_pos = c("topright", "topleft"),
-  leg_title = c("Population", "Densité\nde population\n(en hab./km2)"),
-  breaks = "q6",
-  pal = "Magenta",
-  leg_val_rnd = c(0,1))
-mf_title("Population")
-```
-
-### Carte de stocks et de catégories
-La fonction `mf_map(..., var = c("var1", "var2"), type = "prop_typo")` représente des symboles proportionnels dont les surfaces sont proportionnelles aux valeurs d'une variable et dont la couleur représente les modalités d'une variable qualitative. La fonction utilise les arguments des fonctions `mf_map(..., type = "prop")` et `mf_map(..., type = "typo")`.
-
-```{r typoprop}
-mf_map(x = com)
-mf_map(
-  x = com,
-  var = c("POPULATION", "STATUT"),
-  type = "prop_typo",
-  pal = c("aquamarine4", "yellow3","wheat"),
-  val_order = c("Préfecture", "Sous-préfecture", "Commune simple"),
-  leg_pos = c("bottomleft","topleft"),
-  leg_title = c("Population\n(2015)",
-                "Statut administratif"),
-)
-mf_title("Population")
-```
-
-<!-- ## Cartes symboles + choro -->
-
-<!-- ## Les cartes raster -->
-
-<!-- `mf_raster()` -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Mise en page 
-
 
 ```{r knitr3_init, echo=FALSE, cache=FALSE}
 library(knitr)
@@ -439,11 +35,11 @@ opts_chunk$set(fig.height=5,
 Pour être finalisée, une carte thématique doit contenir certains éléments additionnels tels que : le titre, l'auteur, la source, l'échelle, l'orientation...
 
 
-### Les thèmes
+## Les thèmes
 
 La fonction `mf_theme()` défini un thème cartographique. L'utilisation d'un thème permet de définir plusieurs paramètres graphiques qui sont ensuite appliqués aux cartes créées avec `mapsf`. Ces paramètres sont : les marges de la carte, la couleur principale, la couleur de fond, la position et l'aspect du titre. Un thème peut également être défini avec les fonctions `mf_init()` et `mf_export()`.
 
-#### Utiliser un thème prédéfini
+### Utiliser un thème prédéfini
 
 Une série de thèmes prédéfinis est disponible par défaut (voir `?mf_theme`).
 
@@ -468,7 +64,7 @@ par(opar)
 
 ```
 
-#### Modifier un thème existant
+### Modifier un thème existant
 
 Il est possible de modifier un thème existant. Dans cet exemple, nous utilisons le thème "default" et nous en modifions quelques paramètres.
 
@@ -485,7 +81,7 @@ par(opar)
 ```
 
 
-#### Créer un thème
+### Créer un thème
 
 
 Il est également possible de créer un thème.
@@ -510,7 +106,7 @@ mf_title("New theme")
 
 
 
-### Les titres
+## Les titres
 
 La fonction `mf_title()` permet d'ajouter un titre à une carte.
 
@@ -543,7 +139,7 @@ mf_title(
 
 
 
-### Flèche d'orientation
+## Flèche d'orientation
 
 La fonction `mf_arrow()` permet de choisir la position et l'aspect de la flèche d'orientation.
 
@@ -553,7 +149,7 @@ mf_arrow()
 ```
 
 
-### Échelle
+## Échelle
 
 La fonction `mf_scale()` permet de choisir la position et l'aspect de l'échelle.
 
@@ -567,7 +163,7 @@ mf_scale(
 ```
 
 
-### Crédits
+## Crédits
 
 La fonction `mf_credits()` permet d'afficher une ligne de crédits (sources, auteur...).
 ```{r credit}
@@ -576,7 +172,7 @@ mf_credits("IGN\nGiraud & Pécout, 2021")
 ```
 
 
-### Habillage complet
+## Habillage complet
 
 La fonction `mf_layout()` permet d'afficher tous ces éléments.
 
@@ -590,7 +186,7 @@ mf_layout(
 ```
 
 
-### Annotations
+## Annotations
 
 
 ```{r}
@@ -599,7 +195,7 @@ mf_annotation(com[com$NOM_COM == "Cahors",], txt = "Cahors", halo = TRUE, cex = 
 ```
 
 
-### Les légendes
+## Les légendes
 
 
 ```{r}
@@ -625,7 +221,7 @@ mf_legend(
 
 
 
-### Étiquettes
+## Étiquettes
 
 La fonction `mf_label()` est dédiée à l'afichage d'étiquettes.
 
@@ -648,7 +244,7 @@ L'argument `halo = TRUE` permet d'afficher un léger halo autour des étiquettes
 
 
 
-### Centrer la carte sur une région
+## Centrer la carte sur une région
 
 La fonction `mf_init()` permet d'initialiser une carte en la centrant sur une objet spatial.  
 
@@ -661,7 +257,7 @@ mf_map(com_sel, col = NA, border = "red", lwd = 2, add = TRUE)
 
 
 
-### Afficher plusieurs cartes sur la même figure
+## Afficher plusieurs cartes sur la même figure
 
 Il faut ici utiliser l'argument `mfrow` de la fonction `par()`. Le premier chiffre représente le nombre lignes et le deuxième le nombre de colonnes.
 
@@ -686,7 +282,7 @@ mf_map(com, "TER_H", "prop",
 mf_title("Hommes")
 ```
 
-### Export des cartes
+## Export des cartes
 
 
 Il est assez difficile d'exporter des figures (cartes ou autres) dont le ratio hauteur/largeur est satisfaisant. Le ratio par défaut des figures au format png est de 1 (480x480 pixels) :
@@ -721,7 +317,7 @@ L'emprise de cette carte est exactement celle de la région affichée.
 
 
 
-### Ajouter une image sur une carte
+## Ajouter une image sur une carte
 Cela peut être utile pour ajouter un logo, un pictogramme. La fonction `readPNG()` 
 du package `png` permet l'ajout d'images sur une figure.
 
@@ -766,7 +362,7 @@ rasterImage(
 
 
 
-### Ajouter un ombrage à une couche
+## Ajouter un ombrage à une couche
 
 La fonction `mf_shadow()` permet de créer une ombre à une couche de polygones. 
 ```{r shadow}
@@ -776,7 +372,7 @@ mf_map(com, add=TRUE)
 ```
 
 
-### Création de cartons
+## Création de cartons
 
 La fonction `mf_inset_on()` permet de démarrer la création d'un carton.
 Il faut ensuite "refermer" le carton avec `mf_inset_off()`.
