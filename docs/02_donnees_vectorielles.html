@@ -273,7 +273,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices"><span class="toc-section-number">3.9</span>  Exercices</a>
   <ul class="collapse">
-  <li><a href="#calculer-le-nombre-de-restaurants-par-communes" id="toc-calculer-le-nombre-de-restaurants-par-communes" class="nav-link" data-scroll-target="#calculer-le-nombre-de-restaurants-par-communes"><span class="toc-section-number">3.9.1</span>  Calculer le nombre de restaurants par communes</a></li>
+  <li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import"><span class="toc-section-number">3.9.1</span>  Import</a></li>
+  <li><a href="#affichage-1" id="toc-affichage-1" class="nav-link" data-scroll-target="#affichage-1"><span class="toc-section-number">3.9.2</span>  Affichage</a></li>
+  <li><a href="#sélection" id="toc-sélection" class="nav-link" data-scroll-target="#sélection"><span class="toc-section-number">3.9.3</span>  Sélection</a></li>
+  <li><a href="#opérations-spatiales" id="toc-opérations-spatiales" class="nav-link" data-scroll-target="#opérations-spatiales"><span class="toc-section-number">3.9.4</span>  Opérations spatiales</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -546,8 +549,7 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 <pre><code>#&gt; [1] 16096     1</code></pre>
 </div>
 </div>
-<p>L’objet <strong>inter</strong> est une matrice qui indique pour chacun des éléments de l’objet <strong>route</strong> (16096 éléments) si il<br>
-intersecte chacun des élément de l’objet <strong>gramat</strong> (1 élément). La dimension de la matrice est donc bien 16096 lignes * 1 colonne.<br>
+<p>L’objet <strong>inter</strong> est une matrice qui indique pour chacun des éléments de l’objet <strong>route</strong> (16096 éléments) si il intersecte chacun des élément de l’objet <strong>gramat</strong> (1 élément). La dimension de la matrice est donc bien 16096 lignes * 1 colonne.<br>
 Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensuite possible de créer une colonne à partir de cet objet :</p>
 <div class="cell" data-hash="02_donnees_vectorielles_cache/html/intersects2_8813578180f0d74652f2691b3109b883">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>route<span class="sc">$</span>intersect_gramat <span class="ot">&lt;-</span> inter</span>
@@ -675,16 +677,73 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 #&gt; [5,]  3790.688 57288.10 54030.81 62016.14     0.000</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">FALSE</span>, <span class="at">eval =</span> <span class="cn">FALSE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="exercices" class="level2" data-number="3.9">
 <h2 data-number="3.9" class="anchored" data-anchor-id="exercices"><span class="header-section-number">3.9</span> Exercices</h2>
-<section id="calculer-le-nombre-de-restaurants-par-communes" class="level3" data-number="3.9.1">
-<h3 data-number="3.9.1" class="anchored" data-anchor-id="calculer-le-nombre-de-restaurants-par-communes"><span class="header-section-number">3.9.1</span> Calculer le nombre de restaurants par communes</h3>
-<ul>
-<li><p>Quelles communes ont plus de 10 restaurants et moins de 1000 habitants ?</p></li>
-<li><p>Créez une carte où vous afficherez toutes les communes en gris et les communes sélectionnées plus haut en rouge.</p></li>
-</ul>
+<section id="import" class="level3" data-number="3.9.1">
+<h3 data-number="3.9.1" class="anchored" data-anchor-id="import"><span class="header-section-number">3.9.1</span> Import</h3>
+<p>Importer la couche des communes du département du Lot et la couche des restaurants à partir du fichier geopackage <strong>lot46.gpkg</strong>.</p>
+<div class="callout-tip callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>La fonction <code>st_layers()</code> permet de connaître les couches présentes dans un geopackage.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-2_c307f397b676af17812514c43e560b93">
+
+</div>
+</section>
+<section id="affichage-1" class="level3" data-number="3.9.2">
+<h3 data-number="3.9.2" class="anchored" data-anchor-id="affichage-1"><span class="header-section-number">3.9.2</span> Affichage</h3>
+<p>Afficher la couche des communes (fond gris, bordures en blanc) et la couche des restaurants (petits cercles, fond rouge, contours en blanc) sur une même carte.</p>
+<div class="callout-tip callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Rappel : La fonction <code>st_geometry()</code> permet d’accéder à la géométrie d’un objet <code>sf</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-3_1826df348e371a4a389a1f84130112a8">
+
+</div>
+</section>
+<section id="sélection" class="level3" data-number="3.9.3">
+<h3 data-number="3.9.3" class="anchored" data-anchor-id="sélection"><span class="header-section-number">3.9.3</span> Sélection</h3>
+<p>Sélectionner la commune de Cahors et assigner le résultat dans un objet <code>cahors</code>.</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-4_b16cae5d90b5485674e0d9a0695111ad">
+
+</div>
+</section>
+<section id="opérations-spatiales" class="level3" data-number="3.9.4">
+<h3 data-number="3.9.4" class="anchored" data-anchor-id="opérations-spatiales"><span class="header-section-number">3.9.4</span> Opérations spatiales</h3>
+<p>Combien de restaurants se trouvent à Cahors ou à moins de 10 km de Cahors?</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-5_c07b2b028c92c686576e2bf45ccd9f8d">
+
+</div>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-6_195c444e6610ce2c8e6d94de61f3e1ab">
+
+</div>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-7_a67056ae444eb3c0773ae30e1a8f1ade">
+
+</div>
+<p>Afficher les restaurants qui se trouvent à Cahors ou à moins de 10 km de Cahors.</p>
+<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-8_0a264668224e7ff56b97ec7a08a9dc78">
+
+</div>
+<div class="cell">
+
+</div>
 
 
 </section>

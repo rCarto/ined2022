@@ -129,8 +129,7 @@ head(inter)
 dim(inter)
 ```
 
-L'objet **inter** est une matrice qui indique pour chacun des éléments de l'objet **route** (16096 éléments) si il  
-intersecte chacun des élément de l'objet **gramat** (1 élément). 
+L'objet **inter** est une matrice qui indique pour chacun des éléments de l'objet **route** (16096 éléments) si il intersecte chacun des élément de l'objet **gramat** (1 élément). 
 La dimension de la matrice est donc bien 16096 lignes * 1 colonne.  
 Notez l'utilisation du paramètre `sparse = FALSE` ici. 
 Il est ensuite possible de créer une colonne à partir de cet objet :
@@ -236,17 +235,73 @@ mat[1:5,1:5]
 ```
 
 
-
+```{r}
+#| cache: false
+knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
+```
 
 ## Exercices
 
+### Import
+Importer la couche des communes du département du Lot et la couche des restaurants à partir du fichier geopackage **lot46.gpkg**.
 
-### Calculer le nombre de restaurants par communes
+:::{.callout-tip}
+La fonction `st_layers()` permet de connaître les couches présentes dans un geopackage.
+:::
 
-* Quelles communes ont plus de 10 restaurants et moins de 1000 habitants ?
+```{r}
+library(sf)
+st_layers('data/lot46.gpkg')
+com <- st_read("data/lot46.gpkg", layer = 'commune', quiet = TRUE)
+resto <- st_read("data/lot46.gpkg", layer = 'restaurant', quiet = TRUE)
+```
 
 
+### Affichage
 
-* Créez une carte où vous afficherez toutes les communes en gris et les communes sélectionnées plus haut en rouge. 
+Afficher la couche des communes (fond gris, bordures en blanc) et la couche des restaurants (petits cercles, fond rouge, contours en blanc) sur une même carte.
+
+:::{.callout-tip}
+Rappel : La fonction `st_geometry()` permet d'accéder à la géométrie d'un objet `sf`.
+:::
+
+```{r}
+plot(st_geometry(com), col = "grey", border = "white")
+plot(st_geometry(resto), pch = 21, cex = .5, bg = "red", 
+     col = "white", add = TRUE)
+```
+
+### Sélection
+Sélectionner la commune de Cahors et assigner le résultat dans un objet `cahors`.
+
+```{r}
+cahors <- com[com$NOM_COM == "Cahors", ]
+```
 
 
+### Opérations spatiales
+Combien de restaurants se trouvent à Cahors ou à moins de 10 km de Cahors?
+
+```{r}
+sum(st_distance(x = resto, y = cahors) <= units::as_units(10, 'km'))
+```
+
+```{r}
+nrow(resto[st_buffer(cahors, 10000), ])
+```
+
+```{r}
+nrow(st_intersection(resto, st_buffer(cahors, 10000)))
+```
+
+Afficher les restaurants qui se trouvent à Cahors ou à moins de 10 km de Cahors.
+
+
+```{r}
+plot(st_geometry(resto[st_buffer(cahors, 10000), ]))
+```
+
+```{r}
+#| cache: false
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
