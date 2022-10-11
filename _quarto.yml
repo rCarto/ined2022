@@ -4,7 +4,7 @@ project:
   
 book:
   title: "Cartographie avec R"
-  description: "<small>*Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.*</small>"
+  description: "Créer des cartes thématiques avec R."
   author:
     - name: Timothée Giraud
       orcid: 0000-0001-5679-6536
@@ -12,7 +12,7 @@ book:
       url: https://rgeomatic.hypotheses.org
       affiliations:
         - id: 1
-          name: RIATE
+          name: RIATE (CNRS)
           url: https://riate.cnrs.fr
         - id: 2
           name: INED (associé)
@@ -32,7 +32,7 @@ book:
     left: "[![CreativeCommonsLicense](img/by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
   favicon: img/globe-africa-solid.svg
   twitter-card: 
-    image: img/globe-africa-solid.svg
+    image: img/globe-africa-solid.png
     card-style: summary_large_image
     creator: "@rgeomatic"
   site-url: https://rcarto.github.io/ined2022/

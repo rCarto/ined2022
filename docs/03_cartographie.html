@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
+<meta name="generator" content="quarto-1.2.203">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
+<meta name="description" content="Créer des cartes thématiques avec R.">
 
 <title>Cartographie avec R - 7&nbsp; Mise en page</title>
 <style>
@@ -118,13 +118,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <meta property="og:title" content="Cartographie avec R - 7&nbsp; Mise en page">
-<meta property="og:description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
+<meta property="og:description" content="Créer des cartes thématiques avec R.">
 <meta property="og:site-name" content="Cartographie avec R">
 <meta name="twitter:title" content="Cartographie avec R - 7&nbsp; Mise en page">
-<meta name="twitter:description" content="Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.">
-<meta name="twitter:image" content="https://rcarto.github.io/ined2022/img/globe-africa-solid.svg">
+<meta name="twitter:description" content="Créer des cartes thématiques avec R.">
+<meta name="twitter:image" content="https://rcarto.github.io/ined2022/img/globe-africa-solid.png">
 <meta name="twitter:creator" content="@rgeomatic">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="980">
+<meta name="twitter:image-width" content="988">
 </head>
 
 <body class="nav-sidebar floating">
@@ -261,9 +263,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#afficher-plusieurs-cartes-sur-la-même-figure" id="toc-afficher-plusieurs-cartes-sur-la-même-figure" class="nav-link" data-scroll-target="#afficher-plusieurs-cartes-sur-la-même-figure"><span class="toc-section-number">7.11</span>  Afficher plusieurs cartes sur la même figure</a></li>
   <li><a href="#export-des-cartes" id="toc-export-des-cartes" class="nav-link" data-scroll-target="#export-des-cartes"><span class="toc-section-number">7.12</span>  Export des cartes</a></li>
   <li><a href="#ajouter-une-image-sur-une-carte" id="toc-ajouter-une-image-sur-une-carte" class="nav-link" data-scroll-target="#ajouter-une-image-sur-une-carte"><span class="toc-section-number">7.13</span>  Ajouter une image sur une carte</a></li>
-  <li><a href="#ajouter-un-ombrage-à-une-couche" id="toc-ajouter-un-ombrage-à-une-couche" class="nav-link" data-scroll-target="#ajouter-un-ombrage-à-une-couche"><span class="toc-section-number">7.14</span>  Ajouter un ombrage à une couche</a></li>
-  <li><a href="#création-de-cartons" id="toc-création-de-cartons" class="nav-link" data-scroll-target="#création-de-cartons"><span class="toc-section-number">7.15</span>  Création de cartons</a></li>
-  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices"><span class="toc-section-number">7.16</span>  Exercices</a></li>
+  <li><a href="#placer-précisément-un-élément-sur-la-carte" id="toc-placer-précisément-un-élément-sur-la-carte" class="nav-link" data-scroll-target="#placer-précisément-un-élément-sur-la-carte"><span class="toc-section-number">7.14</span>  Placer précisément un élément sur la carte</a></li>
+  <li><a href="#ajouter-un-ombrage-à-une-couche" id="toc-ajouter-un-ombrage-à-une-couche" class="nav-link" data-scroll-target="#ajouter-un-ombrage-à-une-couche"><span class="toc-section-number">7.15</span>  Ajouter un ombrage à une couche</a></li>
+  <li><a href="#création-de-cartons" id="toc-création-de-cartons" class="nav-link" data-scroll-target="#création-de-cartons"><span class="toc-section-number">7.16</span>  Création de cartons</a></li>
+  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices"><span class="toc-section-number">7.17</span>  Exercices</a></li>
   </ul>
 </nav>
     </div>
@@ -275,16 +278,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mise en page</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    <small><em>Créer des cartes thématiques conformes aux règles de la sémiologie graphique et de la cartographie avec R.</em></small>
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -589,18 +588,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="03_cartographie_files/figure-html/logo-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
-<!-- ### Placer précisément un élément sur la carte -->
-<!-- La fonction `locator()` permet de cliquer sur une figure et d'obtenir les coordonnées d'un point dans le système de coordonnées de la figure (de la carte). -->
-<!-- <video width="770" controls="controls"> -->
-<!-- <source src="img/locator.webm" type="video/webm" /> -->
-<!-- </video> -->
-<!-- `locator()`peut être utilisée sur la plupart des graphiques (pas ceux produits avec `ggplot2`). -->
-<!-- :::{.callout-note} -->
-<!-- [How to interactively position legends and layout elements on a map with cartography](https://rgeomatic.hypotheses.org/1837) -->
-<!-- ::: -->
 </section>
-<section id="ajouter-un-ombrage-à-une-couche" class="level2" data-number="7.14">
-<h2 data-number="7.14" class="anchored" data-anchor-id="ajouter-un-ombrage-à-une-couche"><span class="header-section-number">7.14</span> Ajouter un ombrage à une couche</h2>
+<section id="placer-précisément-un-élément-sur-la-carte" class="level2" data-number="7.14">
+<h2 data-number="7.14" class="anchored" data-anchor-id="placer-précisément-un-élément-sur-la-carte"><span class="header-section-number">7.14</span> Placer précisément un élément sur la carte</h2>
+<p>Dans plusieur fonctions de <code>mapsf</code> il est possible de placer des éléments d’habillage de manière interactive avec la position <em>“interactive”</em>.</p>
+<p><img src="img/interactive.gif" class="img-fluid"></p>
+<p>Plus généralement la fonction <code>locator()</code> permet de cliquer sur une figure et d’obtenir les coordonnées d’un point dans le système de coordonnées de la figure (de la carte). <code>locator()</code>peut être utilisée sur la plupart des graphiques (pas ceux produits avec <code>ggplot2</code>).</p>
+</section>
+<section id="ajouter-un-ombrage-à-une-couche" class="level2" data-number="7.15">
+<h2 data-number="7.15" class="anchored" data-anchor-id="ajouter-un-ombrage-à-une-couche"><span class="header-section-number">7.15</span> Ajouter un ombrage à une couche</h2>
 <p>La fonction <code>mf_shadow()</code> permet de créer une ombre à une couche de polygones.</p>
 <div class="cell" data-hash="03_cartographie_cache/html/shadow_c5649b38ba54f659c4e61b398afb98bd">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_shadow</span>(com)</span>
@@ -610,8 +606,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="création-de-cartons" class="level2" data-number="7.15">
-<h2 data-number="7.15" class="anchored" data-anchor-id="création-de-cartons"><span class="header-section-number">7.15</span> Création de cartons</h2>
+<section id="création-de-cartons" class="level2" data-number="7.16">
+<h2 data-number="7.16" class="anchored" data-anchor-id="création-de-cartons"><span class="header-section-number">7.16</span> Création de cartons</h2>
 <p>La fonction <code>mf_inset_on()</code> permet de démarrer la création d’un carton. Il faut ensuite “refermer” le carton avec <code>mf_inset_off()</code>.</p>
 <div class="cell" data-hash="03_cartographie_cache/html/inset_a27b06a5b7595d5eb595398e2b8fc3b9">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_init</span>(<span class="at">x =</span> com_sel, <span class="at">theme =</span> <span class="st">"agolalight"</span>, <span class="at">expandBB =</span> <span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">1</span>,<span class="dv">0</span>,.<span class="dv">5</span>))</span>
@@ -641,8 +637,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="exercices" class="level2" data-number="7.16">
-<h2 data-number="7.16" class="anchored" data-anchor-id="exercices"><span class="header-section-number">7.16</span> Exercices</h2>
+<section id="exercices" class="level2" data-number="7.17">
+<h2 data-number="7.17" class="anchored" data-anchor-id="exercices"><span class="header-section-number">7.17</span> Exercices</h2>
 <ol type="1">
 <li>Créez une carte représentant la population active travaillant dans l’industrie.</li>
 <li>Ajoutez les éléments d’habillage indispensables.</li>
@@ -858,7 +854,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copié");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copié");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -894,24 +907,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

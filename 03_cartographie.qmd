@@ -342,23 +342,13 @@ rasterImage(
 ```
 
 
-<!-- ### Placer précisément un élément sur la carte -->
+## Placer précisément un élément sur la carte
 
-<!-- La fonction `locator()` permet de cliquer sur une figure et d'obtenir les coordonnées d'un point dans le système de coordonnées de la figure (de la carte). -->
+Dans plusieur fonctions de `mapsf` il est possible de placer des éléments d'habillage de manière interactive avec la position *"interactive"*.
 
-<!-- <video width="770" controls="controls"> -->
-<!-- <source src="img/locator.webm" type="video/webm" /> -->
-<!-- </video> -->
+![](img/interactive.gif)
 
-<!-- `locator()`peut être utilisée sur la plupart des graphiques (pas ceux produits avec `ggplot2`). -->
-
-
-<!-- :::{.callout-note} -->
-
-<!-- [How to interactively position legends and layout elements on a map with cartography](https://rgeomatic.hypotheses.org/1837) -->
-
-<!-- ::: -->
-
+Plus généralement la fonction `locator()` permet de cliquer sur une figure et d'obtenir les coordonnées d'un point dans le système de coordonnées de la figure (de la carte). `locator()`peut être utilisée sur la plupart des graphiques (pas ceux produits avec `ggplot2`).
 
 
 
