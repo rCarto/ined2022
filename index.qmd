@@ -7,8 +7,10 @@ L'objectif de ce document est de fournir un support à l'apprentissage de la car
 
 
 **Comment utiliser le manuel**  
-Le projet RStudio contenant l'ensemble des données utilisées dans le manuel est disponible [ici](https://github.com/rCarto/geodata/archive/refs/heads/main.zip). 
-Une fois le dossier décompressé il est possible de tester l'ensemble des manipulations proposées dans ce manuel dans le projet RStudio **geodata**. 
+Les données utilisées dans ce document sont stockées dans un projet RStudio. 
+Une fois le dossier décompressé il est ensuite possible de tester l'ensemble des manipulations au sein du projet **geodata**.   
+[Télécharger le projet](geodata.zip){.btn .btn-primary .btn-sm role="button"}  
+
 
 
 **Contribution et feedback**  
@@ -17,3 +19,4 @@ Vous pouvez nous envoyer vos remarques et suggestions en [postant une *issue*](h
 :::{.callout-note}
 Ce document est dérivé de deux supports de cours plus complets : [Géomatique avec R](https://rcarto.github.io/geomatique_avec_r/) et [Cartographie avec R](https://rcarto.github.io/cartographie_avec_r/). 
 :::
+

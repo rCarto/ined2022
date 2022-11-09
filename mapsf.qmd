@@ -1,5 +1,7 @@
 # `mapsf` 
 
+## Présentation
+
 <img src="img/logo.png" align="right" alt="" width="120" />
 
 
@@ -26,3 +28,13 @@ Associées aux fonctions de représentation des données d’autres fonctions so
 * Les [vignettes](https://riatelab.github.io/mapsf/articles/) associées au package présentent des exemples de scripts.
 * Le blog [R Géomatique](https://rgeomatic.hypotheses.org/) qui met à disposition ressources et exemples liés au package et plus généralement à l'écosystème spatial de R.
 :::
+
+
+## Exercice 
+- Installez le package `mapsf`.   
+- Quelle est la version du package?   
+- Quelles sont les nouveautés par rapport à la version précédente?  
+
+
+
+

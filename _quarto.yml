@@ -1,6 +1,8 @@
 project:
   type: book
   output-dir: docs
+  resources: 
+    - "geodata.zip"
   
 book:
   title: "Cartographie avec R"
@@ -34,7 +36,7 @@ book:
   twitter-card: 
     image: img/globe-africa-solid.png
     card-style: summary_large_image
-    creator: "@rgeomatic"
+    creator: "rgeomatic"
   site-url: https://rcarto.github.io/ined2022/
   open-graph: true
   chapters:

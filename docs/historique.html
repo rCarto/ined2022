@@ -79,7 +79,7 @@ div.csl-indent {
 <meta name="twitter:title" content="Cartographie avec R - 1&nbsp; Historique et évolutions">
 <meta name="twitter:description" content="Créer des cartes thématiques avec R.">
 <meta name="twitter:image" content="https://rcarto.github.io/ined2022/img/globe-africa-solid.png">
-<meta name="twitter:creator" content="@rgeomatic">
+<meta name="twitter:creator" content="rgeomatic">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image-height" content="980">
 <meta name="twitter:image-width" content="988">
@@ -202,7 +202,7 @@ div.csl-indent {
    
   <ul>
   <li><a href="#le-package-sf" id="toc-le-package-sf" class="nav-link active" data-scroll-target="#le-package-sf"><span class="toc-section-number">1.1</span>  Le package <code>sf</code></a></li>
-  <li><a href="#le-package-terra" id="toc-le-package-terra" class="nav-link" data-scroll-target="#le-package-terra"><span class="toc-section-number">1.2</span>  Le package <code>terra</code></a></li>
+  <li><a href="#exercice" id="toc-exercice" class="nav-link" data-scroll-target="#exercice"><span class="toc-section-number">1.2</span>  Exercice</a></li>
   </ul>
 </nav>
     </div>
@@ -237,7 +237,7 @@ div.csl-indent {
 <li>Le package <code>raster</code> <span class="citation" data-cites="R-raster">(<a href="05_references.html#ref-R-raster" role="doc-biblioref">Hijmans, 2021a</a>)</span> est dédié à l’import, la mabipulation et la modélisation des données raster.</li>
 </ul>
 <p>Aujourd’hui, les principaux développements concernants les données vectorielles se sont détachés des 3 anciens (<code>sp</code>, <code>rgdal</code>, <code>rgeos</code>) pour se reposer principalement sur le package <code>sf</code> <span class="citation" data-cites="R-sf Pebesma18">(<a href="05_references.html#ref-R-sf" role="doc-biblioref">Pebesma, 2018a</a> ; <a href="05_references.html#ref-Pebesma18" role="doc-biblioref">Pebesma, 2018b</a>)</span>. Dans ce manuel nous nous appuierons exclusivement sur ce package pour manipuler les données vectorielles.</p>
-<p>Les packages <code>stars</code> <span class="citation" data-cites="R-stars">(<a href="05_references.html#ref-R-stars" role="doc-biblioref">Pebesma, 2021</a>)</span> et <code>terra</code><span class="citation" data-cites="R-terra">(<a href="05_references.html#ref-R-terra" role="doc-biblioref">Hijmans, 2021b</a>)</span> sont venus quand à eux remplacer le package <code>raster</code> pour le traitement des données raster. Nous avons choisi d’utiliser ici le package <code>terra</code> pour sa proximité avec le package <code>raster</code>.</p>
+<p>Les packages <code>stars</code> <span class="citation" data-cites="R-stars">(<a href="05_references.html#ref-R-stars" role="doc-biblioref">Pebesma, 2021</a>)</span> et <code>terra</code><span class="citation" data-cites="R-terra">(<a href="05_references.html#ref-R-terra" role="doc-biblioref">Hijmans, 2021b</a>)</span> sont venus quand à eux remplacer le package <code>raster</code> pour le traitement des données raster.</p>
 <div class="callout-note callout callout-style-simple no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -282,22 +282,14 @@ Site web du package <code>sf</code>
 </div>
 </div>
 </section>
-<section id="le-package-terra" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="le-package-terra"><span class="header-section-number">1.2</span> Le package <code>terra</code></h2>
-<p><img src="img/logo_terra.png" align="right" width="150"> Le package <code>terra</code> a été publié début 2020 par Robert J. Hijmans (également auteur de <code>raster</code>). Son objectif est de proposer des méthodes de traitement et d’analyse de données rasrer. Ce package est très similaire au package <code>raster</code>; mais il propose plus de fonctionnalités, il est plus facile à utiliser et il est plus rapide.</p>
-<div class="callout-note callout callout-style-simple no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Site web du package <code>terra</code> :
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><a href="https://rspatial.org/terra/">Spatial Data Science with R and “terra”</a></p>
-</div>
-</div>
+<section id="exercice" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="exercice"><span class="header-section-number">1.2</span> Exercice</h2>
+<ol type="1">
+<li><p>Les données utilisées dans ce document sont stockées dans un projet RStudio. Vous devez le télécharger puis le décompresser sur votre machine. Il vous sera ensuite possible de tester l’ensemble des manipulations proposées dans ce document au sein du projet <strong>geodata</strong>.<br>
+<a href="geodata.zip" class="btn btn-primary btn-sm" role="button">Télécharger le projet</a></p></li>
+<li><p>Nous utiliserons largement le package <code>sf</code> dans la suite de cette formation.<br>
+Installez le en utilisant la fonction <code>install.packages()</code>.</p></li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">

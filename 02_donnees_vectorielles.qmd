@@ -237,10 +237,11 @@ mat[1:5,1:5]
 
 ```{r}
 #| cache: false
+#| echo: false
 knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
 ```
 
-## Exercices
+## Exercice
 
 ### Import
 Importer la couche des communes du département du Lot et la couche des restaurants à partir du fichier geopackage **lot46.gpkg**.
