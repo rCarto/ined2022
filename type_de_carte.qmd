@@ -114,16 +114,6 @@ Nous avons ici affiché deux cartes en vis-à-vis, voir le point [Afficher plusi
 
 
 
-<!-- ### Les cartes de liens proportionnels -->
-
-<!-- TO DO -->
-
-
-
-
-
-
-
 ## Carte choroplèthe
 
 Les cartes choroplèthes sont utilisées pour représenter les variables de ratios (variables quantitatives relatives, la moyenne a un sens, la somme n'a pas de sens).
@@ -321,21 +311,6 @@ mf_title("Statut Administratif")
 
 
 
-<!-- ## Les cartes en symboles gradués -->
-
-<!-- ### Polygons -->
-
-<!-- ### points -->
-
-<!-- ### lignes -->
-
-
-
-<!-- ## Les cartes en symboles -->
-
-
-
-
 ## Carte de stocks et de ratios
 La fonction `mf_map(..., var = c("var1", "var2"), type = "prop_choro")` représente des symboles proportionnels dont les surfaces sont proportionnelles aux valeurs d'une variable et dont la couleur repose sur la discrétisation d'une seconde variable. La fonction utilise les arguments des fonctions `mf_map(..., type = "prop")` et `mf_map(..., type = "choro")`.
 
@@ -373,16 +348,58 @@ mf_map(
 mf_title("Population")
 ```
 
-<!-- ## Cartes symboles + choro -->
 
-<!-- ## Les cartes raster -->
+```{r}
+#| cache: false
+#| echo: false
+knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
+```
 
-<!-- `mf_raster()` -->
+## Exercice
+
+
+1. Calculer la densité de population des communes du Lot dans une nouvelle colonne **DENS**. 
+
+:::{.callout-tip}
+La fonction `st_area()` du package `sf` permet de calculer les superficies de polygones.  
+La fonction `units()` permet de passer d'une variable en mètres carrés à une variable en kilomètres carrés (ex: `units(var) <- "km^2"`)
+:::
 
 
 
+2. Créer une carte de la densité de population communale
+
+Quel mode de représentation utiliser? Quels choix cela implique-t-il?
 
 
+```{r}
+#| fig.height: 3.75
+com$AREA <- st_area(com)
+units(com$AREA) <- "km^2"
+com$DENS <- com$POPULATION /com$AREA
+hist(com$DENS, main = "Densité de population des communes du Lot", xlab = "densité de pop.")
+bks <- mf_get_breaks(com$DENS, 5, "geom")
+cols <- hcl.colors(5, "Dark Mint", rev = TRUE)
+
+cols2 <- as.character(cut(com$DENS, breaks = bks, labels = cols, include.lowest = TRUE))
+library(mapsf)
+opar <- par(mar = c(5.1,2.1,2.1,2.1))
+hist(com$DENS, breaks = bks, col = cols, xlab = "densité de pop.",freq = F, axes = F, ylab = "",
+     main = "Densité de population des communes du Lot", border = "grey80", ylim = c(-0.01, 0.027))
+stripchart(x = com$DENS, pch = 21, bg = cols2, col = "white",at = -0.005, 
+           jitter = 0.0025, add =T,
+           method = "jitter", cex = .7, xlab = "densité de pop.")
+axis(side = 1, at = c(seq(0,500,100), 575))
+par(opar)
+```
+
+
+
+```{r}
+#| cache: false
+#| echo: false
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
 
 
 

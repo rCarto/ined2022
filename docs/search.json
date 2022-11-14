@@ -105,11 +105,18 @@
     "text": "4.2 Exercice\n\nInstallez le package mapsf.\n\nQuelle est la version du package?\n\nQuelles sont les nouveautés par rapport à la version précédente?\n\n\n\n\n\nDunnington, D. (2021). ggspatial: Spatial Data Framework for ggplot2. https://CRAN.R-project.org/package=ggspatial\n\n\nGiraud, T. (2021). mapsf: Thematic Cartography.\n\n\nGiraud, T. et Lambert, N. (2018). cartography: Thematic Cartography. https://github.com/riatelab/cartography/\n\n\nTennekes, M. (2018). tmap: Thematic Maps in R. Journal of Statistical Software, 84(6), 1‑39. https://doi.org/10.18637/jss.v084.i06\n\n\nWickham, H. (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://ggplot2.tidyverse.org"
   },
   {
-    "objectID": "semio.html",
-    "href": "semio.html",
+    "objectID": "semio.html#principes-généraux",
+    "href": "semio.html#principes-généraux",
     "title": "5  La sémiologie graphique",
-    "section": "",
-    "text": "La sémiologie graphique est, de façon générale, l’ensemble des règles qui régissent la construction d’un système de signes ou langage permettant la traduction graphique d’une information. Depuis la parution de la Sémiologie graphique de Jacques Bertin (1967), elle désigne surtout un ensemble standardisé des règles et de pratiques inhérentes à la représentation cartographique au-delà des travaux réalisés par Bertin.\nwikipedia\n\n\nLa sémiologie graphique utilise les propriétés de l’image visuelle pour faire apparaitre les relations de différence, d’ordre et de proportionnalité entre les données.\nD’après Bertin (1967)\n\nPour une première approche de la cartographie thématique on peut se référer à la figure suivante qui résume de manière simplifiée la relation entre un type de variable et sa représentation graphique correcte.\n\n\n\n\n\n\n\nPourquoi on ne représente pas de stocks en aplat !\n\n\n\n\n\n\n\n\n\nQuelques ouvrages de référence en cartographie thématique : Bertin (1967), Pumain et Béguin (2010), Lambert et Zanin (2016).\n\n\n\n\n\n\n\nBertin, J. (1967). Sémiologie Graphique: Les Diagrammes, Les Réseaux, Les Cartes, Les Réimpressions Des Éditions De l’Ecole Des Hautes Études en Sciences Sociales. Paris: Mouton & Gauthier-Villars.\n\n\nLambert, N. et Zanin, C. (2016). Manuel de cartographie: principes, méthodes, applications. Armand Colin.\n\n\nPumain, D. et Béguin, M. (2010). La représentation des données géographiques: Statistique et cartographie. Armand Colin."
+    "section": "5.1 Principes généraux",
+    "text": "5.1 Principes généraux\n\nLa sémiologie graphique est, de façon générale, l’ensemble des règles qui régissent la construction d’un système de signes ou langage permettant la traduction graphique d’une information. Depuis la parution de la Sémiologie graphique de Jacques Bertin (1967), elle désigne surtout un ensemble standardisé des règles et de pratiques inhérentes à la représentation cartographique au-delà des travaux réalisés par Bertin.\nwikipedia\n\n\nLa sémiologie graphique utilise les propriétés de l’image visuelle pour faire apparaitre les relations de différence, d’ordre et de proportionnalité entre les données.\nD’après Bertin (1967)\n\nPour une première approche de la cartographie thématique on peut se référer à la figure suivante qui résume de manière simplifiée la relation entre un type de variable et sa représentation graphique correcte.\n\n\n\n\n\n\n\nPourquoi on ne représente pas de stocks en aplat !\n\n\n\n\n\n\n\n\n\nQuelques ouvrages de référence en cartographie thématique : Bertin (1967), Pumain et Béguin (2010), Lambert et Zanin (2016)."
+  },
+  {
+    "objectID": "semio.html#exercice",
+    "href": "semio.html#exercice",
+    "title": "5  La sémiologie graphique",
+    "section": "5.2 Exercice",
+    "text": "5.2 Exercice\n\nComment représenter les variables suivantes :\n\nUne population communale\nUn age median par département\nUn taux de croissance\nLe statut administratif d’une commune (préfecture, sous-préfecture, commune simple…)\nL’espérance de vie par pays\n\nLa carte suivante représente les résultats de l’élection présidentielle américaine par comtés en 2016 (rouge = républicain, bleu = démocrate). Quel est le problème avec cette carte (outre le manque d’habillage, titre etc.)?\n\n\n\nAuteur : Karim Douieb\n\n\n\nclick anywere!\n\n\n\n\nBertin, J. (1967). Sémiologie Graphique: Les Diagrammes, Les Réseaux, Les Cartes, Les Réimpressions Des Éditions De l’Ecole Des Hautes Études en Sciences Sociales. Paris: Mouton & Gauthier-Villars.\n\n\nLambert, N. et Zanin, C. (2016). Manuel de cartographie: principes, méthodes, applications. Armand Colin.\n\n\nPumain, D. et Béguin, M. (2010). La représentation des données géographiques: Statistique et cartographie. Armand Colin."
   },
   {
     "objectID": "type_de_carte.html#les-données-dexemple",
@@ -159,6 +166,13 @@
     "title": "6  Les types de cartes",
     "section": "6.7 Carte de stocks et de catégories",
     "text": "6.7 Carte de stocks et de catégories\nLa fonction mf_map(..., var = c(\"var1\", \"var2\"), type = \"prop_typo\") représente des symboles proportionnels dont les surfaces sont proportionnelles aux valeurs d’une variable et dont la couleur représente les modalités d’une variable qualitative. La fonction utilise les arguments des fonctions mf_map(..., type = \"prop\") et mf_map(..., type = \"typo\").\n\nmf_map(x = com)\nmf_map(\n  x = com,\n  var = c(\"POPULATION\", \"STATUT\"),\n  type = \"prop_typo\",\n  pal = c(\"aquamarine4\", \"yellow3\",\"wheat\"),\n  val_order = c(\"Préfecture\", \"Sous-préfecture\", \"Commune simple\"),\n  leg_pos = c(\"bottomleft\",\"topleft\"),\n  leg_title = c(\"Population\\n(2015)\",\n                \"Statut administratif\"),\n)\nmf_title(\"Population\")"
+  },
+  {
+    "objectID": "type_de_carte.html#exercice",
+    "href": "type_de_carte.html#exercice",
+    "title": "6  Les types de cartes",
+    "section": "6.8 Exercice",
+    "text": "6.8 Exercice\n\nCalculer la densité de population des communes du Lot dans une nouvelle colonne DENS.\n\n\n\n\n\n\n\nLa fonction st_area() du package sf permet de calculer les superficies de polygones.\nLa fonction units() permet de passer d’une variable en mètres carrés à une variable en kilomètres carrés (ex: units(var) <- \"km^2\")\n\n\n\n\nCréer une carte de la densité de population communale\n\nQuel mode de représentation utiliser? Quels choix cela implique-t-il?"
   },
   {
     "objectID": "03_cartographie.html#les-thèmes",

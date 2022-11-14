@@ -238,6 +238,7 @@ mat[1:5,1:5]
 ```{r}
 #| cache: false
 #| echo: false
+#| eval: true
 knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
 ```
 
@@ -304,5 +305,7 @@ plot(st_geometry(resto[st_buffer(cahors, 10000), ]))
 
 ```{r}
 #| cache: false
+#| echo: false
+#| eval: true
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```

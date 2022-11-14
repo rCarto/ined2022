@@ -265,6 +265,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#carte-de-stocks-et-de-ratios" id="toc-carte-de-stocks-et-de-ratios" class="nav-link" data-scroll-target="#carte-de-stocks-et-de-ratios"><span class="toc-section-number">6.6</span>  Carte de stocks et de ratios</a></li>
   <li><a href="#carte-de-stocks-et-de-catégories" id="toc-carte-de-stocks-et-de-catégories" class="nav-link" data-scroll-target="#carte-de-stocks-et-de-catégories"><span class="toc-section-number">6.7</span>  Carte de stocks et de catégories</a></li>
+  <li><a href="#exercice" id="toc-exercice" class="nav-link" data-scroll-target="#exercice"><span class="toc-section-number">6.8</span>  Exercice</a></li>
   </ul>
 </nav>
     </div>
@@ -387,8 +388,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Nous avons ici affiché deux cartes en vis-à-vis, voir le point <a href="03_cartographie.html#afficher-plusieurs-cartes-sur-la-même-figure">Afficher plusieurs cartes sur la même figure</a> pour plus de détails.</p>
-<!-- ### Les cartes de liens proportionnels -->
-<!-- TO DO -->
 </section>
 </section>
 <section id="carte-choroplèthe" class="level2" data-number="6.4">
@@ -580,11 +579,6 @@ La fonction <code>mf_map(..., type = "typo")</code> propose cette représentatio
 <p><img src="type_de_carte_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<!-- ## Les cartes en symboles gradués -->
-<!-- ### Polygons -->
-<!-- ### points -->
-<!-- ### lignes -->
-<!-- ## Les cartes en symboles -->
 </section>
 </section>
 <section id="carte-de-stocks-et-de-ratios" class="level2" data-number="6.6">
@@ -629,9 +623,36 @@ La fonction <code>mf_map(..., type = "typo")</code> propose cette représentatio
 <p><img src="type_de_carte_files/figure-html/typoprop-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<!-- ## Cartes symboles + choro -->
-<!-- ## Les cartes raster -->
-<!-- `mf_raster()` -->
+<div class="cell">
+
+</div>
+</section>
+<section id="exercice" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="exercice"><span class="header-section-number">6.8</span> Exercice</h2>
+<ol type="1">
+<li>Calculer la densité de population des communes du Lot dans une nouvelle colonne <strong>DENS</strong>.</li>
+</ol>
+<div class="callout-tip callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>La fonction <code>st_area()</code> du package <code>sf</code> permet de calculer les superficies de polygones.<br>
+La fonction <code>units()</code> permet de passer d’une variable en mètres carrés à une variable en kilomètres carrés (ex: <code>units(var) &lt;- "km^2"</code>)</p>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Créer une carte de la densité de population communale</li>
+</ol>
+<p>Quel mode de représentation utiliser? Quels choix cela implique-t-il?</p>
+<div class="cell" data-hash="type_de_carte_cache/html/unnamed-chunk-4_187b050adfe47f9d3214569224eb7c38">
+
+</div>
+<div class="cell">
+
+</div>
 
 
 </section>
