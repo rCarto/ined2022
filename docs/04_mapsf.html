@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.203">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -45,8 +45,8 @@ div.csl-indent {
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
-<link href="./semio.html" rel="next">
-<link href="./02_donnees_vectorielles.html" rel="prev">
+<link href="./05_semio.html" rel="next">
+<link href="./03_manip_donnees_vectorielles.html" rel="prev">
 <link href="./img/globe-africa-solid.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -127,17 +127,17 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./historique.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></a>
+  <a href="./01_historique.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
+  <a href="./02_donnees_spatiales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_donnees_vectorielles.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></a>
+  <a href="./03_manip_donnees_vectorielles.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></a>
   </div>
 </li>
       </ul>
@@ -152,29 +152,29 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mapsf.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></a>
+  <a href="./04_mapsf.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./semio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></a>
+  <a href="./05_semio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./type_de_carte.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Les types de cartes</span></a>
+  <a href="./06_type_de_carte.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Les types de cartes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_cartographie.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mise en page</span></a>
+  <a href="./07_mise_en_page.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mise en page</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./08_references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -187,7 +187,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_acquisition_donnees.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Acquisition de données spatiales</span></a>
+  <a href="./09_acquisition_donnees.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Acquisition de données spatiales</span></a>
   </div>
 </li>
       </ul>
@@ -229,13 +229,13 @@ div.csl-indent {
 <section id="présentation" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="présentation"><span class="header-section-number">4.1</span> Présentation</h2>
 <p><img src="img/logo.png" align="right" alt="" width="120"></p>
-<p>L’écosystème spatial du logiciel libre R est riche, dynamique et mature et plusieurs packages permettent d’importer, de traiter et de représenter les données spatiales. Le package <a href="https://CRAN.R-project.org/package=mapsf"><code>mapsf</code></a> <span class="citation" data-cites="R-mapsf">(<a href="05_references.html#ref-R-mapsf" role="doc-biblioref">Giraud, 2021</a>)</span> s’appuie sur cet écosystème pour intégrer la création de cartes thématiques de qualité dans les chaînes de traitement avec R.</p>
-<p>D’autres packages peuvent être utilisés pour réaliser des cartes thématiques. Le package <code>ggplot2</code> <span class="citation" data-cites="Wickham16">(<a href="05_references.html#ref-Wickham16" role="doc-biblioref">Wickham, 2016</a>)</span>, en association avec le package <code>ggspatial</code> <span class="citation" data-cites="R-ggspatial">(<a href="05_references.html#ref-R-ggspatial" role="doc-biblioref">Dunnington, 2021</a>)</span>, permet par exemple d’afficher des objets spatiaux et de réaliser des cartes thématiques simples. Le package <code>tmap</code> <span class="citation" data-cites="Tennekes18">(<a href="05_references.html#ref-Tennekes18" role="doc-biblioref">Tennekes, 2018</a>)</span> est dédié à la création de cartes thématiques, il utilise une syntaxe proche de celle de <code>ggplot2</code> (enchaînement d’instructions combinées avec le signe ‘+’). La documentation et les tutoriels pour utiliser ces deux packages sont facilement accessibles sur le web.</p>
+<p>L’écosystème spatial du logiciel libre R est riche, dynamique et mature et plusieurs packages permettent d’importer, de traiter et de représenter les données spatiales. Le package <a href="https://CRAN.R-project.org/package=mapsf"><code>mapsf</code></a> <span class="citation" data-cites="R-mapsf">(<a href="08_references.html#ref-R-mapsf" role="doc-biblioref">Giraud, 2021</a>)</span> s’appuie sur cet écosystème pour intégrer la création de cartes thématiques de qualité dans les chaînes de traitement avec R.</p>
+<p>D’autres packages peuvent être utilisés pour réaliser des cartes thématiques. Le package <code>ggplot2</code> <span class="citation" data-cites="Wickham16">(<a href="08_references.html#ref-Wickham16" role="doc-biblioref">Wickham, 2016</a>)</span>, en association avec le package <code>ggspatial</code> <span class="citation" data-cites="R-ggspatial">(<a href="08_references.html#ref-R-ggspatial" role="doc-biblioref">Dunnington, 2021</a>)</span>, permet par exemple d’afficher des objets spatiaux et de réaliser des cartes thématiques simples. Le package <code>tmap</code> <span class="citation" data-cites="Tennekes18">(<a href="08_references.html#ref-Tennekes18" role="doc-biblioref">Tennekes, 2018</a>)</span> est dédié à la création de cartes thématiques, il utilise une syntaxe proche de celle de <code>ggplot2</code> (enchaînement d’instructions combinées avec le signe ‘+’). La documentation et les tutoriels pour utiliser ces deux packages sont facilement accessibles sur le web.</p>
 <p>Ici, nous utiliserons principalement le package <code>mapsf</code> dont les fonctionnalités sont assez complètes et la prise en main plutôt simple. De plus, le package est relativement léger.</p>
 <p><code>mapsf</code> permet de créer la plupart des types de carte utilisés habituellement en cartographie statistique (cartes choroplèthes, typologies, symboles proportionnels ou gradués…).<br>
 Pour chaque type de carte, plusieurs paramètres permettent de personnaliser la représentation cartographique. Ces paramètres sont les mêmes que ceux que l’on retrouve dans les logiciels de SIG ou de cartographie usuels (par exemple, le choix des discrétisations et des palettes de couleurs, la modification de de la taille des symboles ou la personnalisation des légendes).<br>
 Associées aux fonctions de représentation des données d’autres fonctions sont dédiées à l’habillage cartographique (thèmes ou chartes graphiques, légendes, échelles, flèches d’orientation, titre, crédits, annotations…), à la création de cartons ou à l’export des cartes.<br>
-<code>mapsf</code> est le successeur de <a href="http://riatelab.github.io/cartography/docs/"><code>cartography</code></a> <span class="citation" data-cites="R-cartography">(<a href="05_references.html#ref-R-cartography" role="doc-biblioref">Giraud et Lambert, 2018</a>)</span>, il offre les mêmes fonctionnalités principales tout en étant plus léger et plus ergonomique.</p>
+<code>mapsf</code> est le successeur de <a href="http://riatelab.github.io/cartography/docs/"><code>cartography</code></a> <span class="citation" data-cites="R-cartography">(<a href="08_references.html#ref-R-cartography" role="doc-biblioref">Giraud et Lambert, 2018</a>)</span>, il offre les mêmes fonctionnalités principales tout en étant plus léger et plus ergonomique.</p>
 <div class="callout-note callout callout-style-simple no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -421,12 +421,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./02_donnees_vectorielles.html" class="pagination-link">
+      <a href="./03_manip_donnees_vectorielles.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./semio.html" class="pagination-link">
+      <a href="./05_semio.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

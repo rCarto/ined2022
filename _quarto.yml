@@ -43,18 +43,18 @@ book:
     - index.qmd
     - part: "**I. L'ÉCOSYSTÈME SPATIAL DE R**"
       chapters: 
-       - historique.qmd
-       - 01_ecosysteme_spatial.qmd
-       - 02_donnees_vectorielles.qmd
+       - 01_historique.qmd
+       - 02_donnees_spatiales.qmd
+       - 03_manip_donnees_vectorielles.qmd
     - part: "**II. CARTOGRAPHIE**"
       chapters: 
-        - mapsf.qmd
-        - semio.qmd
-        - type_de_carte.qmd
-        - 03_cartographie.qmd
-    - 05_references.qmd  
+        - 04_mapsf.qmd
+        - 05_semio.qmd
+        - 06_type_de_carte.qmd
+        - 07_mise_en_page.qmd
+    - 08_references.qmd  
   appendices: 
-    - 04_acquisition_donnees.qmd
+    - 09_acquisition_donnees.qmd
     
 
 

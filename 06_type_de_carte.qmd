@@ -124,7 +124,7 @@ Pour ce genre de représentation il faut au préalable :
 * choisir un nombre de classes,
 * choisir une palette de couleurs.
 
-La fonction `mf_map(..., type = "choro")` permet de créer des cartes choroplètes. Les arguments `nbreaks` et `breaks` servent à paramétrer les discrétisations, et la fonction `mf_get_breaks()` permet de travailler sur les discrétisations en dehors de la fonction `mf_map()`. De même, l'argument `pal` est utilisé pour renseigner une palette de couleur, mais plusieurs fonctions peuvent être utilisées pour paramétrer les palettes en dehors de la fonction (`mf_get_pal`...).
+La fonction `mf_map(..., type = "choro")` permet de créer des cartes choroplètes. Les arguments `nbreaks` et `breaks` servent à paramétrer les discrétisations, et la fonction `mf_get_breaks()` permet de travailler sur les discrétisations en dehors de la fonction `mf_map()`. De même, l'argument `pal` est utilisé pour renseigner une palette de couleur, mais plusieurs fonctions peuvent être utilisées pour paramétrer les palettes en dehors de la fonction (`mf_get_pal()`...).
 
 
 ```{r choro}
@@ -357,40 +357,72 @@ knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
 
 ## Exercice
 
+1. Importer la couche des communes du département du Lot à partir du fichier geopackage **lot46.gpkg**.
 
-1. Calculer la densité de population des communes du Lot dans une nouvelle colonne **DENS**. 
-
-:::{.callout-tip}
-La fonction `st_area()` du package `sf` permet de calculer les superficies de polygones.  
-La fonction `units()` permet de passer d'une variable en mètres carrés à une variable en kilomètres carrés (ex: `units(var) <- "km^2"`)
-:::
-
+```{r}
+library(sf)
+st_layers('data/lot46.gpkg')
+com <- st_read("data/lot46.gpkg", layer = 'commune', quiet = TRUE)
+```
 
 
-2. Créer une carte de la densité de population communale
 
-Quel mode de représentation utiliser? Quels choix cela implique-t-il?
+
+2. Calculer le nombre d'actifs par communes du Lot dans une nouvelle colonne **ACT**. 
+
+```{r}
+com$ACT <- 
+  com$AGR_H + com$AGR_F + 
+  com$IND_H + com$IND_F + 
+  com$BTP_H + com$BTP_F + 
+  com$TER_H + com$TER_F
+
+```
+
+3. Créer une carte de la population active.  
+  Quel mode de représentation utiliser? Quels choix cela implique-t-il?
+
+
+```{r}
+library(mapsf)
+mf_map(com)
+mf_map(com, "ACT", "prop")
+```
+
+
+3. Créer une carte de la part de la population active dans la population totale.  
+  Quel mode de représentation utiliser? Quels choix cela implique-t-il?
+
+
+
+```{r}
+com$SACT <- 100 * com$ACT / com$POPULATION
+```
+
 
 
 ```{r}
 #| fig.height: 3.75
-com$AREA <- st_area(com)
-units(com$AREA) <- "km^2"
-com$DENS <- com$POPULATION /com$AREA
-hist(com$DENS, main = "Densité de population des communes du Lot", xlab = "densité de pop.")
-bks <- mf_get_breaks(com$DENS, 5, "geom")
-cols <- hcl.colors(5, "Dark Mint", rev = TRUE)
-
-cols2 <- as.character(cut(com$DENS, breaks = bks, labels = cols, include.lowest = TRUE))
+htitle <- "Part de la population active ocuppée dans la population totale (Lot, 2017)"
+hxlab <- "en %"
+hist(com$SACT, main = htitle,  xlab = hxlab, freq = FALSE)
+bks <- mf_get_breaks(com$SHAREACT, breaks = "msd", central = FALSE)
+cols <- mf_get_pal(c(3,4), palette = c("Mint", "Burg"))
+cols2 <- as.character(cut(com$SACT, breaks = bks, labels = cols, include.lowest = TRUE))
 library(mapsf)
 opar <- par(mar = c(5.1,2.1,2.1,2.1))
-hist(com$DENS, breaks = bks, col = cols, xlab = "densité de pop.",freq = F, axes = F, ylab = "",
-     main = "Densité de population des communes du Lot", border = "grey80", ylim = c(-0.01, 0.027))
-stripchart(x = com$DENS, pch = 21, bg = cols2, col = "white",at = -0.005, 
+hist(com$SACT, breaks = bks, col = cols, xlab = hxlab, 
+     freq = FALSE, axes = FALSE, ylab = "",
+     main = htitle, border = "grey80", ylim = c(-0.01, 0.07))
+stripchart(x = com$SACT, pch = 21, bg = "grey20", col = "white",at = -0.005, 
            jitter = 0.0025, add =T,
-           method = "jitter", cex = .7, xlab = "densité de pop.")
-axis(side = 1, at = c(seq(0,500,100), 575))
+           method = "jitter", cex = .7, xlab = "")
+axis(side = 1, at = c(seq(10,50,10)))
 par(opar)
+
+mf_map(com, "SACT","choro", breaks = bks, pal = cols)
+
+
 ```
 
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.203">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -89,8 +89,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
-<link href="./mapsf.html" rel="next">
-<link href="./01_ecosysteme_spatial.html" rel="prev">
+<link href="./04_mapsf.html" rel="next">
+<link href="./02_donnees_spatiales.html" rel="prev">
 <link href="./img/globe-africa-solid.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -171,17 +171,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./historique.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></a>
+  <a href="./01_historique.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
+  <a href="./02_donnees_spatiales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_donnees_vectorielles.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></a>
+  <a href="./03_manip_donnees_vectorielles.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></a>
   </div>
 </li>
       </ul>
@@ -196,29 +196,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mapsf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></a>
+  <a href="./04_mapsf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./semio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></a>
+  <a href="./05_semio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./type_de_carte.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Les types de cartes</span></a>
+  <a href="./06_type_de_carte.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Les types de cartes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_cartographie.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mise en page</span></a>
+  <a href="./07_mise_en_page.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mise en page</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./08_references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -231,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_acquisition_donnees.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Acquisition de données spatiales</span></a>
+  <a href="./09_acquisition_donnees.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Acquisition de données spatiales</span></a>
   </div>
 </li>
       </ul>
@@ -324,7 +324,7 @@ Vignette décrivant le format simple feature
 <h2 data-number="3.2" class="anchored" data-anchor-id="import-et-export-de-données"><span class="header-section-number">3.2</span> Import et export de données</h2>
 <p>Les fonctions <code>st_read()</code> et <code>st_write()</code> permettent d’importer et d’exporter de nombreux types de fichiers.<br>
 Les lignes suivantes importent la couche des communes du département du Lot situé dans le fichier <a href="https://www.geopackage.org/">geopackage</a> <strong>lot46.gpkg</strong>.</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/import_e8df4e40525002a04abed01092ba0be8">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/import_528d0ae9ee1e66ef1b005c2c1832f8e0">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>#&gt; Linking to GEOS 3.9.0, GDAL 3.2.2, PROJ 7.2.1; sf_use_s2() is TRUE</code></pre>
@@ -341,7 +341,7 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 </div>
 </div>
 <p>Les lignes suivantes exportent l’objet <strong>com</strong> dans un dossier <strong>data</strong> aux formats geopackage et shapefile.</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/export_3a33957aa58570ed7bf224244794d783">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/export_12181e919ace8b5df0152996379000ff">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(<span class="at">obj =</span> com, <span class="at">dsn =</span> <span class="st">"data/com.gpkg"</span>, <span class="at">layer =</span> <span class="st">"commune"</span>, <span class="at">delete_layer =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Deleting layer `commune' using driver `GPKG'
@@ -360,7 +360,7 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 <section id="affichage" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="affichage"><span class="header-section-number">3.3</span> Affichage</h2>
 <p><strong>Aperçu des variables</strong> via les fonctions <code>head()</code> et <code>plot()</code>.</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/aff1_7b32bfbc3f6fa6b34a55196aa888b1d3">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/aff1_c4f3a126f53712deb7938a60e584f331">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Simple feature collection with 6 features and 12 fields
@@ -396,14 +396,14 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 #&gt; all</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/aff1-1.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/aff1-1.png" class="img-fluid" width="460"></p>
 </div>
 </div>
 <p><strong>Affichage de la géométrie</strong> uniquement.</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/aff2_8d0a1593ed96d71aeebfc2e2dfa0147b">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/aff2_99abe350d1c90b50b5eeec0625922a9c">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/aff2-1.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/aff2-1.png" class="img-fluid" width="460"></p>
 </div>
 </div>
 </section>
@@ -412,7 +412,7 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 <section id="consulter-le-système-de-coordonnées-dun-objet" class="level3" data-number="3.4.1">
 <h3 data-number="3.4.1" class="anchored" data-anchor-id="consulter-le-système-de-coordonnées-dun-objet"><span class="header-section-number">3.4.1</span> Consulter le système de coordonnées d’un objet</h3>
 <p>La fonction <code>st_crs()</code> permet de consulter le système de coordonnées utilisé par un objet sf.</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/proj1_621a9a4b8c3a9d4736ce5e74a9085c4c">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/proj1_8202d0a5b23e1d4b795880c57ad7a4d8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Coordinate Reference System:
@@ -465,17 +465,17 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 <section id="modifier-le-système-de-coordonnées-dun-objet" class="level3" data-number="3.4.2">
 <h3 data-number="3.4.2" class="anchored" data-anchor-id="modifier-le-système-de-coordonnées-dun-objet"><span class="header-section-number">3.4.2</span> Modifier le système de coordonnées d’un objet</h3>
 <p>La fonction <code>st_transform()</code> permet de change le système de coordonnées d’un objet sf, de le reprojeter.</p>
-<div class="cell" data-small_m="true" data-hash="02_donnees_vectorielles_cache/html/proj2_a30ea854a15dc0d1e81995e97ad9159f">
+<div class="cell" data-small_m="true" data-hash="03_manip_donnees_vectorielles_cache/html/proj2_1e0c60aa2a9fd111b43a17ab30e04f33">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"EPSG: 2154"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/proj2-1.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/proj2-1.png" class="img-fluid" width="460"></p>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>com_reproj <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(com, <span class="st">"epsg:3035"</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com_reproj))</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"EPSG: 3035"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/proj2-2.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/proj2-2.png" class="img-fluid" width="460"></p>
 </div>
 </div>
 <p>Le site <a href="http://spatialreference.org/" target="_blank">Spatial Reference</a> met à disposition les références de très nombreux systèmes de coordonnées.</p>
@@ -484,7 +484,7 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 <section id="sélection-par-attributs" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="sélection-par-attributs"><span class="header-section-number">3.5</span> Sélection par attributs</h2>
 <p>Les objets <code>sf</code> <strong>sont</strong> des <code>data.frame</code>, on peut donc sélectionner leur lignes et leur colonnes de la même manière que les <code>data.frame</code>.</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/selectAttr_8b6a0ffef8f2d4f9b6faac5c8421c40f">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/selectAttr_30df37f331adfd5ac9ac8fe84829aa73">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selection de ligne</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>com[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, ]</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -530,7 +530,7 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 <section id="intersections" class="level3" data-number="3.6.1">
 <h3 data-number="3.6.1" class="anchored" data-anchor-id="intersections"><span class="header-section-number">3.6.1</span> Intersections</h3>
 <p>Sélection des routes intesectant la commune de Gramat.</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/intersects_cfd88a537c5d77dfe6fe32c15de3485b">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/intersects_56983ce573da301213b8d2bb1e731c76">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>route <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">"route"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>gramat <span class="ot">&lt;-</span>  com[com<span class="sc">$</span>NOM_COM <span class="sc">==</span> <span class="st">"Gramat"</span>, ]</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>inter <span class="ot">&lt;-</span> <span class="fu">st_intersects</span>(<span class="at">x =</span> route, <span class="at">y =</span> gramat, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
@@ -551,28 +551,28 @@ Les lignes suivantes importent la couche des communes du département du Lot sit
 </div>
 <p>L’objet <strong>inter</strong> est une matrice qui indique pour chacun des éléments de l’objet <strong>route</strong> (16096 éléments) si il intersecte chacun des élément de l’objet <strong>gramat</strong> (1 élément). La dimension de la matrice est donc bien 16096 lignes * 1 colonne.<br>
 Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensuite possible de créer une colonne à partir de cet objet :</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/intersects2_8813578180f0d74652f2691b3109b883">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/intersects2_48d2ceaaf855ff83e0f547c87659c07a">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>route<span class="sc">$</span>intersect_gramat <span class="ot">&lt;-</span> inter</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gramat), <span class="at">col =</span> <span class="st">"lightblue"</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(route), <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(route[route<span class="sc">$</span>intersect_gramat, ]), </span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"tomato"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/intersects2-1.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/intersects2-1.png" class="img-fluid" width="460"></p>
 </div>
 </div>
 </section>
 <section id="contains-within" class="level3" data-number="3.6.2">
 <h3 data-number="3.6.2" class="anchored" data-anchor-id="contains-within"><span class="header-section-number">3.6.2</span> Contains / Within</h3>
 <p>Sélection des routes contenues dans la commune de Gramat. La fonctin <code>st_within()</code> fonctionne comme la fonction <code>st_intersects()</code></p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/within_88d30a7ef228e3cb659d1b00085b59ea">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/within_6a8aeec882435ce2d39d5d0324bc4819">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>route<span class="sc">$</span>within_gramat <span class="ot">&lt;-</span> <span class="fu">st_within</span>(route, gramat, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gramat), <span class="at">col =</span> <span class="st">"lightblue"</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(route), <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(route[route<span class="sc">$</span>within_gramat, ]), <span class="at">col =</span> <span class="st">"tomato"</span>, </span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/within-1.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/within-1.png" class="img-fluid" width="460"></p>
 </div>
 </div>
 </section>
@@ -581,7 +581,7 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 <h2 data-number="3.7" class="anchored" data-anchor-id="opérations-sur-les-géométries"><span class="header-section-number">3.7</span> Opérations sur les géométries</h2>
 <section id="extraire-des-centroides" class="level3" data-number="3.7.1">
 <h3 data-number="3.7.1" class="anchored" data-anchor-id="extraire-des-centroides"><span class="header-section-number">3.7.1</span> Extraire des centroides</h3>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/centroids_0e7709cb6f96ab8d7bfe526d9cf48fdc">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/centroids_f91a5975fc3a316d65e335d0af7c12a3">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>com_c <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(com)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>#&gt; Warning in st_centroid.sf(com): st_centroid assumes attributes are constant over
@@ -590,48 +590,48 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com_c), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> .<span class="dv">5</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/centroids-1.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/centroids-1.png" class="img-fluid" width="460"></p>
 </div>
 </div>
 </section>
 <section id="agréger-des-polygones" class="level3" data-number="3.7.2">
 <h3 data-number="3.7.2" class="anchored" data-anchor-id="agréger-des-polygones"><span class="header-section-number">3.7.2</span> Agréger des polygones</h3>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/aggreg_ed3a79a0719d3d76542b3e0126c2fb63">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/aggreg_43d01ff1eb37d1e506b7d75c87e4f685">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dep_46 <span class="ot">&lt;-</span> <span class="fu">st_union</span>(com)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com), <span class="at">col =</span> <span class="st">"lightblue"</span>)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(dep_46), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="fl">1.2</span>, <span class="at">border =</span> <span class="st">"red"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/aggreg-1.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/aggreg-1.png" class="img-fluid" width="460"></p>
 </div>
 </div>
 </section>
 <section id="agréger-des-polygones-en-fonction-dune-variable" class="level3" data-number="3.7.3">
 <h3 data-number="3.7.3" class="anchored" data-anchor-id="agréger-des-polygones-en-fonction-dune-variable"><span class="header-section-number">3.7.3</span> Agréger des polygones en fonction d’une variable</h3>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/aggreg2_4a2ee401053f6db677b28dd21c3092d0">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/aggreg2_c3a55361d36bd35a3f6872cfd126d3fa">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>com_u <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="at">x =</span> com[,<span class="fu">c</span>(<span class="st">"POPULATION"</span>)],</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">by =</span> <span class="fu">list</span>(<span class="at">STATUT =</span> com<span class="sc">$</span>STATUT),</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">FUN =</span> <span class="st">"sum"</span>)</span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(com_u)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/aggreg2-1.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/aggreg2-1.png" class="img-fluid" width="460"></p>
 </div>
 </div>
 </section>
 <section id="construire-une-zone-tampon" class="level3" data-number="3.7.4">
 <h3 data-number="3.7.4" class="anchored" data-anchor-id="construire-une-zone-tampon"><span class="header-section-number">3.7.4</span> Construire une zone tampon</h3>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/buffers_4e709ced142324eb946aaba99cb982e3">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/buffers_c105ad389389b1be1e1cb20ab8c51a97">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>gramat_b <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(<span class="at">x =</span> gramat, <span class="at">dist =</span> <span class="dv">5000</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gramat_b), <span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">border =</span> <span class="st">"red"</span>)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gramat), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/buffers-1.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/buffers-1.png" class="img-fluid" width="460"></p>
 </div>
 </div>
 </section>
 <section id="réaliser-une-intersection" class="level3" data-number="3.7.5">
 <h3 data-number="3.7.5" class="anchored" data-anchor-id="réaliser-une-intersection"><span class="header-section-number">3.7.5</span> Réaliser une intersection</h3>
 <p>En utilisant la fonction <code>st_intersection()</code> on va découper une couche par une autre.</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/intersect2_b55776cde0a734f84d62b0f6d548b7d7">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/intersect2_60a6f84df60fa0ef49d9696feb7f43c3">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># création d'une zone tampon autour du centroid de la commune de Gramat</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># en utilisant le pipe</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>zone <span class="ot">&lt;-</span> <span class="fu">st_geometry</span>(gramat) <span class="sc">|&gt;</span></span>
@@ -640,7 +640,7 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(zone, <span class="at">border =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/intersect2-1.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/intersect2-1.png" class="img-fluid" width="460"></p>
 </div>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>com_z <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(<span class="at">x =</span> com, <span class="at">y =</span> zone)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -650,11 +650,11 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com))</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com_z), <span class="at">col=</span><span class="st">"red"</span>, <span class="at">border=</span><span class="st">"green"</span>, <span class="at">add=</span>T)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/intersect2-2.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/intersect2-2.png" class="img-fluid" width="460"></p>
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(com_z))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_donnees_vectorielles_files/figure-html/intersect2-3.png" class="img-fluid" width="460"></p>
+<p><img src="03_manip_donnees_vectorielles_files/figure-html/intersect2-3.png" class="img-fluid" width="460"></p>
 </div>
 </div>
 </section>
@@ -664,7 +664,7 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 <section id="créer-une-matrice-de-distances" class="level3" data-number="3.8.1">
 <h3 data-number="3.8.1" class="anchored" data-anchor-id="créer-une-matrice-de-distances"><span class="header-section-number">3.8.1</span> Créer une matrice de distances</h3>
 <p>Si le système de projection du jeu de données est renseigné les distances sont exprimées dans l’unité de mesure de la projection (en mètres le plus souvent).</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/distance_78bf5a76449a73b4e178dfba701186c1">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/distance_d50f16ae7aca71503d3db39a2ffa3ad4">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">st_distance</span>(<span class="at">x =</span> com_c, <span class="at">y =</span> com_c)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>mat[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -697,7 +697,7 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 </div>
 </div>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-2_c307f397b676af17812514c43e560b93">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-2_54e8a0f5cf932b6fba3115e6cc4e0a80">
 
 </div>
 </section>
@@ -714,31 +714,31 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 </div>
 </div>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-3_1826df348e371a4a389a1f84130112a8">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-3_ef7531f6e6783e35072b3392e4e43c3d">
 
 </div>
 </section>
 <section id="sélection" class="level3" data-number="3.9.3">
 <h3 data-number="3.9.3" class="anchored" data-anchor-id="sélection"><span class="header-section-number">3.9.3</span> Sélection</h3>
 <p>Sélectionner la commune de Cahors et assigner le résultat dans un objet <code>cahors</code>.</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-4_b16cae5d90b5485674e0d9a0695111ad">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-4_1b165529ac270139d2bafe2a693fad17">
 
 </div>
 </section>
 <section id="opérations-spatiales" class="level3" data-number="3.9.4">
 <h3 data-number="3.9.4" class="anchored" data-anchor-id="opérations-spatiales"><span class="header-section-number">3.9.4</span> Opérations spatiales</h3>
 <p>Combien de restaurants se trouvent à Cahors ou à moins de 10 km de Cahors?</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-5_c07b2b028c92c686576e2bf45ccd9f8d">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-5_02583603f6e00ffec44dee72c097f4f1">
 
 </div>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-6_195c444e6610ce2c8e6d94de61f3e1ab">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-6_a79ee4fc8d94fdb9810a7604c6eaadd9">
 
 </div>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-7_a67056ae444eb3c0773ae30e1a8f1ade">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-7_adec6ee3f7af36d7cb49f153ded8f7fd">
 
 </div>
 <p>Afficher les restaurants qui se trouvent à Cahors ou à moins de 10 km de Cahors.</p>
-<div class="cell" data-hash="02_donnees_vectorielles_cache/html/unnamed-chunk-8_0a264668224e7ff56b97ec7a08a9dc78">
+<div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-8_aae00393521d8a3668395d5b3bd8ac0c">
 
 </div>
 <div class="cell">
@@ -885,12 +885,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./01_ecosysteme_spatial.html" class="pagination-link">
+      <a href="./02_donnees_spatiales.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./mapsf.html" class="pagination-link">
+      <a href="./04_mapsf.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

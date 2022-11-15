@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.203">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="description" content="Créer des cartes thématiques avec R.">
 
-<title>Cartographie avec R - 1&nbsp; Historique et évolutions</title>
+<title>Cartographie avec R - 5&nbsp; La sémiologie graphique</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -45,8 +45,8 @@ div.csl-indent {
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
-<link href="./01_ecosysteme_spatial.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./06_type_de_carte.html" rel="next">
+<link href="./04_mapsf.html" rel="prev">
 <link href="./img/globe-africa-solid.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -73,10 +73,10 @@ div.csl-indent {
 }</script>
 
 
-<meta property="og:title" content="Cartographie avec R - 1&nbsp; Historique et évolutions">
+<meta property="og:title" content="Cartographie avec R - 5&nbsp; La sémiologie graphique">
 <meta property="og:description" content="Créer des cartes thématiques avec R.">
 <meta property="og:site-name" content="Cartographie avec R">
-<meta name="twitter:title" content="Cartographie avec R - 1&nbsp; Historique et évolutions">
+<meta name="twitter:title" content="Cartographie avec R - 5&nbsp; La sémiologie graphique">
 <meta name="twitter:description" content="Créer des cartes thématiques avec R.">
 <meta name="twitter:image" content="https://rcarto.github.io/ined2022/img/globe-africa-solid.png">
 <meta name="twitter:creator" content="rgeomatic">
@@ -91,7 +91,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -127,17 +127,17 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./historique.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></a>
+  <a href="./01_historique.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_ecosysteme_spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
+  <a href="./02_donnees_spatiales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_donnees_vectorielles.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></a>
+  <a href="./03_manip_donnees_vectorielles.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipuler les données vectorielles</span></a>
   </div>
 </li>
       </ul>
@@ -152,29 +152,29 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mapsf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></a>
+  <a href="./04_mapsf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./semio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></a>
+  <a href="./05_semio.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./type_de_carte.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Les types de cartes</span></a>
+  <a href="./06_type_de_carte.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Les types de cartes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_cartographie.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mise en page</span></a>
+  <a href="./07_mise_en_page.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mise en page</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./08_references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -187,7 +187,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_acquisition_donnees.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Acquisition de données spatiales</span></a>
+  <a href="./09_acquisition_donnees.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Acquisition de données spatiales</span></a>
   </div>
 </li>
       </ul>
@@ -201,8 +201,8 @@ div.csl-indent {
     <h2 id="toc-title">Table des matières</h2>
    
   <ul>
-  <li><a href="#le-package-sf" id="toc-le-package-sf" class="nav-link active" data-scroll-target="#le-package-sf"><span class="toc-section-number">1.1</span>  Le package <code>sf</code></a></li>
-  <li><a href="#exercice" id="toc-exercice" class="nav-link" data-scroll-target="#exercice"><span class="toc-section-number">1.2</span>  Exercice</a></li>
+  <li><a href="#principes-généraux" id="toc-principes-généraux" class="nav-link active" data-scroll-target="#principes-généraux"><span class="toc-section-number">5.1</span>  Principes généraux</a></li>
+  <li><a href="#exercice" id="toc-exercice" class="nav-link" data-scroll-target="#exercice"><span class="toc-section-number">5.2</span>  Exercice</a></li>
   </ul>
 </nav>
     </div>
@@ -211,7 +211,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Historique et évolutions</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La sémiologie graphique</span></h1>
 </div>
 
 
@@ -226,108 +226,70 @@ div.csl-indent {
 
 </header>
 
-<p>Historiquement, 4 packages permettent d’importer, de manipuler et de transformer les données spatiales :</p>
-<ul>
-<li>Le package <code>rgdal</code> <span class="citation" data-cites="R-rgdal">(<a href="05_references.html#ref-R-rgdal" role="doc-biblioref">R. Bivand et al., 2018</a>)</span> qui est une interface entre R et les librairies <a href="http://www.gdal.org/">GDAL</a> <span class="citation" data-cites="GDAL">(<a href="05_references.html#ref-GDAL" role="doc-biblioref">GDAL/OGR contributors, 2022</a>)</span> et <a href="https://proj.org/">PROJ</a> <span class="citation" data-cites="PROJ">(<a href="05_references.html#ref-PROJ" role="doc-biblioref">PROJ contributors, 2021</a>)</span> permet d’importer et d’exporter les données spatiales (les shapefiles par exemple) et aussi de gérer les projections cartographiques<br>
-</li>
-<li>Le package <code>sp</code> <span class="citation" data-cites="R-sp">(<a href="05_references.html#ref-R-sp" role="doc-biblioref">Pebesma et Bivand, 2018</a>)</span> fournit des classes et méthodes pour les données spatiales vectorielles dans R. Il permet afficher des fond de cartes, d’inspecter une table attributaire etc.<br>
-</li>
-<li>Le package <code>rgeos</code> <span class="citation" data-cites="R-rgeos">(<a href="05_references.html#ref-R-rgeos" role="doc-biblioref">R. Bivand et Rundel, 2018</a>)</span> donne accès à la librairie d’opérations spatiales <a href="http://trac.osgeo.org/geos/">GEOS</a> et rend donc disponible les opérations SIG classiques : calcul de surfaces ou de périmètres, calcul de distances, agrégations spatiales, zones tampons, intersections etc.<br>
-</li>
-<li>Le package <code>raster</code> <span class="citation" data-cites="R-raster">(<a href="05_references.html#ref-R-raster" role="doc-biblioref">Hijmans, 2021a</a>)</span> est dédié à l’import, la mabipulation et la modélisation des données raster.</li>
-</ul>
-<p>Aujourd’hui, les principaux développements concernants les données vectorielles se sont détachés des 3 anciens (<code>sp</code>, <code>rgdal</code>, <code>rgeos</code>) pour se reposer principalement sur le package <code>sf</code> <span class="citation" data-cites="R-sf Pebesma18">(<a href="05_references.html#ref-R-sf" role="doc-biblioref">Pebesma, 2018a</a> ; <a href="05_references.html#ref-Pebesma18" role="doc-biblioref">Pebesma, 2018b</a>)</span>. Dans ce manuel nous nous appuierons exclusivement sur ce package pour manipuler les données vectorielles.</p>
-<p>Les packages <code>stars</code> <span class="citation" data-cites="R-stars">(<a href="05_references.html#ref-R-stars" role="doc-biblioref">Pebesma, 2021</a>)</span> et <code>terra</code><span class="citation" data-cites="R-terra">(<a href="05_references.html#ref-R-terra" role="doc-biblioref">Hijmans, 2021b</a>)</span> sont venus quand à eux remplacer le package <code>raster</code> pour le traitement des données raster.</p>
-<div class="callout-note callout callout-style-simple no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
+<section id="principes-généraux" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="principes-généraux"><span class="header-section-number">5.1</span> Principes généraux</h2>
+<blockquote class="blockquote">
+<p>La <strong>sémiologie graphique</strong> est, de façon générale, l’ensemble des règles qui régissent la construction d’un système de signes ou langage permettant la traduction graphique d’une information. Depuis la parution de la Sémiologie graphique de Jacques <span class="citation" data-cites="Bertin67">Bertin (<a href="08_references.html#ref-Bertin67" role="doc-biblioref">1967</a>)</span>, elle désigne surtout <strong>un ensemble standardisé des règles et de pratiques inhérentes à la représentation cartographique</strong> au-delà des travaux réalisés par Bertin.<br>
+<small><a href="https://fr.wikipedia.org/wiki/S%C3%A9miologie_graphique">wikipedia</a></small></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>La sémiologie graphique utilise les propriétés de l’image visuelle pour faire apparaitre les relations de <strong>différence</strong>, d’<strong>ordre</strong> et de <strong>proportionnalité</strong> entre les données.<br>
+<small>D’après <span class="citation" data-cites="Bertin67">Bertin (<a href="08_references.html#ref-Bertin67" role="doc-biblioref">1967</a>)</span></small></p>
+</blockquote>
+<p>Pour une première approche de la cartographie thématique on peut se référer à la figure suivante qui résume de manière simplifiée la relation entre un type de variable et sa représentation graphique correcte.</p>
+<p><img src="img/arbre_type_data.png" class="img-fluid"></p>
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-En savoir plus sur l’écosysteme spatial de R
+<div class="callout-body-container">
+<p>Pourquoi on ne représente <a href="https://neocarto.hypotheses.org/5717">pas de stocks en aplat !</a></p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>Article :<br>
-<a href="https://doi.org/10.1007/s10109-020-00336-0">Progress in the R ecosystem for representing and handling spatial data</a> <span class="citation" data-cites="bivand2020progress">(<a href="05_references.html#ref-bivand2020progress" role="doc-biblioref">R. S. Bivand, 2020</a>)</span></p>
-<p>CRAN Task View :<br>
-<a href="https://CRAN.R-project.org/view=Spatial">Analysis of Spatial Data</a></p>
-<p>Liste de discussion :<br>
-<a href="https://stat.ethz.ch/pipermail/r-sig-geo/">R Special Interest Group on using Geographical data and Mapping</a></p>
-<p>Manuel en anglais :<br>
-<a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a> <span class="citation" data-cites="lovelace2019geocomputation">(<a href="05_references.html#ref-lovelace2019geocomputation" role="doc-biblioref">Lovelace et al., 2019</a>)</span></p>
 </div>
-</div>
-<section id="le-package-sf" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="le-package-sf"><span class="header-section-number">1.1</span> Le package <code>sf</code></h2>
-<p><img src="img/sf.gif" align="right" width="150"> Le package <code>sf</code> a été publié fin 2016 par Edzer Pebesma (également auteur de <code>sp</code>). Son objectif est de combiner les fonctionnalités de <code>sp</code>, <code>rgeos</code> et <code>rgdal</code> dans un package unique plus ergonomique. Ce package propose des objets plus simples (suivant le standard <a href="https://en.wikipedia.org/wiki/Simple_Features"><em>simple feature</em></a>) dont la manipulation est plus aisée. Une attention particulière a été portée à la compatibilité du package avec la syntaxe <em>pipe</em> et les opérateurs du <code>tidyverse</code>.</p>
-<p><code>sf</code> utilise directement les librairies GDAL, GEOS et PROJ.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/sf_deps.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption"><small><a href="https://r-spatial.org/r/2020/03/17/wkt.html">From r-spatial.org</a></small></figcaption><p></p>
-</figure>
-</div>
-<div class="callout-note callout callout-style-simple no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-Site web du package <code>sf</code>
+<div class="callout-body-container">
+<p>Quelques ouvrages de référence en cartographie thématique : <span class="citation" data-cites="Bertin67">Bertin (<a href="08_references.html#ref-Bertin67" role="doc-biblioref">1967</a>)</span>, <span class="citation" data-cites="Beguin10">Pumain et Béguin (<a href="08_references.html#ref-Beguin10" role="doc-biblioref">2010</a>)</span>, <span class="citation" data-cites="Lambert16">Lambert et Zanin (<a href="08_references.html#ref-Lambert16" role="doc-biblioref">2016</a>)</span>.</p>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p><a href="https://r-spatial.github.io/sf/">Simple Features for R</a></p>
 </div>
 </div>
 </section>
-<section id="exercice" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="exercice"><span class="header-section-number">1.2</span> Exercice</h2>
+<section id="exercice" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="exercice"><span class="header-section-number">5.2</span> Exercice</h2>
 <ol type="1">
-<li><p>Les données utilisées dans ce document sont stockées dans un projet RStudio. Vous devez le télécharger puis le décompresser sur votre machine. Il vous sera ensuite possible de tester l’ensemble des manipulations proposées dans ce document au sein du projet <strong>geodata</strong>.<br>
-<a href="geodata.zip" class="btn btn-primary btn-sm" role="button">Télécharger le projet</a></p></li>
-<li><p>Nous utiliserons largement le package <code>sf</code> dans la suite de cette formation.<br>
-Installez le en utilisant la fonction <code>install.packages()</code>.</p></li>
+<li><p>Comment représenter les variables suivantes :</p>
+<ul>
+<li>Une population communale</li>
+<li>Un age median par département</li>
+<li>Un taux de croissance</li>
+<li>Le statut administratif d’une commune (préfecture, sous-préfecture, commune simple…)</li>
+<li>L’espérance de vie par pays</li>
+</ul></li>
+<li><p>La carte suivante représente les résultats de l’élection présidentielle américaine par comtés en 2016 (rouge = républicain, bleu = démocrate). Quel est le problème avec cette carte (outre le manque d’habillage, titre etc.)?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/usa.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Auteur : Karim Douieb</figcaption><p></p>
+</figure>
+</div></li>
 </ol>
+<p><a href="https://twitter.com/karim_douieb/status/1591401816956481536?s=20&amp;t=HkCNp_eQEqX6YnZNoAnfpg" style="color: white">click anywere!</a></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
-<div id="ref-bivand2020progress" class="csl-entry" role="doc-biblioentry">
-Bivand, R. S. (2020). Progress in the R ecosystem for representing and handling spatial data. <em>Journal of Geographical Systems</em>, 1‑32.
+<div id="ref-Bertin67" class="csl-entry" role="doc-biblioentry">
+Bertin, J. (1967). S<span>é</span>miologie Graphique: Les Diagrammes, Les R<span>é</span>seaux, Les Cartes, Les R<span>é</span>impressions Des <span>É</span>ditions De l’Ecole Des Hautes <span>É</span>tudes en Sciences Sociales. Paris: Mouton &amp; Gauthier-Villars.
 </div>
-<div id="ref-R-rgdal" class="csl-entry" role="doc-biblioentry">
-Bivand, R., Keitt, T. et Rowlingson, B. (2018). <em>rgdal: Bindings for the ’Geospatial’ Data Abstraction Library</em>. <a href="https://CRAN.R-project.org/package=rgdal">https://CRAN.R-project.org/package=rgdal</a>
+<div id="ref-Lambert16" class="csl-entry" role="doc-biblioentry">
+Lambert, N. et Zanin, C. (2016). <em>Manuel de cartographie: principes, m<span>é</span>thodes, applications</em>. Armand Colin.
 </div>
-<div id="ref-R-rgeos" class="csl-entry" role="doc-biblioentry">
-Bivand, R. et Rundel, C. (2018). <em>rgeos: Interface to Geometry Engine - Open Source (’GEOS’)</em>. <a href="https://CRAN.R-project.org/package=rgeos">https://CRAN.R-project.org/package=rgeos</a>
-</div>
-<div id="ref-GDAL" class="csl-entry" role="doc-biblioentry">
-GDAL/OGR contributors. (2022). <em><span>GDAL/OGR</span> Geospatial Data Abstraction software Library</em>. Open Source Geospatial Foundation. <a href="https://doi.org/10.5281/zenodo.5884351">https://doi.org/10.5281/zenodo.5884351</a>
-</div>
-<div id="ref-R-raster" class="csl-entry" role="doc-biblioentry">
-Hijmans, R. J. (2021a). <em>raster: Geographic Data Analysis and Modeling</em>. <a href="https://CRAN.R-project.org/package=raster">https://CRAN.R-project.org/package=raster</a>
-</div>
-<div id="ref-R-terra" class="csl-entry" role="doc-biblioentry">
-Hijmans, R. J. (2021b). <em>terra: Spatial Data Analysis</em>. <a href="https://CRAN.R-project.org/package=terra">https://CRAN.R-project.org/package=terra</a>
-</div>
-<div id="ref-lovelace2019geocomputation" class="csl-entry" role="doc-biblioentry">
-Lovelace, R., Nowosad, J. et Muenchow, J. (2019). <em>Geocomputation with R</em>. CRC Press. <a href="https://geocompr.robinlovelace.net/">https://geocompr.robinlovelace.net/</a>
-</div>
-<div id="ref-R-sf" class="csl-entry" role="doc-biblioentry">
-Pebesma, E. (2018a). <em>sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf">https://CRAN.R-project.org/package=sf</a>
-</div>
-<div id="ref-Pebesma18" class="csl-entry" role="doc-biblioentry">
-Pebesma, E. (2018b). <span>Simple Features for R: Standardized Support for Spatial Vector Data</span>. <em><span>The R Journal</span></em>. <a href="https://journal.r-project.org/archive/2018/RJ-2018-009/index.html">https://journal.r-project.org/archive/2018/RJ-2018-009/index.html</a>
-</div>
-<div id="ref-R-stars" class="csl-entry" role="doc-biblioentry">
-Pebesma, E. (2021). <em>stars: Spatiotemporal Arrays, Raster and Vector Data Cubes</em>. <a href="https://CRAN.R-project.org/package=stars">https://CRAN.R-project.org/package=stars</a>
-</div>
-<div id="ref-R-sp" class="csl-entry" role="doc-biblioentry">
-Pebesma, E. et Bivand, R. (2018). <em>sp: Classes and Methods for Spatial Data</em>. <a href="https://CRAN.R-project.org/package=sp">https://CRAN.R-project.org/package=sp</a>
-</div>
-<div id="ref-PROJ" class="csl-entry" role="doc-biblioentry">
-PROJ contributors. (2021). <em><span>PROJ</span> coordinate transformation software library</em>. Open Source Geospatial Foundation. <a href="https://proj.org/">https://proj.org/</a>
+<div id="ref-Beguin10" class="csl-entry" role="doc-biblioentry">
+Pumain, D. et Béguin, M. (2010). <em>La repr<span>é</span>sentation des donn<span>é</span>es g<span>é</span>ographiques: Statistique et cartographie</em>. Armand Colin.
 </div>
 </div>
 </section>
@@ -468,13 +430,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><em>Préambule</em></span>
+      <a href="./04_mapsf.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>mapsf</code></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_ecosysteme_spatial.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Les données spatiales</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./06_type_de_carte.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Les types de cartes</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
