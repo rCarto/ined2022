@@ -31,9 +31,11 @@ Associées aux fonctions de représentation des données d’autres fonctions so
 
 
 ## Exercice 
-- Installez le package `mapsf`.   
-- Quelle est la version du package?   
-- Quelles sont les nouveautés par rapport à la version précédente?  
+1. Installez le package `mapsf`.    
+
+2. Quelle est la version du package?   
+
+3. Quelles sont les nouveautés par rapport à la version précédente?  
 
 
 

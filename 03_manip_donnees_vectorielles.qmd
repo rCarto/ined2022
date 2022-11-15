@@ -244,8 +244,7 @@ knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
 
 ## Exercice
 
-### Import
-Importer la couche des communes du département du Lot et la couche des restaurants à partir du fichier geopackage **lot46.gpkg**.
+1. Importer la couche des communes du département du Lot et la couche des restaurants à partir du fichier geopackage **lot46.gpkg**.
 
 :::{.callout-tip}
 La fonction `st_layers()` permet de connaître les couches présentes dans un geopackage.
@@ -259,9 +258,7 @@ resto <- st_read("data/lot46.gpkg", layer = 'restaurant', quiet = TRUE)
 ```
 
 
-### Affichage
-
-Afficher la couche des communes (fond gris, bordures en blanc) et la couche des restaurants (petits cercles, fond rouge, contours en blanc) sur une même carte.
+2. Afficher la couche des communes (fond gris, bordures en blanc) et la couche des restaurants (petits cercles, fond rouge, contours en blanc) sur une même carte.
 
 :::{.callout-tip}
 Rappel : La fonction `st_geometry()` permet d'accéder à la géométrie d'un objet `sf`.
@@ -273,16 +270,14 @@ plot(st_geometry(resto), pch = 21, cex = .5, bg = "red",
      col = "white", add = TRUE)
 ```
 
-### Sélection
-Sélectionner la commune de Cahors et assigner le résultat dans un objet `cahors`.
+3. Sélectionner la commune de Cahors et assigner le résultat dans un objet `cahors`.
 
 ```{r}
 cahors <- com[com$NOM_COM == "Cahors", ]
 ```
 
 
-### Opérations spatiales
-Combien de restaurants se trouvent à Cahors ou à moins de 10 km de Cahors?
+4. Combien de restaurants se trouvent à Cahors ou à moins de 10 km de Cahors?
 
 ```{r}
 sum(st_distance(x = resto, y = cahors) <= units::as_units(10, 'km'))
@@ -296,8 +291,7 @@ nrow(resto[st_buffer(cahors, 10000), ])
 nrow(st_intersection(resto, st_buffer(cahors, 10000)))
 ```
 
-Afficher les restaurants qui se trouvent à Cahors ou à moins de 10 km de Cahors.
-
+5. Afficher les restaurants qui se trouvent à Cahors ou à moins de 10 km de Cahors.
 
 ```{r}
 plot(st_geometry(resto[st_buffer(cahors, 10000), ]))

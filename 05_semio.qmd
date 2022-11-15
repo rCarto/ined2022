@@ -39,7 +39,8 @@ Quelques ouvrages de référence en cartographie thématique : @Bertin67, @Begui
     * Le statut administratif d'une commune (préfecture, sous-préfecture, commune simple...)
     * L'espérance de vie par pays
 
-2. La carte suivante représente les résultats de l'élection présidentielle américaine par comtés en 2016 (rouge = républicain, bleu = démocrate). Quel est le problème avec cette carte (outre le manque d'habillage, titre etc.)? 
+2. La carte suivante représente les résultats de l'élection présidentielle américaine par comtés en 2016 (rouge = républicain, bleu = démocrate).  
+Quel est le problème avec cette carte (outre le manque d'habillage, titre etc.)? 
 
     ![Auteur : Karim Douieb](img/usa.jpg)
 

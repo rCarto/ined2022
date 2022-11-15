@@ -393,7 +393,16 @@ mf_scale(1, pos = 'bottomleft')
 
 ```
 
-## Exercices
+
+
+```{r}
+#| cache: false
+#| echo: false
+knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
+```
+
+
+## Exercice
 
 1. Créez une carte représentant la population active travaillant dans l'industrie. 
 2. Ajoutez les éléments d'habillage indispensables.
@@ -403,7 +412,8 @@ mf_scale(1, pos = 'bottomleft')
 6. Comment rendre la carte plus intelligible ? Allez-y !
 
 
-```{r exoa, echo=TRUE, eval = TRUE}
+```{r exoa}
+library(sf)
 library(mapsf)
 # import des communes du Lot
 com <- st_read("data/lot46.gpkg", layer = "commune", quiet = TRUE)
@@ -441,8 +451,8 @@ dev.off()
 
 
 
-![](img/n_ind.png)
-```{r exob, echo=TRUE, eval = TRUE}
+<!-- ![](img/n_ind.png) -->
+```{r exob}
 # Cartographie de la part des actifs travaillant dans l'industrie
 ## Quelle est la forme de la distribution que nous voulons cartographier ?
 hist(com$PART_ACT_IND)
@@ -488,13 +498,13 @@ mf_credits(paste0("Admin Express COG Carto 3.0, IGN - 2021 & ",
 dev.off()
 ```
 
-![](img/s_ind.png)
+<!-- ![](img/s_ind.png) -->
 
-Nous allons maintenant combiner le nombre total d'actifs et la parts des travailleurs de l'industrie.
-```{r exoc, echo=TRUE, eval = TRUE}
+<!-- Nous allons maintenant combiner le nombre total d'actifs et la parts des travailleurs de l'industrie. -->
+```{r exoc}
 mf_export(com, "img/c_ind.png", theme = th,
           width = 800)
-mf_map(x = com, border = "white", lwd = .2, add = T)
+mf_map(x = com, border = "white", lwd = .2, add = TRUE)
 mf_map(x = dep, lwd = 1, col = NA, add = TRUE, lend = 0)
 mf_map(com, c("ACT", "PART_ACT_IND"), "prop_choro",
        breaks = bks,
@@ -503,7 +513,7 @@ mf_map(com, c("ACT", "PART_ACT_IND"), "prop_choro",
        border = "white", lwd = .7,
        leg_val_rnd =  c(0,1),
        leg_pos = c(538000,6442000, 538000, 6424000),  # ici les légendes sont positionnées manuellement
-       leg_title = c("Nombre d'actifs*",
+       leg_title = c("Nombre d'actifs",
                      "Part des actifs\ndans l'industrie (en %)"),
        col_na = "grey",
        leg_no_data = "Communes de moins de 15 actifs")
@@ -516,7 +526,7 @@ mf_annotation(x = com[com$NOM_COM=="Figeac",],
               txt = "Industrie\naéronautique",
               col_arrow = th$fg, pos = "bottomright", halo = T, cex = 1)
 mf_annotation(x = com[com$NOM_COM=="Gramat",],
-              txt = "La Quercynoise (?)",
+              txt = "La Quercynoise",
               col_arrow = th$fg, pos = "topleft", s = 1, halo = T,
               cex = 1)
 
@@ -539,6 +549,13 @@ dev.off()
 
 ```
 
-![](img/c_ind.png)
+<!-- ![](img/c_ind.png) -->
+
+
+```{r}
+#| cache: false
+#| echo: false
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
 
 

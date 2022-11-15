@@ -271,13 +271,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#créer-une-matrice-de-distances" id="toc-créer-une-matrice-de-distances" class="nav-link" data-scroll-target="#créer-une-matrice-de-distances"><span class="toc-section-number">3.8.1</span>  Créer une matrice de distances</a></li>
   </ul></li>
-  <li><a href="#exercice" id="toc-exercice" class="nav-link" data-scroll-target="#exercice"><span class="toc-section-number">3.9</span>  Exercice</a>
-  <ul class="collapse">
-  <li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import"><span class="toc-section-number">3.9.1</span>  Import</a></li>
-  <li><a href="#affichage-1" id="toc-affichage-1" class="nav-link" data-scroll-target="#affichage-1"><span class="toc-section-number">3.9.2</span>  Affichage</a></li>
-  <li><a href="#sélection" id="toc-sélection" class="nav-link" data-scroll-target="#sélection"><span class="toc-section-number">3.9.3</span>  Sélection</a></li>
-  <li><a href="#opérations-spatiales" id="toc-opérations-spatiales" class="nav-link" data-scroll-target="#opérations-spatiales"><span class="toc-section-number">3.9.4</span>  Opérations spatiales</a></li>
-  </ul></li>
+  <li><a href="#exercice" id="toc-exercice" class="nav-link" data-scroll-target="#exercice"><span class="toc-section-number">3.9</span>  Exercice</a></li>
   </ul>
 </nav>
     </div>
@@ -684,9 +678,9 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </section>
 <section id="exercice" class="level2" data-number="3.9">
 <h2 data-number="3.9" class="anchored" data-anchor-id="exercice"><span class="header-section-number">3.9</span> Exercice</h2>
-<section id="import" class="level3" data-number="3.9.1">
-<h3 data-number="3.9.1" class="anchored" data-anchor-id="import"><span class="header-section-number">3.9.1</span> Import</h3>
-<p>Importer la couche des communes du département du Lot et la couche des restaurants à partir du fichier geopackage <strong>lot46.gpkg</strong>.</p>
+<ol type="1">
+<li>Importer la couche des communes du département du Lot et la couche des restaurants à partir du fichier geopackage <strong>lot46.gpkg</strong>.</li>
+</ol>
 <div class="callout-tip callout callout-style-simple no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -700,10 +694,9 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 <div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-2_54e8a0f5cf932b6fba3115e6cc4e0a80">
 
 </div>
-</section>
-<section id="affichage-1" class="level3" data-number="3.9.2">
-<h3 data-number="3.9.2" class="anchored" data-anchor-id="affichage-1"><span class="header-section-number">3.9.2</span> Affichage</h3>
-<p>Afficher la couche des communes (fond gris, bordures en blanc) et la couche des restaurants (petits cercles, fond rouge, contours en blanc) sur une même carte.</p>
+<ol start="2" type="1">
+<li>Afficher la couche des communes (fond gris, bordures en blanc) et la couche des restaurants (petits cercles, fond rouge, contours en blanc) sur une même carte.</li>
+</ol>
 <div class="callout-tip callout callout-style-simple no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -717,17 +710,15 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 <div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-3_ef7531f6e6783e35072b3392e4e43c3d">
 
 </div>
-</section>
-<section id="sélection" class="level3" data-number="3.9.3">
-<h3 data-number="3.9.3" class="anchored" data-anchor-id="sélection"><span class="header-section-number">3.9.3</span> Sélection</h3>
-<p>Sélectionner la commune de Cahors et assigner le résultat dans un objet <code>cahors</code>.</p>
+<ol start="3" type="1">
+<li>Sélectionner la commune de Cahors et assigner le résultat dans un objet <code>cahors</code>.</li>
+</ol>
 <div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-4_1b165529ac270139d2bafe2a693fad17">
 
 </div>
-</section>
-<section id="opérations-spatiales" class="level3" data-number="3.9.4">
-<h3 data-number="3.9.4" class="anchored" data-anchor-id="opérations-spatiales"><span class="header-section-number">3.9.4</span> Opérations spatiales</h3>
-<p>Combien de restaurants se trouvent à Cahors ou à moins de 10 km de Cahors?</p>
+<ol start="4" type="1">
+<li>Combien de restaurants se trouvent à Cahors ou à moins de 10 km de Cahors?</li>
+</ol>
 <div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-5_02583603f6e00ffec44dee72c097f4f1">
 
 </div>
@@ -737,7 +728,9 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 <div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-7_adec6ee3f7af36d7cb49f153ded8f7fd">
 
 </div>
-<p>Afficher les restaurants qui se trouvent à Cahors ou à moins de 10 km de Cahors.</p>
+<ol start="5" type="1">
+<li>Afficher les restaurants qui se trouvent à Cahors ou à moins de 10 km de Cahors.</li>
+</ol>
 <div class="cell" data-hash="03_manip_donnees_vectorielles_cache/html/unnamed-chunk-8_aae00393521d8a3668395d5b3bd8ac0c">
 
 </div>
@@ -746,7 +739,6 @@ Notez l’utilisation du paramètre <code>sparse = FALSE</code> ici. Il est ensu
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
