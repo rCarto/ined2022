@@ -6,12 +6,6 @@
 L'objectif de ce document est de fournir un support à l'apprentissage de la cartographie avec R. 
 
 
-**Comment utiliser le manuel**  
-Les données utilisées dans ce document sont stockées dans un projet RStudio. 
-Une fois le dossier décompressé il est ensuite possible de tester l'ensemble des manipulations au sein du projet **geodata**.   
-[Télécharger le projet](geodata.zip){.btn .btn-primary .btn-sm role="button"}  
-
-
 
 **Contribution et feedback**  
 Vous pouvez nous envoyer vos remarques et suggestions en [postant une *issue*](https://github.com/rCarto/ined2022/issues) sur le [dépôt GitHub](https://github.com/rCarto/ined2022) de ce document. 

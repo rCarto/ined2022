@@ -406,7 +406,7 @@ com$SACT <- 100 * com$ACT / com$POPULATION
 htitle <- "Part de la population active ocuppée dans la population totale (Lot, 2017)"
 hxlab <- "en %"
 hist(com$SACT, main = htitle,  xlab = hxlab, freq = FALSE)
-bks <- mf_get_breaks(com$SHAREACT, breaks = "msd", central = FALSE)
+bks <- mf_get_breaks(com$SACT, breaks = "msd", central = FALSE)
 cols <- mf_get_pal(c(3,4), palette = c("Mint", "Burg"))
 cols2 <- as.character(cut(com$SACT, breaks = bks, labels = cols, include.lowest = TRUE))
 library(mapsf)
