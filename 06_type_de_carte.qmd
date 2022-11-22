@@ -352,7 +352,7 @@ mf_title("Population")
 ```{r}
 #| cache: false
 #| echo: false
-knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
 
 ## Exercice
@@ -386,7 +386,9 @@ com$ACT <-
 ```{r}
 library(mapsf)
 mf_map(com)
-mf_map(com, "ACT", "prop")
+mf_map(com, "ACT", "prop", inches = .2, 
+       leg_title = "N. actifs", 
+       leg_pos = c(622746.862472099, 6372803.5269534))
 ```
 
 
@@ -406,9 +408,10 @@ com$SACT <- 100 * com$ACT / com$POPULATION
 htitle <- "Part de la population active ocuppée dans la population totale (Lot, 2017)"
 hxlab <- "en %"
 hist(com$SACT, main = htitle,  xlab = hxlab, freq = FALSE)
-bks <- mf_get_breaks(com$SACT, breaks = "msd", central = FALSE)
+summary(com$SACT)
+bks <- mf_get_breaks(com$SACT, breaks = "msd", 
+                     central = FALSE)
 cols <- mf_get_pal(c(3,4), palette = c("Mint", "Burg"))
-cols2 <- as.character(cut(com$SACT, breaks = bks, labels = cols, include.lowest = TRUE))
 library(mapsf)
 opar <- par(mar = c(5.1,2.1,2.1,2.1))
 hist(com$SACT, breaks = bks, col = cols, xlab = hxlab, 
@@ -420,8 +423,8 @@ stripchart(x = com$SACT, pch = 21, bg = "grey20", col = "white",at = -0.005,
 axis(side = 1, at = c(seq(10,50,10)))
 par(opar)
 
-mf_map(com, "SACT","choro", breaks = bks, pal = cols)
 
+mf_map(com, "SACT","choro", breaks = bks, pal = cols)
 
 ```
 

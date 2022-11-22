@@ -632,31 +632,85 @@ La fonction <code>mf_map(..., type = "typo")</code> propose cette représentatio
 <ol type="1">
 <li>Importer la couche des communes du département du Lot à partir du fichier geopackage <strong>lot46.gpkg</strong>.</li>
 </ol>
-<div class="cell" data-hash="06_type_de_carte_cache/html/unnamed-chunk-4_9673a096ba3c3d67ebd8a7b1f4736fa0">
-
+<div class="cell" data-hash="06_type_de_carte_cache/html/unnamed-chunk-4_085600fda376373c01c894c39b382156">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_layers</span>(<span class="st">'data/lot46.gpkg'</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Driver: GPKG 
+#&gt; Available layers:
+#&gt;    layer_name geometry_type features fields           crs_name
+#&gt; 1 departement Multi Polygon       96      5 RGF93 / Lambert-93
+#&gt; 2     commune Multi Polygon      313     12 RGF93 / Lambert-93
+#&gt; 3       route   Line String    16096     17 RGF93 / Lambert-93
+#&gt; 4  restaurant         Point     4734     12 RGF93 / Lambert-93</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>com <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/lot46.gpkg"</span>, <span class="at">layer =</span> <span class="st">'commune'</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="1">
 <li>Calculer le nombre d’actifs par communes du Lot dans une nouvelle colonne <strong>ACT</strong>.</li>
 </ol>
-<div class="cell" data-hash="06_type_de_carte_cache/html/unnamed-chunk-5_5b67350c99651cbdc6d7fdbb81f4429d">
-
+<div class="cell" data-hash="06_type_de_carte_cache/html/unnamed-chunk-5_d42cac6508b09d9159397cd8bc706e3e">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>com<span class="sc">$</span>ACT <span class="ot">&lt;-</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  com<span class="sc">$</span>AGR_H <span class="sc">+</span> com<span class="sc">$</span>AGR_F <span class="sc">+</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  com<span class="sc">$</span>IND_H <span class="sc">+</span> com<span class="sc">$</span>IND_F <span class="sc">+</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  com<span class="sc">$</span>BTP_H <span class="sc">+</span> com<span class="sc">$</span>BTP_F <span class="sc">+</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  com<span class="sc">$</span>TER_H <span class="sc">+</span> com<span class="sc">$</span>TER_F</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="3" type="1">
 <li>Créer une carte de la population active.<br>
 Quel mode de représentation utiliser? Quels choix cela implique-t-il?</li>
 </ol>
-<div class="cell" data-hash="06_type_de_carte_cache/html/unnamed-chunk-6_e2c6e3e8f2192fce24da0d7418ec667f">
-
+<div class="cell" data-hash="06_type_de_carte_cache/html/unnamed-chunk-6_e31c27988a6bb5ec3ee51eed71147a46">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapsf)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="st">"ACT"</span>, <span class="st">"prop"</span>, <span class="at">inches =</span> .<span class="dv">2</span>, </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_title =</span> <span class="st">"N. actifs"</span>, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">leg_pos =</span> <span class="fu">c</span>(<span class="fl">622746.862472099</span>, <span class="fl">6372803.5269534</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06_type_de_carte_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="768"></p>
+</div>
 </div>
 <ol start="3" type="1">
 <li>Créer une carte de la part de la population active dans la population totale.<br>
 Quel mode de représentation utiliser? Quels choix cela implique-t-il?</li>
 </ol>
-<div class="cell" data-hash="06_type_de_carte_cache/html/unnamed-chunk-7_d2f12d1e0659d0b41402d49e9771c415">
-
+<div class="cell" data-hash="06_type_de_carte_cache/html/unnamed-chunk-7_ebcb99a6f8d5a911d78eef3bde5e929c">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>com<span class="sc">$</span>SACT <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">*</span> com<span class="sc">$</span>ACT <span class="sc">/</span> com<span class="sc">$</span>POPULATION</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="06_type_de_carte_cache/html/unnamed-chunk-8_10cb357f41b0c0d17b6e42832592d9de">
-
+<div class="cell" data-hash="06_type_de_carte_cache/html/unnamed-chunk-8_0f8b994b0660c6205307205499a47cd9">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>htitle <span class="ot">&lt;-</span> <span class="st">"Part de la population active ocuppée dans la population totale (Lot, 2017)"</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>hxlab <span class="ot">&lt;-</span> <span class="st">"en %"</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(com<span class="sc">$</span>SACT, <span class="at">main =</span> htitle,  <span class="at">xlab =</span> hxlab, <span class="at">freq =</span> <span class="cn">FALSE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06_type_de_carte_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(com<span class="sc">$</span>SACT)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt;   7.812  23.104  26.754  27.265  31.537  52.083</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>bks <span class="ot">&lt;-</span> <span class="fu">mf_get_breaks</span>(com<span class="sc">$</span>SACT, <span class="at">breaks =</span> <span class="st">"msd"</span>, </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">central =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">mf_get_pal</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"Mint"</span>, <span class="st">"Burg"</span>))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapsf)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>opar <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">5.1</span>,<span class="fl">2.1</span>,<span class="fl">2.1</span>,<span class="fl">2.1</span>))</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(com<span class="sc">$</span>SACT, <span class="at">breaks =</span> bks, <span class="at">col =</span> cols, <span class="at">xlab =</span> hxlab, </span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">ylab =</span> <span class="st">""</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> htitle, <span class="at">border =</span> <span class="st">"grey80"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.01</span>, <span class="fl">0.07</span>))</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(<span class="at">x =</span> com<span class="sc">$</span>SACT, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"grey20"</span>, <span class="at">col =</span> <span class="st">"white"</span>,<span class="at">at =</span> <span class="sc">-</span><span class="fl">0.005</span>, </span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">jitter =</span> <span class="fl">0.0025</span>, <span class="at">add =</span>T,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"jitter"</span>, <span class="at">cex =</span> .<span class="dv">7</span>, <span class="at">xlab =</span> <span class="st">""</span>)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">10</span>)))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06_type_de_carte_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="768"></p>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(opar)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mf_map</span>(com, <span class="st">"SACT"</span>,<span class="st">"choro"</span>, <span class="at">breaks =</span> bks, <span class="at">pal =</span> cols)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06_type_de_carte_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid" width="768"></p>
+</div>
 </div>
 <div class="cell">
 
