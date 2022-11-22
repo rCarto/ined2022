@@ -239,7 +239,7 @@ mat[1:5,1:5]
 #| cache: false
 #| echo: false
 #| eval: true
-knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
 
 ## Exercice
